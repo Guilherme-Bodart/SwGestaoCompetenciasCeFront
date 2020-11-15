@@ -1,2 +1,2 @@
 # SwGestaoCompetenciasCeFront
-Projeto de Comercio Eletrônico
+Projeto de Comércio Eletrônico
