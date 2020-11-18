@@ -1,0 +1,59 @@
+.AppC {
+  text-align: center;
+}
+
+.AppC-logo {
+  height: 13.7vmin;
+  pointer-events: none;
+  margin-top: 4vmin;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .AppC-logo {
+    animation: AppC-logo-spin infinite 10s linear;
+  }
+}
+
+.AppC-text-logo {
+  font-size: xx-large;
+}
+
+.AppC-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: x-large;
+  color: white;
+}
+.AppC-form {
+  margin-top: 1vmin;  
+}
+.AppC-form-control{
+  border-radius:1.5vmin;
+  height: 5.73vmin;
+  width: 40vmax;
+   margin-top: 2.5vmin;
+}
+
+.AppC-button-login {
+  margin-top: 3vmin;
+  height: 6vmin;
+  width: 100%;
+  border-radius: 2vmin;
+  font-size: 2.7vmin;
+  
+}
+.AppC-link {
+  color: #61dafb;
+}
+
+@keyframes AppC-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
