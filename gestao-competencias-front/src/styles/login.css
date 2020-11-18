@@ -3,14 +3,14 @@
 }
 
 .App-logo {
-  height: 13.7vmin;
+  height: 6em;
   pointer-events: none;
-  margin-top: 4vmin;
+  margin-top: 3em;
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
-    animation: App-logo-spin infinite 10s linear;
+    animation: App-logo-spin infinite 7.3s linear;
   }
 }
 
@@ -28,23 +28,32 @@
   color: white;
 }
 .App-form {
-  margin-top: 4vmin;  
+  margin-top: 1.2em;  
 }
+.App-form-group{
+  width: 20em;
+  height: 3em;
+}
+.App-form-groupC{
+  width: 20em;
+  height: 2em;
+}
+
 .App-form-control{
-  border-radius:1.5vmin;
-  height: 5.73vmin;
-  width: 40vmax;
-  
-  
+  border-radius:15em;
+  height: 3em;
 }
 
 .App-button-login {
-  margin-top: 3vmin;
-  height: 6vmin;
-  width: 100%;
-  border-radius: 2vmin;
-  font-size: 2.7vmin;
-  
+  margin-top: 2em;
+  height: 3em;
+  width: 100%;  
+}
+
+.App-text-button {
+  font-size: 1.4em;
+  font-weight: bold;
+
 }
 .App-link {
   color: #61dafb;
