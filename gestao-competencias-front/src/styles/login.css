@@ -5,7 +5,7 @@
 .App-logo {
   height: 6em;
   pointer-events: none;
-  margin-top: 3em;
+  margin-top: 2em;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -35,8 +35,7 @@
   height: 3em;
 }
 .App-form-groupC{
-  width: 20em;
-  height: 2em;
+  width: 13em;
 }
 
 .App-form-control{
