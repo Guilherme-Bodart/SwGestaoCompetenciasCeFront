@@ -1,10 +1,12 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
+import { connect } from 'react-redux';
 
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
-import Image from 'react-bootstrap/Image'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
+
+import { alertout } from '../../store/actions/alertas/alerta'
+import { pageCadastrar, pageRecuperar } from '../../store/actions/pages/page'
 
 import logo from "../../assets/leds-logo.svg";
 import '../../styles/login.css';
@@ -41,7 +43,13 @@ class Login extends Component {
    })
   }
 
-  render(props) {
+  render(props) {    
+    if(this.props.page.page === "cadastro"){
+      return <Redirect to ="/cadastro"/>
+    }
+    if(this.props.page.page === "recuperar"){
+      return <Redirect to ="/recuperar"/>
+    }
   return (
     <div className="App">
       <header className="App-header">
@@ -68,12 +76,18 @@ class Login extends Component {
           <Button variant="outline-success" type="submit" className="App-button-login" onClick = { () => alert(JSON.stringify(this.state))}>
             <p className="App-text-button">Entrar</p>
           </Button>
-          <Button variant="outline-primary" type="submit" className="App-button-login" >
+          <Button variant="outline-primary" type="submit" className="App-button-login" 
+                  onClick={ () => {
+                      this.props.pageCadastrar()
+                  }}>
             <p className="App-text-button">Crie sua conta aqui</p>
           </Button>
           
         </Form>
-        <Button variant="link" type="submit" className="App-button-link" >
+        <Button variant="link" type="submit" className="App-button-link"
+                  onClick={ () => {
+                    this.props.pageRecuperar()
+                }}>
             <p className="App-text-button">Esqueceu sua senha?</p>
           </Button>
 
@@ -83,4 +97,20 @@ class Login extends Component {
   };
 }
 
-export default Login;
+const mapStateToProps = ({ usuario, alerta, page }) => {
+  return {
+      usuario,
+      alerta,
+      page
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+      alertout: () => dispatch(alertout()),
+      pageRecuperar: () => dispatch(pageRecuperar()),
+      pageCadastrar: () => dispatch(pageCadastrar()),
+      
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Login)

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
 
 import Form from 'react-bootstrap/Form'
@@ -10,6 +11,7 @@ import Alerta from '../../components/Alerta/Alerta'
 import { criarUsuario } from '../../store/actions/usuarios/usuario'
 import logo from "../../assets/leds-logo.svg";
 import { alertout } from '../../store/actions/alertas/alerta'
+import { pageLogin } from '../../store/actions/pages/page'
 
 import '../../styles/login.css';
 
@@ -79,6 +81,10 @@ class CriarConta extends Component {
   }
 
   render(props) {
+    if(this.props.page.page === "login"){
+      return <Redirect to ="/"/>
+    }
+    
   return (
     <div className="App">
       <header className="App-header">
@@ -184,6 +190,13 @@ class CriarConta extends Component {
             }>
                 <p className="App-text-button">Criar Conta</p>
             </Button>
+
+            <Button variant="outline-success" type="submit" className="App-button-login" 
+                  onClick={ () => {
+                      this.props.pageLogin()
+                  }}>
+            <p className="App-text-button">Já tenho uma conta</p>
+          </Button>
              
             </Col>
             
@@ -195,10 +208,11 @@ class CriarConta extends Component {
   };
 }
 
-const mapStateToProps = ({ usuario, alerta }) => {
+const mapStateToProps = ({ usuario, alerta, page }) => {
   return {
       usuario,
-      alerta
+      alerta,
+      page
   }
 }
 
@@ -206,6 +220,7 @@ const mapDispatchToProps = dispatch => {
   return {
       criarUsuario: usuario => dispatch(criarUsuario(usuario)),
       alertout: () => dispatch(alertout()),
+      pageLogin: () => dispatch(pageLogin()),
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(CriarConta)

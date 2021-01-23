@@ -1,10 +1,50 @@
-import Login from './pages/Login/Login';
-import CriarConta from './pages/CriarConta/CriarConta';
+import { Component } from "react";
+import { connect } from 'react-redux';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect
+} from "react-router-dom";
 
-function App() {
-  return (
-    <CriarConta/>
-  );
+import Login from './pages/Login/Login';
+import Recuperar from './pages/Recuperar/Recuperar';
+import CriarConta from './pages/CriarConta/CriarConta';
+import { pageLogin, pageCadastrar, pageRecuperar } from './store/actions/pages/page'
+
+class App extends Component{
+  render(props){
+    return (
+        <Switch>
+          <Route exact path="/">
+            <Login />
+          </Route>
+          <Route path="/cadastro/">
+            <CriarConta />
+          </Route>
+          <Route path="/recuperar/">
+            <Recuperar />
+          </Route>
+          {/* <Route exact path="/login-admin">
+            <Admin />
+          </Route> */}
+        </Switch>
+    )
+  }
 }
 
-export default App;
+const mapStateToProps = ({ page }) => {
+  return {
+      page
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+      pageLogin: () => dispatch(pageLogin()),
+      pageRecuperar: () => dispatch(pageRecuperar()),
+      pageCadastrar: () => dispatch(pageCadastrar()),
+      
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(App)
