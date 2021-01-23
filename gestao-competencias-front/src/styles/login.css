@@ -5,7 +5,7 @@
 .App-logo {
   height: 6em;
   pointer-events: none;
-  margin-top: 2em;
+  margin-top: 0.5em;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -24,19 +24,22 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-size: x-large;
+  font-size: large;
   color: white;
 }
 .App-form {
-  margin-top: 1.2em;  
+  margin-top: 1em;  
 }
 .App-form-group{
   width: 20em;
-  height: 3em;
 }
 .App-form-groupC{
-  width: 11em;
+  width: 14em;
 }
+
+.App-form-labelC{
+  font-size: large;
+} 
 
 .App-form-control{
   border-radius:15em;
@@ -44,10 +47,17 @@
 }
 
 .App-button-login {
-  margin-top: 2em;
+  margin-top: 1em;
   height: 3em;
   width: 100%;  
 }
+
+.App-button-link {
+  margin-top: 1em;
+  height: 3em;
+  width: 22.3em;  
+}
+
 
 .App-text-button {
   font-size: 1.4em;

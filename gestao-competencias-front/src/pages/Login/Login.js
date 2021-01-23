@@ -50,7 +50,7 @@ class Login extends Component {
         <Form className="App-form">
 
           <Form.Group controlId="formBasicEmail" className="App-form-group">
-            <Form.Label>E-Mail</Form.Label>
+            <Form.Label>E-mail</Form.Label>
             <Form.Control type="email" placeholder="Entre com seu e-mail"
                 className="App-form-control"  
                 onChange = {value => this.onChangeEmail(value)}/>
@@ -71,7 +71,12 @@ class Login extends Component {
           <Button variant="outline-primary" type="submit" className="App-button-login" >
             <p className="App-text-button">Crie sua conta aqui</p>
           </Button>
+          
         </Form>
+        <Button variant="link" type="submit" className="App-button-link" >
+            <p className="App-text-button">Esqueceu sua senha?</p>
+          </Button>
+
       </header>
     </div>
   )

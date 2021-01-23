@@ -2,6 +2,7 @@ import { LOGIN_USUARIO, LOGOUT_USUARIO } from '../actionsTypes'
 
 import axios from 'axios'
 
+import { alertin } from '../alertas/alerta'
 
 export const logout = () => {
     return {
@@ -19,35 +20,34 @@ export const armazenaInfoUsuario = user => {
 
 export const criarUsuario = user => {
 
-    return (dispatch) => {
+    return async (dispatch) =>  {
         const { nome, email, senha, cpf, telefone, endereco, dataNascimento, permissao } = user
-        var postData = { nome, email, senha, cpf, telefone, endereco, dataNascimento, permissao }
-        
-        axios.post("http://localhost:3000/auth/register",JSON.stringify(postData))
-            .then(response => {
 
-                alert("response")
+
+        await axios.post("http://localhost:3000/auth/register", null, 
+                { params: {
+                    nome,
+                    email,
+                    senha,
+                    cpf,
+                    telefone,
+                    endereco,
+                    dataNascimento,
+                    permissao
+                    }
+                }
+            )
+            .then(response => {
+                dispatch(alertin({open: true,
+                    alertTitle: 'Cadastrado',
+                    severity: 'success',
+                    texto: 'Usuário cadastrado com sucesso'}))
             })
             .catch(req => {
-                alert("Não foi possivel criar a conta")
+                dispatch(alertin({open: true,
+                    alertTitle: 'Desconhecido',
+                    severity: 'warning',
+                    texto: 'Falha no cadastro, tente novamente mais tarde'}))
             })
-
-        // axios.post("http://localhost:3000/auth/register", null,  { params: {
-        //     nome,
-        //     email,
-        //     senha,
-        //     cpf,
-        //     telefone,
-        //     endereco,
-        //     dataNascimento,
-        //     permissao
-        //   }})
-        //     .then(response => {
-
-        //         alert("response")
-        //     })
-        //     .catch(req => {
-        //         alert("Não foi possivel criar a conta")
-        //     })
     }
 }
