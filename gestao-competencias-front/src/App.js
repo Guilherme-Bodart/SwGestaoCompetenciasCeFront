@@ -9,6 +9,7 @@ import {
 
 import Login from './pages/Login/Login';
 import Recuperar from './pages/Recuperar/Recuperar';
+import Admin from './pages/Principal/Admin';
 import CriarConta from './pages/CriarConta/CriarConta';
 import { pageLogin, pageCadastrar, pageRecuperar } from './store/actions/pages/page'
 
@@ -16,6 +17,9 @@ class App extends Component{
   render(props){
     return (
         <Switch>
+          <Route exact path="/admin">
+            <Admin />
+          </Route>
           <Route exact path="/">
             <Login />
           </Route>
@@ -25,9 +29,7 @@ class App extends Component{
           <Route path="/recuperar/">
             <Recuperar />
           </Route>
-          {/* <Route exact path="/login-admin">
-            <Admin />
-          </Route> */}
+          
         </Switch>
     )
   }

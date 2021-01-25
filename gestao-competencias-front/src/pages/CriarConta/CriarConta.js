@@ -6,6 +6,7 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import Image from 'react-bootstrap/Image'
 
 import Alerta from '../../components/Alerta/Alerta'
 import { criarUsuario } from '../../store/actions/usuarios/usuario'
@@ -89,7 +90,7 @@ class CriarConta extends Component {
     <div className="App">
       <header className="App-header">
         <Alerta open= {true} alertTitle= {this.props.alerta.alertTitle} severity= {this.props.alerta.severity} texto= {this.props.alerta.texto}/>
-        <img src={logo} className="App-logo" alt="logo" />
+        <Image src={logo} className="App-logo" alt="logo" />
         <p className="App-text-logo">LEDS SKILLS</p>
         <Form className="App-form">          
           <Col >

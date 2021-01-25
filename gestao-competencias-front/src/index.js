@@ -9,9 +9,9 @@ import { PersistGate } from 'redux-persist/integration/react'
 
 import {storeConfig, persistor} from './store/storeConfig'
 
-import './styles/index.css';
 import App from './App';
 
+import './styles/index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.render(

@@ -1,11 +1,9 @@
 import React , { Component} from 'react';
 import { connect } from 'react-redux';
 
-import {
-    Container,
-    Row,
-    Col
-  } from "react-bootstrap";
+import Container from 'react-bootstrap/Container'
+import Col from 'react-bootstrap/Col'
+import Row from 'react-bootstrap/Row'
 
 import { makeStyles } from '@material-ui/core/styles';
 import Alert from '@material-ui/lab/Alert';

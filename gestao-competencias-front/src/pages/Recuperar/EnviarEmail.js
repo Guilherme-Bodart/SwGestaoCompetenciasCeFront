@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+import Image from 'react-bootstrap/Image'
 
 import { alertout } from '../../store/actions/alertas/alerta'
 import { pageLogin } from '../../store/actions/pages/page'
@@ -52,7 +53,7 @@ class EnviarEmail extends Component {
     return (
         <div className="App">
         <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
+          <Image src={logo} className="App-logo" alt="logo" />
             <p className="App-text-logo">LEDS SKILLS</p>
             <Form className="App-form">
 
