@@ -6,3 +6,4 @@ export const ALERT_OUT = 'ALERT_OUT';
 export const PAGE_CADASTRO = 'PAGE_CADASTRO';
 export const PAGE_LOGIN = 'PAGE_LOGIN';
 export const PAGE_RECUPERAR = 'PAGE_RECUPERAR';
+export const PAGE_ENVIAREMAIL = 'PAGE_ENVIAREMAIL';

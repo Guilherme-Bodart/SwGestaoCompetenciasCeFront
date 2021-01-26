@@ -1,6 +1,7 @@
 import { PAGE_LOGIN, 
     PAGE_CADASTRO,
-    PAGE_RECUPERAR
+    PAGE_RECUPERAR,
+    PAGE_ENVIAREMAIL
 } from '../../actions/actionsTypes'
 
 const initialState = {
@@ -26,6 +27,12 @@ switch (action.type) {
 
    case PAGE_RECUPERAR:
         var page = 'recuperar'
+        return {
+            ...state, page
+        }
+    
+    case PAGE_ENVIAREMAIL:
+        var page = 'enviarEmail'
         return {
             ...state, page
         }

@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button'
 import Image from 'react-bootstrap/Image'
 
 import { alertout } from '../../store/actions/alertas/alerta'
-import { pageCadastrar, pageRecuperar } from '../../store/actions/pages/page'
+import { pageCadastrar, pageEnviarEmail } from '../../store/actions/pages/page'
 
 import logo from "../../assets/leds-logo.svg";
 import '../../styles/login.css';
@@ -87,7 +87,7 @@ class Login extends Component {
         </Form>
         <Button variant="link" type="submit" className="App-button-link"
                   onClick={ () => {
-                    this.props.pageRecuperar()
+                    this.props.pageEnviarEmail()
                 }}>
             <p className="App-text-button">Esqueceu sua senha?</p>
           </Button>
@@ -109,7 +109,7 @@ const mapStateToProps = ({ usuario, alerta, page }) => {
 const mapDispatchToProps = dispatch => {
   return {
       alertout: () => dispatch(alertout()),
-      pageRecuperar: () => dispatch(pageRecuperar()),
+      pageEnviarEmail: () => dispatch(pageEnviarEmail()),
       pageCadastrar: () => dispatch(pageCadastrar()),
       
   }

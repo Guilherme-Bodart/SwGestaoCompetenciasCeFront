@@ -59,7 +59,7 @@ class Login extends Component {
 
             <Form.Group controlId="formBasicEmail" className="App-form-group">
                 <Form.Label>Nova senha</Form.Label>
-                <Form.Control type="email" placeholder="Entre com seu e-mail"
+                <Form.Control type="email" placeholder="Nova senha"
                     className="App-form-control"  
                     onChange = {value => this.onChangeEmail(value)}/>
                 <Form.Text className="text-muted">
@@ -68,13 +68,13 @@ class Login extends Component {
 
             <Form.Group controlId="formBasicPassword" className="App-form-group">
                 <Form.Label>Confirmar nova senha</Form.Label>
-                <Form.Control type="password" placeholder="Senha" 
+                <Form.Control type="password" placeholder="Confirmar Senha" 
                 className="App-form-control" 
                 onChange = {value => this.onChangeSenha(value)}/>
             </Form.Group>
             
             <Button variant="outline-success" type="submit" className="App-button-login" onClick = { () => alert(JSON.stringify(this.state))}>
-                <p className="App-text-button">Entrar</p>
+                <p className="App-text-button">Salvar</p>
             </Button>
             <Button variant="outline-primary" type="submit" className="App-button-login" 
                     onClick={ () => {

@@ -58,23 +58,16 @@ class EnviarEmail extends Component {
             <Form className="App-form">
 
             <Form.Group controlId="formBasicEmail" className="App-form-group">
-                <Form.Label>Nova senha</Form.Label>
+                <Form.Label>Informe seu e-mail</Form.Label>
                 <Form.Control type="email" placeholder="Entre com seu e-mail"
                     className="App-form-control"  
                     onChange = {value => this.onChangeEmail(value)}/>
                 <Form.Text className="text-muted">
                 </Form.Text>
             </Form.Group>
-
-            <Form.Group controlId="formBasicPassword" className="App-form-group">
-                <Form.Label>Confirmar nova senha</Form.Label>
-                <Form.Control type="password" placeholder="Senha" 
-                className="App-form-control" 
-                onChange = {value => this.onChangeSenha(value)}/>
-            </Form.Group>
             
             <Button variant="outline-success" type="submit" className="App-button-login" onClick = { () => alert(JSON.stringify(this.state))}>
-                <p className="App-text-button">Entrar</p>
+                <p className="App-text-button">Enviar</p>
             </Button>
             <Button variant="outline-primary" type="submit" className="App-button-login" 
                     onClick={ () => {

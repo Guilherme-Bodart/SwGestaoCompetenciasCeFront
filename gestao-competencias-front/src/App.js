@@ -9,6 +9,7 @@ import {
 
 import Login from './pages/Login/Login';
 import Recuperar from './pages/Recuperar/Recuperar';
+import EnviarEmail from './pages/Recuperar/EnviarEmail';
 import Admin from './pages/Principal/Admin';
 import CriarConta from './pages/CriarConta/CriarConta';
 import { pageLogin, pageCadastrar, pageRecuperar } from './store/actions/pages/page'
@@ -28,6 +29,9 @@ class App extends Component{
           </Route>
           <Route path="/recuperar/">
             <Recuperar />
+          </Route>
+          <Route path="/enviarEmail/">
+            <EnviarEmail />
           </Route>
           
         </Switch>
