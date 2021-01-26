@@ -48,8 +48,8 @@ class Login extends Component {
     if(this.props.page.page === "cadastro"){
       return <Redirect to ="/cadastro"/>
     }
-    if(this.props.page.page === "recuperar"){
-      return <Redirect to ="/recuperar"/>
+    if(this.props.page.page === "enviarEmail"){
+      return <Redirect to ="/enviarEmail"/>
     }
   return (
     <div className="App">

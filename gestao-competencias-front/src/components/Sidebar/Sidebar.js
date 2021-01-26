@@ -34,11 +34,11 @@ class NavbarP extends Component {
             <Sidelogo/>
             <div style={{height:"100vh", width:"20vw", opacity:"0.5", backgroundColor:"black"}}>
             <ProSidebar>
-              <Menu iconShape="square" style={{fontSize:"20px", backgroundColor:"black"}}>
-                <MenuItem icon={<FaMedapps />} ><b>Projetos</b></MenuItem>
-                <MenuItem icon={<FaJira />}>Categorias</MenuItem>
-                <MenuItem icon={<FaSitemap />}>SubCategorias</MenuItem>
-                <MenuItem icon={<FaSignal />}>Relatórios</MenuItem>
+              <Menu iconShape="square" style={{ backgroundColor:"black" }}>
+                <MenuItem icon={<FaMedapps />} style={{fontSize:"17px"}}><b>Projetos</b></MenuItem>
+                <MenuItem icon={<FaJira />} style={{fontSize:"17px"}}><b>Categorias</b></MenuItem>
+                <MenuItem icon={<FaSitemap />} style={{fontSize:"17px"}}><b>SubCategorias</b></MenuItem>
+                <MenuItem icon={<FaSignal />} style={{fontSize:"17px"}}><b>Relatórios</b></MenuItem>
               </Menu>
             </ProSidebar>
 
