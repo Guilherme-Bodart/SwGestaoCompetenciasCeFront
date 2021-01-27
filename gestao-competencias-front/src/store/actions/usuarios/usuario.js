@@ -3,6 +3,7 @@ import { LOGIN_USUARIO, LOGOUT_USUARIO } from '../actionsTypes'
 import axios from 'axios'
 
 import { alertin } from '../alertas/alerta'
+import { pageLogin } from '../pages/page'
 
 export const logout = () => {
     return {
@@ -107,6 +108,41 @@ export const enviarEmailReset = email => {
                     alertTitle: 'Erro',
                     severity: 'error',
                     texto: 'Falha no envio, '+erro_msg}))
+            })
+    }
+}
+
+export const recuperarSenha = usuario => {
+
+    return async (dispatch) =>  {
+        const { senha, token } = usuario
+
+
+        await axios.post("http://localhost:3000/auth/reset_password", null, 
+                { params: {
+                    senha,
+                    token
+                    }
+                }
+            )
+            .then(response => {
+                
+                dispatch(alertin({open: true,
+                    alertTitle: 'Senha Alterada',
+                    severity: 'success',
+                    texto: 'Sua senha foi alterada com sucesso'}))
+
+                dispatch(pageLogin());
+                
+            })
+            .catch( error => {
+                if( error.response ){
+                    var erro_msg = error.response.data.error; // => the response payload 
+                }
+                dispatch(alertin({open: true,
+                    alertTitle: 'Erro',
+                    severity: 'error',
+                    texto: 'Falha ao resetar a senha, '+erro_msg}))
             })
     }
 }

@@ -1,10 +1,14 @@
 import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
+import { Redirect, withRouter } from "react-router-dom";
 import { connect } from 'react-redux';
 
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Image from 'react-bootstrap/Image'
+
+import { recuperarSenha } from '../../store/actions/usuarios/usuario'
+
+import Alerta from '../../components/Alerta/Alerta'
 
 import { alertout } from '../../store/actions/alertas/alerta'
 import { pageLogin } from '../../store/actions/pages/page'
@@ -12,30 +16,17 @@ import { pageLogin } from '../../store/actions/pages/page'
 import logo from "../../assets/leds-logo.svg";
 import '../../styles/login.css';
 
-
 const initialState = {
   email: '',
   senha: '',
   logado: false,
 }
 
-class Login extends Component {
-1
+class Recuperar extends Component {
+
   constructor(props) {
     super(props)
     this.state = initialState
-  }
-
-  onChangeLogado = () => {
-    this.setState({ 
-      logado: true
-    })
-  }
-
-  onChangeEmail = (event) => {
-    this.setState({
-      email: event.target.value
-    })
   }
 
   onChangeSenha = (event) => {
@@ -44,24 +35,35 @@ class Login extends Component {
    })
   }
 
+  onChangeSenhaConfirmada = (event) => {
+    this.setState({
+      senhaConfirmada: event.target.value
+   })
+  }
+
+  handleSubmit(event){
+    event.preventDefault()    
+  }
+
   render(props) {
     
     if(this.props.page.page === "login"){
-        return <Redirect to ="/"/>
-      }
+      return <Redirect to ="/"/>
+    }
 
     return (
         <div className="App">
         <header className="App-header">
+        <Alerta open= {true} alertTitle= {this.props.alerta.alertTitle} severity= {this.props.alerta.severity} texto= {this.props.alerta.texto}/>
           <Image src={logo} className="App-logo" alt="logo" />
             <p className="App-text-logo">LEDS SKILLS</p>
-            <Form className="App-form">
+            <Form className="App-form" onSubmit={this.handleSubmit}>  
 
             <Form.Group controlId="formBasicEmail" className="App-form-group">
                 <Form.Label>Nova senha</Form.Label>
-                <Form.Control type="email" placeholder="Nova senha"
+                <Form.Control type="password" placeholder="Nova senha"
                     className="App-form-control"  
-                    onChange = {value => this.onChangeEmail(value)}/>
+                    onChange = {value => this.onChangeSenha(value)}/>
                 <Form.Text className="text-muted">
                 </Form.Text>
             </Form.Group>
@@ -70,13 +72,23 @@ class Login extends Component {
                 <Form.Label>Confirmar nova senha</Form.Label>
                 <Form.Control type="password" placeholder="Confirmar Senha" 
                 className="App-form-control" 
-                onChange = {value => this.onChangeSenha(value)}/>
+                onChange = {value => this.onChangeSenhaConfirmada(value)}/>
             </Form.Group>
             
-            <Button variant="outline-success" type="submit" className="App-button-login" onClick = { () => alert(JSON.stringify(this.state))}>
-                <p className="App-text-button">Salvar</p>
+            <Button variant="outline-success" type="submit" className="App-button-login"
+            onClick = { async () => {
+                if(this.state.senha != '' && this.state.senhaConfirmada != ''){
+                  if(this.state.senha === this.state.senhaConfirmada){
+                    await this.props.recuperarSenha({senha:this.state.senha, token: this.props.match.params.token})
+                  }
+                  else{
+                    alert("Senhas não são iguais")
+                  }
+                }
+              }
+            }><p className="App-text-button">Salvar</p>
             </Button>
-            <Button variant="outline-primary" type="submit" className="App-button-login" 
+            <Button variant="outline-primary" className="App-button-login" 
                     onClick={ () => {
                         this.props.pageLogin()
                     }}>
@@ -101,9 +113,10 @@ const mapStateToProps = ({ usuario, alerta, page }) => {
 
 const mapDispatchToProps = dispatch => {
     return {
+        recuperarSenha: usuario => dispatch(recuperarSenha(usuario)),
         alertout: () => dispatch(alertout()),
         pageLogin: () => dispatch(pageLogin()),
         
     }
   }
-export default connect(mapStateToProps, mapDispatchToProps)(Login)
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Recuperar))

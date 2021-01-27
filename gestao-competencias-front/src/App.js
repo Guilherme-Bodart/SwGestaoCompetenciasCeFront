@@ -27,7 +27,7 @@ class App extends Component{
           <Route path="/cadastro/">
             <CriarConta />
           </Route>
-          <Route path="/recuperar/">
+          <Route path="/recuperar/:token">
             <Recuperar />
           </Route>
           <Route path="/enviarEmail/">
