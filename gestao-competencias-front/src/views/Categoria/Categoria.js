@@ -4,7 +4,10 @@ import Button from "react-bootstrap/Button"
 import Row from 'react-bootstrap/Row'
 import Container from 'react-bootstrap/Container'
 import Table from 'react-bootstrap/Table'
+
 import '../../styles/principal.css'
+import { FaPlus } from 'react-icons/fa';
+
 
 const initialState = {
   }
@@ -23,8 +26,9 @@ class Categoria extends Component {
             
             <Container fluid>
                 <Row>
-                <p className="App-text-logo" style={{marginLeft:"1em"}}>Categoria</p>
-                <Button className="ml-auto" variant="outline-primary" style={{marginRight:"1em"}}>TESTE</Button>
+                <p className="App-text-logo" style={{marginLeft:"1em", marginTop:"0.5em"}}>Categorias</p>
+                <Button className="ml-auto" variant="outline-secondary" 
+                style={{marginRight:"1em", marginTop:"1em", height:"3em", width:"3em" }}><FaPlus/></Button>
                 </Row>
                 <Table responsive style={{backgroundColor:"#ccc"}}>
                     <thead>
