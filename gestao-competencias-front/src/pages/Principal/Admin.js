@@ -10,6 +10,7 @@ import Button from 'react-bootstrap/Button'
 
 import NavbarP from "../../components/Navbar/NavbarP"
 import Sidebar from "../../components/Sidebar/Sidebar"
+import Categoria from "../../views/Categoria/Categoria"
 
 import '../../styles/principal.css'
 import logo from "../../assets/leds-logo.svg";
@@ -33,8 +34,11 @@ class Admin extends Component {
             <Sidebar/>
             <div style={{height:"100vh", width:"80vw", backgroundColor:"#ddd"}}>
               <NavbarP/>
+              <Categoria/>
             </div>
             </Row>
+            
+            
            
           </div>
           

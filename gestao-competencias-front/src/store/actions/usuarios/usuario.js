@@ -13,17 +13,17 @@ export const logout = () => {
 
 
 export const autenticarUsuario = usuario => {
-    return (dispatch) => {
+    return async (dispatch) => {
         const { email, senha } = usuario
-        axios.post("http://localhost:3000/auth/authenticate", null,  { params: {
+        await axios.post("http://localhost:3000/auth/authenticate", null,  { params: {
             email,
             senha
           }})
-            .then(response => {
+            .then(async response => {
                 
                 usuario = response.data
                 
-                dispatch(armazenaInfoUsuario(usuario))
+                await dispatch(armazenaInfoUsuario(usuario))
             })
             .catch(error => {
                 dispatch(alertin({open: true,

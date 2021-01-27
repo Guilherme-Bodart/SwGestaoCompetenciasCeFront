@@ -84,6 +84,10 @@ class CriarConta extends Component {
    })
   }
 
+  handleSubmit(event){
+    event.preventDefault()    
+  }
+
   render(props) {
     if(this.props.page.page === "login"){
       return <Redirect to ="/"/>
@@ -95,7 +99,7 @@ class CriarConta extends Component {
         <Alerta open= {true} alertTitle= {this.props.alerta.alertTitle} severity= {this.props.alerta.severity} texto= {this.props.alerta.texto}/>
         <Image src={logo} className="App-logo" alt="logo" />
         <p className="App-text-logo">LEDS SKILLS</p>
-        <Form className="App-form">          
+        <Form className="App-form" onSubmit={this.handleSubmit}>          
           <Col >
             <Row >
               <Col xs={{ offset: 2 }} sm={{ span: 4, offset: 0 }} md={{ span: 5, offset: 0 }}  xl ={{offset: 0}} >
@@ -190,7 +194,8 @@ class CriarConta extends Component {
                     await this.props.criarUsuario({nome:this.state.nome, email:this.state.email, dataNascimento:this.state.dataNascimento, 
                                             telefone:this.state.telefone, senha:this.state.senha, endereco:this.state.endereco, 
                                             cpf:this.state.cpf, permissao:1,})
-                  }else{
+                  }
+                  else{
                     alert("Senhas não são iguais")
                   }
                 }

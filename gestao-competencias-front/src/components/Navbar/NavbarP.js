@@ -25,18 +25,20 @@ class NavbarP extends Component {
   render(props) {
     return (
         <Navbar bg="light" variant="light" >
-        <Navbar.Brand href="/" style={{marginTop:"0.5em", color:"#666", fontWeight:"500", fontSize:"1.9em", alignItems:"center"}} >{this.props.page.page}</Navbar.Brand>
-        
-        <Nav className="ml-auto">
-          <Button variant="light" style={{height:"3em"}} 
-          onClick = { () =>
-              { 
-                this.props.logout()}
-              }>
-            <p style={{fontSize:"1.4em"}}>Sair</p>
-          </Button>
-        </Nav>
-      </Navbar>
+          <Navbar.Brand href="/" style={{marginTop:"0.5em", color:"#666", fontWeight:"500", fontSize:"1.9em", alignItems:"center"}} >
+            {this.props.page.page}
+          </Navbar.Brand>
+          
+          <Nav className="ml-auto">
+            <Button variant="light" style={{height:"3em"}} 
+            onClick = { () =>
+                { 
+                  this.props.logout()}
+                }>
+              <p style={{fontSize:"1.4em"}}>Sair</p>
+            </Button>
+          </Nav>
+        </Navbar>
       );
     
   }

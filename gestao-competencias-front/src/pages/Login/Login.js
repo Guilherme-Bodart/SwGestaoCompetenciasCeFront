@@ -25,6 +25,7 @@ class Login extends Component {
   constructor(props) {
     super(props)
     this.state = initialState
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   onChangeLogado = () => {
@@ -45,6 +46,10 @@ class Login extends Component {
    })
   }
 
+  handleSubmit(event){
+    event.preventDefault()    
+  }
+
   render(props) {    
     if(this.props.page.page === "cadastro"){
       return <Redirect to ="/cadastro"/>
@@ -61,7 +66,7 @@ class Login extends Component {
         <Alerta open= {true} alertTitle= {this.props.alerta.alertTitle} severity= {this.props.alerta.severity} texto= {this.props.alerta.texto}/>
         <Image src={logo} className="App-logo" alt="logo" />
         <p className="App-text-logo">LEDS SKILLS</p>
-        <Form className="App-form">
+        <Form className="App-form" onSubmit={this.handleSubmit}>
 
           <Form.Group controlId="formBasicEmail" className="App-form-group">
             <Form.Label>E-mail</Form.Label>
