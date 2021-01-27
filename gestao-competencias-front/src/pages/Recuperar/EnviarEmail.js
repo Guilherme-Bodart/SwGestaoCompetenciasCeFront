@@ -77,7 +77,7 @@ class EnviarEmail extends Component {
             
             <Button variant="outline-success" type="submit" className="App-button-login" 
             onClick = { async () => { 
-              await this.props.enviarEmailReset({email: this.state.email})
+              await this.props.enviarEmailReset(this.state.email)
             }
             }>
                 <p className="App-text-button">Enviar</p>

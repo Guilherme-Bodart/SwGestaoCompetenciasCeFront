@@ -89,7 +89,7 @@ export const enviarEmailReset = email => {
 
         await axios.post("http://localhost:3000/auth/forgot_password", null, 
                 { params: {
-                    email: email
+                    email
                     }
                 }
             )
