@@ -30,6 +30,7 @@ export const autenticarUsuario = usuario => {
                     alertTitle: 'Error',
                     severity: 'error',
                     texto: 'E-mail e/ou senha inválidos'}))
+
             })
     }
 }
