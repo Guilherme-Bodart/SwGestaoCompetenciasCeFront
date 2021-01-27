@@ -26,7 +26,10 @@ export const autenticarUsuario = usuario => {
                 dispatch(armazenaInfoUsuario(usuario))
             })
             .catch(error => {
-                alert('CATCH')
+                dispatch(alertin({open: true,
+                    alertTitle: 'Error',
+                    severity: 'error',
+                    texto: 'E-mail e/ou senha inválidos'}))
             })
     }
 }

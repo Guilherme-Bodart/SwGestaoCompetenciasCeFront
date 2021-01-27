@@ -79,12 +79,16 @@ class Login extends Component {
             onChange = {value => this.onChangeSenha(value)}/>
           </Form.Group>
           
-          <Button variant="outline-success" className="App-button-login" 
+          <Button variant="outline-success" type="submit" className="App-button-login" 
             onClick = { () =>
-              { 
-                var usuario = {email:this.state.email,senha:this.state.senha}
-                this.props.autenticarUsuario(usuario)}
-              }>
+              {
+                var idx = this.state.email.indexOf('@');
+                if(idx != -1){
+                  var usuario = {email:this.state.email,senha:this.state.senha}
+                  this.props.autenticarUsuario(usuario)
+                }
+              }
+            }>
             <p className="App-text-button">Entrar</p>
           </Button>
           <Button variant="outline-primary" className="App-button-login" 
@@ -95,7 +99,7 @@ class Login extends Component {
           </Button>
           
         </Form>
-        <Button variant="link" type="submit" className="App-button-link"
+        <Button variant="link" className="App-button-link"
                   onClick={ () => {
                     this.props.pageEnviarEmail()
                 }}>

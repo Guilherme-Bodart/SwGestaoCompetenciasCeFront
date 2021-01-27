@@ -14,6 +14,7 @@ import logo from "../../assets/leds-logo.svg";
 import { alertout } from '../../store/actions/alertas/alerta'
 import { pageLogin } from '../../store/actions/pages/page'
 
+
 import '../../styles/login.css';
 
 const initialState = {
@@ -26,6 +27,8 @@ const initialState = {
   cpf: '',
   endereco: '',
 }
+
+
 class CriarConta extends Component {
 
   constructor(props) {
@@ -100,7 +103,7 @@ class CriarConta extends Component {
               <Form.Label className="App-form-labelC">Nome completo</Form.Label>
                   <Form.Control type="text" placeholder="Nome Completo" 
                   className="App-form-control"
-                  onChange = {value => this.onChangeNome(value)}/>
+                  onChange = {value => this.onChangeNome(value)} required/>
                   <Form.Text className="text-muted">
                   </Form.Text>
               </Form.Group>
@@ -110,7 +113,7 @@ class CriarConta extends Component {
               <Form.Label className="App-form-labelC">Data de nascimento</Form.Label>
                   <Form.Control type="date"  
                   className="App-form-control"
-                  onChange = {value => this.onChangeDataNascimento(value)}/>
+                  onChange = {value => this.onChangeDataNascimento(value)} required/>
                   <Form.Text className="text-muted">
                   </Form.Text>
               </Form.Group>
@@ -123,7 +126,7 @@ class CriarConta extends Component {
               <Form.Label className="App-form-labelC">Email</Form.Label>
               <Form.Control type="email" placeholder="Seu e-mail" 
                   className="App-form-control"
-                  onChange = {value => this.onChangeEmail(value)}/>
+                  onChange = {value => this.onChangeEmail(value)} required/>
                   <Form.Text className="text-muted">
                   </Form.Text>
               </Form.Group>
@@ -146,7 +149,7 @@ class CriarConta extends Component {
                   <Form.Label className="App-form-labelC">Senha</Form.Label>
                   <Form.Control type="password" placeholder="Senha" 
                   className="App-form-control"
-                  onChange = {value => this.onChangeSenha(value)}/>
+                  onChange = {value => this.onChangeSenha(value)} required/>
               </Form.Group>
               </Col>
               <Col xs={{ offset: 2 }} sm={{ span: 4, offset: 2 }} md={{ span: 5, offset: 1 }} xl ={{offset: 0}}>
@@ -154,7 +157,7 @@ class CriarConta extends Component {
                   <Form.Label className="App-form-labelC">Confirmação de senha</Form.Label>
                   <Form.Control type="password" placeholder="Confirmação de Senha"
                   className="App-form-control"
-                  onChange = {value => this.onChangeSenhaConfirmada(value)}/>
+                  onChange = {value => this.onChangeSenhaConfirmada(value)} required/>
               </Form.Group>
               </Col>             
             </Row>
@@ -163,9 +166,9 @@ class CriarConta extends Component {
               <Col xs={{ offset: 2 }} sm={{ span: 4, offset: 0 }} md={{ span: 5, offset: 0 }} xl ={{offset: 0}}>
               <Form.Group className="App-form-groupC">
                   <Form.Label className="App-form-labelC">CPF</Form.Label>
-                  <Form.Control type="text" placeholder="CPF"
+                  <Form.Control id="cpf" type="text" maxLength='14' placeholder="CPF"
                   className="App-form-control"
-                  onChange = {value => this.onChangeCPF(value)}/>
+                  onChange = {value => this.onChangeCPF(value)} required/>
               </Form.Group>
               </Col>
               <Col xs={{ offset: 2 }} sm={{ span: 4, offset: 2 }} md={{ span: 5, offset: 1 }} xl ={{offset: 0}}>
@@ -180,13 +183,17 @@ class CriarConta extends Component {
 
             <Button variant="outline-primary" type="submit" className="App-button-login" 
             onClick = { async () => {
-              if(this.state.senha === this.state.senhaConfirmada){
-                await this.props.criarUsuario({nome:this.state.nome, email:this.state.email, dataNascimento:this.state.dataNascimento, 
-                                         telefone:this.state.telefone, senha:this.state.senha, endereco:this.state.endereco, 
-                                         cpf:this.state.cpf, permissao:1,})
-              }else{
-                alert("Senhas não são iguais")
-              }
+                var idx = this.state.email.indexOf('@');
+                if(this.state.nome != '' && this.state.dataNascimento != '' && this.state.email != '' && idx != -1 
+                && this.state.senha != '' && this.state.senhaConfirmada != '' && this.state.cpf != ''){
+                  if(this.state.senha === this.state.senhaConfirmada){
+                    await this.props.criarUsuario({nome:this.state.nome, email:this.state.email, dataNascimento:this.state.dataNascimento, 
+                                            telefone:this.state.telefone, senha:this.state.senha, endereco:this.state.endereco, 
+                                            cpf:this.state.cpf, permissao:1,})
+                  }else{
+                    alert("Senhas não são iguais")
+                  }
+                }
               }
             }>
                 <p className="App-text-button">Criar Conta</p>
