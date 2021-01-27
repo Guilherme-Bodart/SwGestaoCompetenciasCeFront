@@ -71,7 +71,7 @@ class Alerta extends Component {
                             <CloseIcon fontSize="inherit" />
                             </IconButton>
                         }>
-                            <AlertTitle style={{fontWeight:"bold", fontSize:"1.8em",marginTop:"-0.4em",marginLeft:"-5em", marginBottom:"-0.2em"}}>{this.props.alertTitle}</AlertTitle>
+                            <AlertTitle style={{fontWeight:"bold", fontSize:"1.8em",marginTop:"-0.4em",marginLeft:"-3em", marginBottom:"-0.2em"}}>{this.props.alertTitle}</AlertTitle>
                             {this.props.texto}
                         </Alert>
                     </Col>      

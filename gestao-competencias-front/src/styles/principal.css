@@ -22,3 +22,14 @@
     display: block;
     background-position: center center;
 }
+
+.MenuItem {
+    font-size:"1.2em";
+    color:"white";
+    margin-left:"0.4em";
+}
+
+.Principal-sidebar-menuitem-icone {
+    font-size:"2.6em";
+    color:"white";
+}

@@ -4,12 +4,13 @@ import { LOGIN_USUARIO,
 } from '../../actions/actionsTypes'
 
 const initialState = {
-email: '',
-nome: '',
-token: '',
-_id: '',
-cargo: '',
-getUsuarios: {}
+    email: '',
+    nome: '',
+    token: '',
+    _id: '',
+    permissao: '',
+    getUsuarios: {},
+    logado: false,
 }
 
 const reducer = (state = initialState, action) => {
@@ -17,12 +18,12 @@ const reducer = (state = initialState, action) => {
 switch (action.type) {
 
    case LOGIN_USUARIO:
-       let { email, nome, _id, cargo } = action.payload.user;
-       let token = action.payload.token
-
-       return {
-           ...state, email, nome, token, _id, cargo
-       }
+        let { email, nome, _id, permissao } = action.payload.usuario;
+        let token = action.payload.token
+        let logado = true
+        return {
+            ...state, email, nome, token, _id, permissao, logado
+        }
 
    case LOGOUT_USUARIO:
        return initialState

@@ -6,6 +6,8 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Image from 'react-bootstrap/Image'
 
+import Alerta from '../../components/Alerta/Alerta'
+import { autenticarUsuario } from '../../store/actions/usuarios/usuario'
 import { alertout } from '../../store/actions/alertas/alerta'
 import { pageCadastrar, pageEnviarEmail } from '../../store/actions/pages/page'
 
@@ -16,7 +18,6 @@ import '../../styles/login.css';
 const initialState = {
   email: '',
   senha: '',
-  logado: false,
 }
 
 class Login extends Component {
@@ -51,9 +52,13 @@ class Login extends Component {
     if(this.props.page.page === "enviarEmail"){
       return <Redirect to ="/enviarEmail"/>
     }
+    if(this.props.usuario.logado){
+      return <Redirect to ="/admin"/>
+    }
   return (
     <div className="App">
       <header className="App-header">
+        <Alerta open= {true} alertTitle= {this.props.alerta.alertTitle} severity= {this.props.alerta.severity} texto= {this.props.alerta.texto}/>
         <Image src={logo} className="App-logo" alt="logo" />
         <p className="App-text-logo">LEDS SKILLS</p>
         <Form className="App-form">
@@ -74,10 +79,15 @@ class Login extends Component {
             onChange = {value => this.onChangeSenha(value)}/>
           </Form.Group>
           
-          <Button variant="outline-success" type="submit" className="App-button-login" onClick = { () => alert(JSON.stringify(this.state))}>
+          <Button variant="outline-success" className="App-button-login" 
+            onClick = { () =>
+              { 
+                var usuario = {email:this.state.email,senha:this.state.senha}
+                this.props.autenticarUsuario(usuario)}
+              }>
             <p className="App-text-button">Entrar</p>
           </Button>
-          <Button variant="outline-primary" type="submit" className="App-button-login" 
+          <Button variant="outline-primary" className="App-button-login" 
                   onClick={ () => {
                       this.props.pageCadastrar()
                   }}>
@@ -111,6 +121,8 @@ const mapDispatchToProps = dispatch => {
       alertout: () => dispatch(alertout()),
       pageEnviarEmail: () => dispatch(pageEnviarEmail()),
       pageCadastrar: () => dispatch(pageCadastrar()),
+      autenticarUsuario: usuario => dispatch(autenticarUsuario(usuario)),
+
       
   }
 }

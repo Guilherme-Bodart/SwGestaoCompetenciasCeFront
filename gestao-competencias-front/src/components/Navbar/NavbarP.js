@@ -8,6 +8,7 @@ import Navbar from 'react-bootstrap/Navbar'
 import Button from 'react-bootstrap/Button'
 
 import { alertout } from '../../store/actions/alertas/alerta'
+import { logout } from '../../store/actions/usuarios/usuario'
 
 
 const initialState = {
@@ -24,11 +25,15 @@ class NavbarP extends Component {
   render(props) {
     return (
         <Navbar bg="light" variant="light" >
-        <Navbar.Brand href="/" style={{height:"3.45em", paddingTop:"0.9em", color:"#666", fontWeight:"500"}} >Navbar</Navbar.Brand>
+        <Navbar.Brand href="/" style={{marginTop:"0.5em", color:"#666", fontWeight:"500", fontSize:"1.9em", alignItems:"center"}} >{this.props.page.page}</Navbar.Brand>
         
         <Nav className="ml-auto">
-          <Button variant="light" style={{height:"3em"}}>
-            <p style={{marginTop:"0.4em"}}>Sair</p>
+          <Button variant="light" style={{height:"3em"}} 
+          onClick = { () =>
+              { 
+                this.props.logout()}
+              }>
+            <p style={{fontSize:"1.4em"}}>Sair</p>
           </Button>
         </Nav>
       </Navbar>
@@ -36,14 +41,16 @@ class NavbarP extends Component {
     
   }
 }
-const mapStateToProps = ({ usuario }) => {
+const mapStateToProps = ({ usuario, page }) => {
   return {
       usuario,
+      page
   }
 }
 const mapDispatchToProps = dispatch => {
   return {
     alertout: () => dispatch(alertout()),
+    logout: () => dispatch(logout()),
 
   }
 }

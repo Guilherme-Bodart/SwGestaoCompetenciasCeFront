@@ -20,19 +20,19 @@ switch (action.type) {
        }
 
    case PAGE_LOGIN:
-        var page = 'login'
+        page = 'login'
         return {
             ...state, page
         }
 
    case PAGE_RECUPERAR:
-        var page = 'recuperar'
+        page = 'recuperar'
         return {
             ...state, page
         }
     
     case PAGE_ENVIAREMAIL:
-        var page = 'enviarEmail'
+        page = 'enviarEmail'
         return {
             ...state, page
         }

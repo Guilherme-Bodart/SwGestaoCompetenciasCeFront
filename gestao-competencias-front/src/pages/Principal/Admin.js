@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
+import { Redirect } from "react-router-dom";
 
 import Row from 'react-bootstrap/Row'
 import Image from 'react-bootstrap/Image'
@@ -23,6 +24,9 @@ class Admin extends Component {
     }
 
     render(props){
+      if(!this.props.usuario.logado){
+        return <Redirect to ="/"/>
+      }
         return(
           <div style={{}} >
             <Row>
