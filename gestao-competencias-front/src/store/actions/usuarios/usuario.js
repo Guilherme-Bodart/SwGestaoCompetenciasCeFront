@@ -26,7 +26,10 @@ export const autenticarUsuario = usuario => {
                 dispatch(armazenaInfoUsuario(usuario))
             })
             .catch(error => {
-                alert('CATCH')
+                dispatch(alertin({open: true,
+                    alertTitle: 'Desconhecido',
+                    severity: 'warning',
+                    texto: 'Falha no login, tente novamente mais tarde'}))
             })
     }
 }
