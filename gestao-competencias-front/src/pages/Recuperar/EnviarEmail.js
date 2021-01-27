@@ -6,6 +6,10 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Image from 'react-bootstrap/Image'
 
+import { enviarEmailReset } from '../../store/actions/usuarios/usuario'
+
+import Alerta from '../../components/Alerta/Alerta'
+
 import { alertout } from '../../store/actions/alertas/alerta'
 import { pageLogin } from '../../store/actions/pages/page'
 
@@ -44,6 +48,10 @@ class EnviarEmail extends Component {
    })
   }
 
+  handleSubmit(event){
+    event.preventDefault()    
+  }
+
   render(props) {
     
     if(this.props.page.page === "login"){
@@ -53,23 +61,28 @@ class EnviarEmail extends Component {
     return (
         <div className="App">
         <header className="App-header">
+        <Alerta open= {true} alertTitle= {this.props.alerta.alertTitle} severity= {this.props.alerta.severity} texto= {this.props.alerta.texto}/>
           <Image src={logo} className="App-logo" alt="logo" />
             <p className="App-text-logo">LEDS SKILLS</p>
-            <Form className="App-form">
+            <Form className="App-form" onSubmit={this.handleSubmit}>  
 
             <Form.Group controlId="formBasicEmail" className="App-form-group">
                 <Form.Label>Informe seu e-mail</Form.Label>
                 <Form.Control type="email" placeholder="Entre com seu e-mail"
                     className="App-form-control"  
-                    onChange = {value => this.onChangeEmail(value)}/>
+                    onChange = {value => this.onChangeEmail(value)} required/>
                 <Form.Text className="text-muted">
                 </Form.Text>
             </Form.Group>
             
-            <Button variant="outline-success" type="submit" className="App-button-login" onClick = { () => alert(JSON.stringify(this.state))}>
+            <Button variant="outline-success" type="submit" className="App-button-login" 
+            onClick = { async () => { 
+              await this.props.enviarEmailReset({email: this.state.email})
+            }
+            }>
                 <p className="App-text-button">Enviar</p>
             </Button>
-            <Button variant="outline-primary" type="submit" className="App-button-login" 
+            <Button variant="outline-primary" className="App-button-login" 
                     onClick={ () => {
                         this.props.pageLogin()
                     }}>
@@ -84,9 +97,9 @@ class EnviarEmail extends Component {
   };
 }
 
-const mapStateToProps = ({ usuario, alerta, page }) => {
+const mapStateToProps = ({ email, alerta, page }) => {
   return {
-      usuario,
+      email,
       alerta,
       page
   }
@@ -94,6 +107,7 @@ const mapStateToProps = ({ usuario, alerta, page }) => {
 
 const mapDispatchToProps = dispatch => {
     return {
+        enviarEmailReset: email => dispatch(enviarEmailReset(email)),
         alertout: () => dispatch(alertout()),
         pageLogin: () => dispatch(pageLogin()),
         

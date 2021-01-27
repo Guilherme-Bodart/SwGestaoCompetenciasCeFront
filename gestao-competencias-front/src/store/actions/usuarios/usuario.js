@@ -26,10 +26,13 @@ export const autenticarUsuario = usuario => {
                 await dispatch(armazenaInfoUsuario(usuario))
             })
             .catch(error => {
+                if( error.response ){
+                    var erro_msg = error.response.data.error; // => the response payload 
+                }
                 dispatch(alertin({open: true,
                     alertTitle: 'Error',
                     severity: 'error',
-                    texto: 'E-mail e/ou senha inválidos'}))
+                    texto: 'Falha no login, '+erro_msg}))
 
             })
     }
@@ -68,11 +71,42 @@ export const criarUsuario = usuario => {
                     severity: 'success',
                     texto: 'Usuário cadastrado com sucesso'}))
             })
-            .catch(req => {
+            .catch( error => {
+                if( error.response ){
+                    var erro_msg = error.response.data.error; // => the response payload 
+                }
                 dispatch(alertin({open: true,
-                    alertTitle: 'Desconhecido',
-                    severity: 'warning',
-                    texto: 'Falha no cadastro, tente novamente mais tarde'}))
+                    alertTitle: 'Erro',
+                    severity: 'error',
+                    texto: 'Falha no cadastro, '+erro_msg}))
+            })
+    }
+}
+
+export const enviarEmailReset = email => {
+
+    return async (dispatch) =>  {
+
+        await axios.post("http://localhost:3000/auth/forgot_password", null, 
+                { params: {
+                    email: email
+                    }
+                }
+            )
+            .then(response => {
+                dispatch(alertin({open: true,
+                    alertTitle: 'E-mail enviado',
+                    severity: 'success',
+                    texto: 'O e-mail de recuperação de senha foi enviado com sucesso'}))
+            })
+            .catch( error => {
+                if( error.response ){
+                    var erro_msg = error.response.data.error; // => the response payload 
+                }
+                dispatch(alertin({open: true,
+                    alertTitle: 'Erro',
+                    severity: 'error',
+                    texto: 'Falha no envio, '+erro_msg}))
             })
     }
 }
