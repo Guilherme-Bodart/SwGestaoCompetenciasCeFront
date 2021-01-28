@@ -15,11 +15,11 @@ import { alertout } from '../../store/actions/alertas/alerta'
 import { ProSidebar, Menu, MenuItem } from 'react-pro-sidebar';
 import 'react-pro-sidebar/dist/css/styles.css';
 
-import { FaMedapps, FaJira, FaSitemap, FaChartBar } from 'react-icons/fa';
+import { FaMedapps, FaUsers, FaSitemap, FaChartBar } from 'react-icons/fa';
 import { styled } from '@material-ui/core';
 
 import { pageCadastrarCategoria, pageCadastrarSubCategoria, pageSubCategoria, 
-  pageCadastrarProjeto, pageProjeto } from '../../store/actions/adminViews/adminView'
+  pageCadastrarProjeto, pageProjeto, pageUsuario } from '../../store/actions/adminViews/adminView'
 
 const initialState = {
 }
@@ -40,6 +40,12 @@ class NavbarP extends Component {
             <div style={{height:"100vh", width:"20vw", opacity:"0.5"}}>
             <ProSidebar width="20vw" collapsed>
               <Menu >
+                <MenuItem onClick={()=>{
+                            this.props.pageUsuario()
+                          }}
+                  icon={<FaUsers style={styleIcon} />} style={styleMenuItem}>
+                  Usuários
+                </MenuItem>
                 <MenuItem onClick={()=>{
                             this.props.pageProjeto()
                           }}
@@ -80,6 +86,7 @@ const mapDispatchToProps = dispatch => {
     pageCadastrarSubCategoria: () => dispatch(pageCadastrarSubCategoria()),
     pageProjeto: () => dispatch(pageProjeto()),
     pageSubCategoria: () => dispatch(pageSubCategoria()),
+    pageUsuario: () => dispatch(pageUsuario()),
     
   }
 }

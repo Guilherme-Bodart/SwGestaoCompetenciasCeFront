@@ -13,7 +13,7 @@ const reducers = combineReducers({
     alerta: alertaReducer,
     page: pageReducer,
     adminView: adminViewReducer,
-    categoria: categoriaReducer,
+    categoria: categoriaReducer
 })
 
 const persistConfig = {

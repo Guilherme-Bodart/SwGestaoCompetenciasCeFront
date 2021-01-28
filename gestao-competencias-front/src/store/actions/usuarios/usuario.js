@@ -1,4 +1,4 @@
-import { LOGIN_USUARIO, LOGOUT_USUARIO } from '../actionsTypes'
+import { LOGIN_USUARIO, LOGOUT_USUARIO, GET_USUARIOS } from '../actionsTypes'
 
 import axios from 'axios'
 
@@ -43,6 +43,34 @@ export const armazenaInfoUsuario = usuario => {
     return {
         type: LOGIN_USUARIO,
         payload: usuario,
+    }
+}
+
+export const getUsuarios = () => {
+    return async (dispatch, getState) => {
+        const token = 'Bearer ' + getState().usuario.token
+        await axios.get("https://leds-skills.herokuapp.com/users", { params: { token } })
+            .then(response => {                
+                const usuarios = response.data
+                dispatch(getSaveUsuario(usuarios))
+            })
+            .catch( error => {
+                if( error.response ){
+                    var erro_msg = error.response.data.error; // => the response payload 
+                    alert(erro_msg)
+                }
+                /*dispatch(alertin({open: true,
+                    alertTitle: 'Erro',
+                    severity: 'error',
+                    texto: 'Falha no envio, '+erro_msg}))*/
+            })
+    }
+}
+
+export const getSaveUsuario = usuario => {
+    return {
+        type: GET_USUARIOS,
+        payload: usuario
     }
 }
 

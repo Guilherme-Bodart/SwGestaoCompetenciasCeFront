@@ -1,5 +1,5 @@
 import { PAGE_CADASTRO_CATEGORIA, PAGE_CADASTRO_PROJETO, 
-    PAGE_CADASTRO_SUBCATEGORIA, PAGE_SUBCATEGORIA, PAGE_PROJETO, PAGE_DETALHES_PROJETO } from '../actionsTypes'
+    PAGE_CADASTRO_SUBCATEGORIA, PAGE_SUBCATEGORIA, PAGE_PROJETO, PAGE_DETALHES_PROJETO, PAGE_USUARIO } from '../actionsTypes'
 
 
 export const pageCadastrarCategoria = () => {
@@ -35,5 +35,11 @@ export const pageDetalhesProjeto = () => {
 export const pageProjeto = () => {
     return {
         type: PAGE_PROJETO
+    }
+}
+
+export const pageUsuario = () => {
+    return {
+        type: PAGE_USUARIO
     }
 }

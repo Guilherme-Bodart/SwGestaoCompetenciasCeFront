@@ -9,7 +9,7 @@ import DropdownButton from 'react-bootstrap/DropdownButton'
 
 import { pageCadastrarCategoria, pageCadastrarSubCategoria, pageSubCategoria, 
     pageCadastrarProjeto, pageProjeto } from '../../store/actions/adminViews/adminView'
-import { getCategorias } from '../../store/actions/categorias/categoria'
+import { getSubCategorias } from '../../store/actions/categorias/categoria'
 
 import '../../styles/principal.css'
 import { FaPlus } from 'react-icons/fa';
@@ -17,7 +17,8 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 
 
 const initialState = {
-  }
+
+}
 
 class SubCategoria extends Component {
     constructor(props) {
@@ -26,15 +27,29 @@ class SubCategoria extends Component {
     }
 
     async componentDidMount(){
-        await this.props.getCategorias()
+        await this.props.getSubCategorias()
     }
     
 
     render(props){
-    //   if(!this.props.usuario.logado){
-    //     return <Redirect to ="/"/>
-    //   }
+
+        const subcategorias = this.props.categoria.subcategorias.map( subcategoria => 
+
+        <tr>
+            <td>1</td>
+            <DropdownButton variant="dark" id="dropdown-basic-button" title="..." style={{marginLeft:"1em", marginTop:"1em"}}>
+                <Dropdown.Item href="#">Editar</Dropdown.Item>
+                <Dropdown.Item href="#">Apagar</Dropdown.Item>
+            </DropdownButton>
+            <td>{subcategoria.nome}</td>
+            <td>{subcategoria.categoria.nome}</td>
+            <td>{subcategoria.dataCriacao.substr(0, 10).split('-').reverse().join('/')}</td>
+            <td>{subcategoria.usuario.pessoa.nome}</td>
+        </tr>
+        );
+
         return(
+            
             
             <Container fluid>
                 <Row>
@@ -59,17 +74,7 @@ class SubCategoria extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <DropdownButton variant="dark" id="dropdown-basic-button" title="..." style={{marginLeft:"1em", marginTop:"1em"}}>
-                                <Dropdown.Item href="#/action-1">Editar</Dropdown.Item>
-                                <Dropdown.Item href="#/action-2">Apagar</Dropdown.Item>
-                            </DropdownButton>
-                            <td>this.props.</td>
-                            <td>Programação</td>
-                            <td>27/11/2019</td>
-                            <td>Paulo Ricardo</td>
-                        </tr>
+                        {subcategorias}
                     </tbody>
                 </Table>
             </Container>
@@ -92,7 +97,7 @@ return {
     pageCadastrarSubCategoria: () => dispatch(pageCadastrarSubCategoria()),
     pageProjeto: () => dispatch(pageProjeto()),
     pageSubCategoria: () => dispatch(pageSubCategoria()),
-    getCategorias: () => dispatch(getCategorias()),       
+    getSubCategorias: () => dispatch(getSubCategorias()),       
     
 }
 }

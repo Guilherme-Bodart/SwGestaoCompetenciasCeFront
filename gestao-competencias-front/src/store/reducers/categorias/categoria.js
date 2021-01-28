@@ -19,7 +19,8 @@ switch (action.type) {
         }
 
    case GET_SUBCATEGORIA:
-        let { subcategorias } = action.payload.subcategoria;
+        let subcategorias = []
+        subcategorias = action.payload.subcategorias;
         return {
             ...state, subcategorias
         }

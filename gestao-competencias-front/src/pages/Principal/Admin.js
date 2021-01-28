@@ -13,11 +13,12 @@ import CriarCategoria from "../../views/Categoria/CriarCategoria";
 import CriarProjeto from "../../views/Projeto/CriarProjeto";
 import Projeto from "../../views/Projeto/Projeto";
 import DetalhesProjeto from "../../views/Projeto/DetalhesProjeto";
+import Usuario from "../../views/Usuario/Usuario";
 
 import '../../styles/principal.css'
 
 import { pageCadastrarCategoria, pageCadastrarSubCategoria, pageSubCategoria, 
-         pageCadastrarProjeto, pageProjeto, pageDetalhesProjeto } from '../../store/actions/adminViews/adminView'
+         pageCadastrarProjeto, pageProjeto, pageDetalhesProjeto, pageUsuario } from '../../store/actions/adminViews/adminView'
 
 
 const initialState = {
@@ -40,7 +41,8 @@ class Admin extends Component {
       this.props.adminView.page === "subcategoria" ? <SubCategoria/> :
       this.props.adminView.page === "cadastroSubcategoria" ? <CriarSubCategoria/> :
       this.props.adminView.page === "cadastroCategoria" ? <CriarCategoria/> :
-      this.props.adminView.page === "detalhesProjeto" ? <DetalhesProjeto/> : <Projeto/>
+      this.props.adminView.page === "detalhesProjeto" ? <DetalhesProjeto/> :
+      this.props.adminView.page === "usuario" ? <Usuario/> : <Projeto/>
       return(
         <div style={{ backgroundColor:'rgba(220,220,220,0.7)',}} >
           <Row>
@@ -73,6 +75,7 @@ const mapStateToProps = ({ usuario, alerta, page, adminView }) => {
       pageCadastrarSubCategoria: () => dispatch(pageCadastrarSubCategoria()),
       pageProjeto: () => dispatch(pageProjeto()),
       pageSubCategoria: () => dispatch(pageSubCategoria()),
+      pageUsuario: () => dispatch(pageUsuario()),
       
     }
   }

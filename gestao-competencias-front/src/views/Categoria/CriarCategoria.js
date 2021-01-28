@@ -33,7 +33,7 @@ class CriarCategoria extends Component {
 
     handleSubmit(event){
         event.preventDefault()    
-      }
+    }
 
     render(props){
     //   if(!this.props.usuario.logado){
