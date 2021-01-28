@@ -27,14 +27,13 @@ class SubCategoria extends Component {
 
     async componentDidMount(){
         await this.props.getCategorias()
-      }
+    }
     
 
     render(props){
     //   if(!this.props.usuario.logado){
     //     return <Redirect to ="/"/>
     //   }
-        alert(JSON.stringify(this.props.categoria.categorias))
         return(
             
             <Container fluid>

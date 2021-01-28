@@ -56,7 +56,7 @@ class CriarCategoria extends Component {
                     <Form.Row>
                         <Form.Group as={Col} controlId="formGridEmail">
                         <Form.Label>Nome</Form.Label>
-                        <Form.Control onChange = {value => this.onChangeCategoria(value)} required placeholder="Nome da categoria" />
+                        <Form.Control required onChange = {value => this.onChangeCategoria(value)} placeholder="Nome da categoria" />
                         </Form.Group>
                     </Form.Row>
 

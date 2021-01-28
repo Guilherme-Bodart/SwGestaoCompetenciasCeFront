@@ -33,8 +33,11 @@ class NavbarP extends Component {
             <Button variant="light" style={{height:"3em"}} 
             onClick = { () =>
                 { 
-                  this.props.logout()}
-                }>
+                  this.props.logout()
+                  this.props.alertout()
+
+                }
+              }>
               <p style={{fontSize:"1.4em"}}>Sair</p>
             </Button>
           </Nav>

@@ -2,7 +2,7 @@ import { LOGIN_USUARIO, LOGOUT_USUARIO } from '../actionsTypes'
 
 import axios from 'axios'
 
-import { alertin } from '../alertas/alerta'
+import { alertin, alertout } from '../alertas/alerta'
 import { pageLogin } from '../pages/page'
 
 export const logout = () => {
@@ -23,6 +23,7 @@ export const autenticarUsuario = usuario => {
                 usuario = response.data
                 
                 await dispatch(armazenaInfoUsuario(usuario))
+                dispatch(alertout())
             })
             .catch(error => {
                 if( error.response ){

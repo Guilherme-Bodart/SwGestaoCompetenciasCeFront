@@ -21,14 +21,10 @@ export const criarCategoria = (nome) => {
 
             })
             .catch( error => {
-                if( error.response ){
-                    var erro_msg = error.response.data.error; // => the response payload 
-                    alert(erro_msg)
-                }
-                /*dispatch(alertin({open: true,
+                dispatch(alertin({open: true,
                     alertTitle: 'Erro',
                     severity: 'error',
-                    texto: 'Falha no envio, '+erro_msg}))*/
+                    texto: 'Erro na criação da categoria '}))
             })
         
     }

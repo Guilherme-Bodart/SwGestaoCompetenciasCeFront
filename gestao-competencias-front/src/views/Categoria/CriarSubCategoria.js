@@ -10,6 +10,8 @@ import DropdownButton from 'react-bootstrap/DropdownButton'
 import { pageCadastrarCategoria, pageCadastrarSubCategoria, pageSubCategoria, 
     pageCadastrarProjeto, pageProjeto } from '../../store/actions/adminViews/adminView'
 import Alerta from "../../components/Alerta/Alerta"
+import { getCategorias } from '../../store/actions/categorias/categoria'
+
 import '../../styles/principal.css'
 import { FaArrowLeft } from 'react-icons/fa';
 import { BsThreeDotsVertical } from "react-icons/bs";
@@ -25,12 +27,19 @@ class CriarSubCategoria extends Component {
 
     handleSubmit(event){
         event.preventDefault()    
-      }
+    }
+
+    async componentDidMount(){
+        await this.props.getCategorias()
+    }
 
     render(props){
     //   if(!this.props.usuario.logado){
     //     return <Redirect to ="/"/>
     //   }
+    const categorias = this.props.categoria.categorias.map( categoria => <option value={categoria._id}>{categoria.nome}</option>);
+
+    alert(JSON.stringify(this.props.categoria.categorias))
         return(
             
             <Container fluid>
@@ -57,6 +66,7 @@ class CriarSubCategoria extends Component {
                         <Form.Label>Categoria</Form.Label>
                         <Form.Control as="select" defaultValue="0">
                             <option>Selecione...</option>
+                            {categorias}
                         </Form.Control>
                         </Form.Group>
 
@@ -78,10 +88,11 @@ class CriarSubCategoria extends Component {
     }
 }
 
-const mapStateToProps = ({ adminView, alerta }) => {
+const mapStateToProps = ({ adminView, alerta, categoria }) => {
     return {
         adminView,
-        alerta
+        alerta,
+        categoria
     }
   }
   
@@ -92,6 +103,7 @@ const mapStateToProps = ({ adminView, alerta }) => {
         pageCadastrarSubCategoria: () => dispatch(pageCadastrarSubCategoria()),
         pageProjeto: () => dispatch(pageProjeto()),
         pageSubCategoria: () => dispatch(pageSubCategoria()),
+        getCategorias: () => dispatch(getCategorias()),
     }
   }
   export default connect(mapStateToProps, mapDispatchToProps)(CriarSubCategoria)
