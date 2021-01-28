@@ -12,11 +12,12 @@ import CriarSubCategoria from "../../views/Categoria/CriarSubCategoria";
 import CriarCategoria from "../../views/Categoria/CriarCategoria";
 import CriarProjeto from "../../views/Projeto/CriarProjeto";
 import Projeto from "../../views/Projeto/Projeto";
+import DetalhesProjeto from "../../views/Projeto/DetalhesProjeto";
 
 import '../../styles/principal.css'
 
 import { pageCadastrarCategoria, pageCadastrarSubCategoria, pageSubCategoria, 
-         pageCadastrarProjeto, pageProjeto } from '../../store/actions/adminView/adminView'
+         pageCadastrarProjeto, pageProjeto, pageDetalhesProjeto } from '../../store/actions/adminView/adminView'
 
 
 const initialState = {
@@ -38,7 +39,8 @@ class Admin extends Component {
       this.props.adminView.page === "cadastroProjeto" ? <CriarProjeto/> :
       this.props.adminView.page === "subcategoria" ? <SubCategoria/> :
       this.props.adminView.page === "cadastroSubcategoria" ? <CriarSubCategoria/> :
-      this.props.adminView.page === "cadastroCategoria" ? <CriarCategoria/> : <Projeto/>
+      this.props.adminView.page === "cadastroCategoria" ? <CriarCategoria/> :
+      this.props.adminView.page === "detalhesProjeto" ? <DetalhesProjeto/> : <Projeto/>
       return(
         <div style={{ backgroundColor:'rgba(220,220,220,0.7)',}} >
           <Row>

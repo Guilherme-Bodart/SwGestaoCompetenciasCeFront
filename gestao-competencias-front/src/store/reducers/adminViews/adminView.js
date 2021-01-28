@@ -1,5 +1,5 @@
 import { PAGE_CADASTRO_CATEGORIA,PAGE_CADASTRO_PROJETO, 
-        PAGE_CADASTRO_SUBCATEGORIA, PAGE_SUBCATEGORIA, PAGE_PROJETO
+        PAGE_CADASTRO_SUBCATEGORIA, PAGE_SUBCATEGORIA, PAGE_PROJETO, PAGE_DETALHES_PROJETO
 } from '../../actions/actionsTypes'
 
 const initialState = {
@@ -32,6 +32,13 @@ switch (action.type) {
 
     case PAGE_CADASTRO_PROJETO:
         var page = 'cadastroProjeto'
+ 
+        return {
+            ...state, page
+        }
+    
+    case PAGE_DETALHES_PROJETO:
+        var page = 'detalhesProjeto'
  
         return {
             ...state, page

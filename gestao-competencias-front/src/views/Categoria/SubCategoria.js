@@ -18,7 +18,7 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 const initialState = {
   }
 
-class Categoria extends Component {
+class SubCategoria extends Component {
     constructor(props) {
         super(props)
         this.state = initialState
@@ -41,45 +41,28 @@ class Categoria extends Component {
                     <FaPlus/>
                 </Button>
                 </Row>
-                <Table responsive style={{backgroundColor:"#ccc"}}>
+                <Table responsive style={{backgroundColor:"#ccc", height: "11em", textAlign: "center"}}>
                     <thead>
                         <tr>
-                        <th>Ações</th>
-                        {Array.from({ length: 12 }).map((_, index) => (
-                            <th key={index}>Table heading</th>
-                        ))}
+                            <th>#</th>
+                            <th>Ações</th>
+                            <th>Nome</th>
+                            <th>Categoria</th>
+                            <th>Data Cadastro</th>
+                            <th>Responsável pelo cadastro</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
+                            <td>1</td>
                             <DropdownButton variant="dark" id="dropdown-basic-button" title="..." style={{marginLeft:"1em", marginTop:"1em"}}>
-                                <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                                <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                                <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                                <Dropdown.Item href="#/action-1">Editar</Dropdown.Item>
+                                <Dropdown.Item href="#/action-2">Apagar</Dropdown.Item>
                             </DropdownButton>
-                            {Array.from({ length: 12 }).map((_, index) => (
-                                <td key={index}>Table cell {index}</td>
-                            ))}
-                        </tr>
-                        <tr>
-                            <DropdownButton variant="dark" id="dropdown-basic-button" title="..." style={{marginLeft:"1em", marginTop:"1em"}}>
-                                <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                                <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                                <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-                            </DropdownButton>
-                            {Array.from({ length: 12 }).map((_, index) => (
-                                <td key={index}>Table cell {index}</td>
-                            ))}
-                        </tr>
-                        <tr>
-                            <DropdownButton variant="dark" id="dropdown-basic-button" title="..." style={{marginLeft:"1em", marginTop:"1em"}}>
-                                <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                                <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                                <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-                            </DropdownButton>
-                            {Array.from({ length: 12 }).map((_, index) => (
-                                <td key={index}>Table cell {index}</td>
-                            ))}
+                            <td>NodeJS</td>
+                            <td>Programação</td>
+                            <td>27/11/2019</td>
+                            <td>Paulo Ricardo</td>
                         </tr>
                     </tbody>
                 </Table>
@@ -106,4 +89,4 @@ const mapStateToProps = ({ adminView }) => {
         
     }
   }
-  export default connect(mapStateToProps, mapDispatchToProps)(Categoria)
+  export default connect(mapStateToProps, mapDispatchToProps)(SubCategoria)

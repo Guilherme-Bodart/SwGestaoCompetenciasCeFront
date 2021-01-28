@@ -7,8 +7,10 @@ import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col'
 import DropdownButton from 'react-bootstrap/DropdownButton'
 
+import { criarCategoria } from '../../store/actions/admin/admin'
+
 import '../../styles/principal.css'
-import { FaPlus } from 'react-icons/fa';
+import { FaArrowLeft } from 'react-icons/fa';
 import { BsThreeDotsVertical } from "react-icons/bs";
 
 import { pageCadastrarSubCategoria } from '../../store/actions/adminView/adminView'
@@ -17,11 +19,17 @@ import { pageCadastrarSubCategoria } from '../../store/actions/adminView/adminVi
 const initialState = {
   }
 
-class Categoria extends Component {
+class CriarCategoria extends Component {
     constructor(props) {
         super(props)
         this.state = initialState
     }
+
+    onChangeCategoria = (event) => {
+        this.setState({
+          categoria: event.target.value
+       })
+      }
 
     handleSubmit(event){
         event.preventDefault()    
@@ -36,19 +44,25 @@ class Categoria extends Component {
             <Container fluid>
                 <Row>
                 <p className="App-text-logo" style={{marginLeft:"1em", marginTop:"0.5em"}}>Criar Categoria</p>
-                
+                <Button className="ml-auto" variant="outline-secondary" 
+                style={{marginRight:"1em", marginTop:"1em", height:"3em", width:"3em" }}
+                onClick={()=>{
+                    this.props.pageCadastrarSubCategoria()
+                }}>
+                    <FaArrowLeft/>
+                </Button> 
                 </Row>
                 <Form onSubmit={this.handleSubmit}>
                     <Form.Row>
                         <Form.Group as={Col} controlId="formGridEmail">
                         <Form.Label>Nome</Form.Label>
-                        <Form.Control required placeholder="Nome da Subcategoria" />
+                        <Form.Control onChange = {value => this.onChangeCategoria(value)} required placeholder="Nome da categoria" />
                         </Form.Group>
                     </Form.Row>
 
                     <Button variant="primary" type="submit"
                      onClick={()=>{
-                        this.props.pageCadastrarSubCategoria()
+                        this.props.criarCategoria(this.state.categoria)
                     }}>
                         Criar Categoria
                     </Button>
@@ -67,7 +81,8 @@ const mapStateToProps = ({ adminView }) => {
   
   const mapDispatchToProps = dispatch => {
     return {
+        criarCategoria: categoria => dispatch(criarCategoria(categoria)),
         pageCadastrarSubCategoria: () => dispatch(pageCadastrarSubCategoria()),
     }
   }
-  export default connect(mapStateToProps, mapDispatchToProps)(Categoria)
+  export default connect(mapStateToProps, mapDispatchToProps)(CriarCategoria)

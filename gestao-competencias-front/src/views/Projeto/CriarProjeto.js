@@ -11,7 +11,7 @@ import { pageCadastrarCategoria, pageCadastrarSubCategoria, pageSubCategoria,
     pageCadastrarProjeto, pageProjeto } from '../../store/actions/adminView/adminView'
 
 import '../../styles/principal.css'
-import { FaPlus } from 'react-icons/fa';
+import { FaArrowLeft } from 'react-icons/fa';
 import { BsThreeDotsVertical } from "react-icons/bs";
 
 
@@ -19,7 +19,7 @@ const initialState = {
     membros : []
   }
 
-class Categoria extends Component {
+class CriarProjeto extends Component {
     constructor(props) {
         super(props)
         this.state = initialState
@@ -50,8 +50,7 @@ class Categoria extends Component {
     //     return <Redirect to ="/"/>
     //   }
         const membros = this.state.membros.map(m=> <Form.Control required as="select" defaultValue="Choose...">
-                                                        <option>Choose...</option>
-                                                        <option>...</option>
+                                                        <option>Selecione...</option>
                                                     </Form.Control>);
 
         return(
@@ -59,7 +58,13 @@ class Categoria extends Component {
             <Container fluid>
                 <Row>
                 <p className="App-text-logo" style={{marginLeft:"1em", marginTop:"0.5em"}}>Criar Projeto</p>
-                
+                <Button className="ml-auto" variant="outline-secondary" 
+                style={{marginRight:"1em", marginTop:"1em", height:"3em", width:"3em" }}
+                onClick={()=>{
+                    this.props.pageProjeto()
+                }}>
+                    <FaArrowLeft/>
+                </Button>
                 </Row>
                 <Form onSubmit={this.handleSubmit}>
                     <Form.Row>
@@ -73,10 +78,8 @@ class Categoria extends Component {
                         <Form.Group as={Col} controlId="formGridState">
                         <Form.Label>Equipe</Form.Label>
                         
-                        <Form.Control required as="select" defaultValue="Choose...">
-                            <option>Choose...</option>
-                            <option>...</option>
-                            
+                        <Form.Control required as="select" defaultValue="0">
+                            <option>Selecione...</option>
                         </Form.Control>
                         {membros}
                         </Form.Group>
@@ -118,4 +121,4 @@ const mapStateToProps = ({ adminView  }) => {
         pageSubCategoria: () => dispatch(pageSubCategoria()),
     }
   }
-  export default connect(mapStateToProps, mapDispatchToProps)(Categoria)
+  export default connect(mapStateToProps, mapDispatchToProps)(CriarProjeto)

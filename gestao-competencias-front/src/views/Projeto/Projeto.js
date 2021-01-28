@@ -4,12 +4,14 @@ import Button from "react-bootstrap/Button"
 import Row from 'react-bootstrap/Row'
 import Container from 'react-bootstrap/Container'
 import Table from 'react-bootstrap/Table'
+import Dropdown from 'react-bootstrap/Dropdown'
+import DropdownButton from 'react-bootstrap/DropdownButton'
 
 import '../../styles/principal.css'
 import { FaPlus } from 'react-icons/fa';
 
 import { pageCadastrarCategoria, pageCadastrarSubCategoria, pageSubCategoria, 
-    pageCadastrarProjeto, pageProjeto } from '../../store/actions/adminView/adminView'
+    pageCadastrarProjeto, pageProjeto, pageDetalhesProjeto } from '../../store/actions/adminView/adminView'
 
 const initialState = {
   }
@@ -37,33 +39,29 @@ class Projeto extends Component {
                     <FaPlus/>
                 </Button>
                 </Row>
-                <Table responsive style={{backgroundColor:"#ccc"}}>
+                <Table responsive style={{backgroundColor:"#ccc", height: "14em", textAlign: "center"}}>
                     <thead>
                         <tr>
-                        <th>#</th>
-                        {Array.from({ length: 12 }).map((_, index) => (
-                            <th key={index}>Table heading</th>
-                        ))}
+                            <th>#</th>
+                            <th>Ações</th>
+                            <th>Nome</th>
+                            <th>Descrição</th>
+                            <th>Data Cadastro</th>
+                            <th>Responsável pelo cadastro</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>1</td>
-                            {Array.from({ length: 12 }).map((_, index) => (
-                                <td key={index}>Table cell {index}</td>
-                            ))}
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            {Array.from({ length: 12 }).map((_, index) => (
-                                <td key={index}>Table cell {index}</td>
-                            ))}
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            {Array.from({ length: 12 }).map((_, index) => (
-                                <td key={index}>Table cell {index}</td>
-                            ))}
+                            <DropdownButton variant="dark" id="dropdown-basic-button" title="..." style={{marginLeft:"1em", marginTop:"1em"}}>
+                                <Dropdown.Item onClick={()=>{this.props.pageDetalhesProjeto()}}>Detalhes</Dropdown.Item>
+                                <Dropdown.Item href="#/action-2">Editar</Dropdown.Item>
+                                <Dropdown.Item href="#/action-3">Apagar</Dropdown.Item>
+                            </DropdownButton>
+                            <td>LEDS skills</td>
+                            <td>projeto paulo</td>
+                            <td>27/11/2019</td>
+                            <td>Paulo Ricardo</td>
                         </tr>
                     </tbody>
                 </Table>
@@ -86,6 +84,7 @@ const mapStateToProps = ({ adminView }) => {
         pageCadastrarSubCategoria: () => dispatch(pageCadastrarSubCategoria()),
         pageProjeto: () => dispatch(pageProjeto()),
         pageSubCategoria: () => dispatch(pageSubCategoria()),
+        pageDetalhesProjeto: () => dispatch(pageDetalhesProjeto()),
     }
   }
   export default connect(mapStateToProps, mapDispatchToProps)(Projeto)
