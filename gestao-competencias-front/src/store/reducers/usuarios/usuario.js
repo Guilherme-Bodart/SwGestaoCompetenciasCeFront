@@ -9,7 +9,7 @@ const initialState = {
     token: '',
     _id: '',
     permissao: '',
-    getUsuarios: {},
+    usuarios: {},
     logado: false,
 }
 
@@ -29,9 +29,9 @@ switch (action.type) {
        return initialState
 
    case GET_USUARIOS:
-       let getUsuarios = action.payload
+       let usuarios = action.payload
        return {                
-           ...state, getUsuarios
+           ...state, usuarios
        }
    
    default:

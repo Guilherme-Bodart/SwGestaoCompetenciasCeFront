@@ -14,6 +14,7 @@ import { getUsuarios } from '../../store/actions/usuarios/usuario'
 import '../../styles/principal.css'
 
 const initialState = {
+
   }
 
 class Usuario extends Component {
@@ -28,20 +29,23 @@ class Usuario extends Component {
 
     render(props){
 
-        const usuarios = this.props.usuario.getUsuarios.usuarios.map( usuario => 
+            /*const usuarios = this.props.usuario.usuarios.usuarios.map( usuario => 
 
-            <tr>
-                <td>1</td>
-                <DropdownButton variant="dark" id="dropdown-basic-button" title="..." style={{marginLeft:"1em", marginTop:"1em"}}>
-                    <Dropdown.Item href="#">Editar</Dropdown.Item>
-                    <Dropdown.Item href="#">Apagar</Dropdown.Item>
-                </DropdownButton>
-                <td>{usuario.pessoa.nome}</td>
-                <td>{usuario.pessoa.cpf}</td>
-                <td>{usuario.email}</td>
-                <td>{usuario.pessoa.dataNascimento.substr(0, 10).split('-').reverse().join('/')}</td>
-            </tr>
-            );
+                <tr>
+                    <td>1</td>
+                    <DropdownButton variant="dark" id="dropdown-basic-button" title="..." style={{marginLeft:"1em", marginTop:"1em"}}>
+                        <Dropdown.Item href="#">Editar</Dropdown.Item>
+                        <Dropdown.Item href="#">Apagar</Dropdown.Item>
+                    </DropdownButton>
+                    <td>{usuario.pessoa.nome}</td>
+                    <td>{usuario.pessoa.cpf}</td>
+                    <td>{usuario.email}</td>
+                    <td>{usuario.pessoa.dataNascimento.substr(0, 10).split('-').reverse().join('/')}</td>
+                </tr>
+                );
+              */  
+
+
 
 
         return(
@@ -62,7 +66,7 @@ class Usuario extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {usuarios}
+          
                     </tbody>
                 </Table>
             </Container>
