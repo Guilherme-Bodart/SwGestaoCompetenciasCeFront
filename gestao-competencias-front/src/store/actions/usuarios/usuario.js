@@ -14,7 +14,7 @@ export const logout = () => {
 export const autenticarUsuario = usuario => {
     return async (dispatch) => {
         const { email, senha } = usuario
-        await axios.post("http://localhost:3000/auth/authenticate", null,  { params: {
+        await axios.post("https://leds-skills.herokuapp.com/auth/authenticate", null,  { params: {
             email,
             senha
           }})
@@ -51,7 +51,7 @@ export const criarUsuario = usuario => {
         const { nome, email, senha, cpf, telefone, endereco, dataNascimento, permissao } = usuario
 
 
-        await axios.post("http://localhost:3000/auth/register", null, 
+        await axios.post("https://leds-skills.herokuapp.com/auth/register", null, 
                 { params: {
                     nome,
                     email,
@@ -86,7 +86,7 @@ export const enviarEmailReset = email => {
 
     return async (dispatch) =>  {
 
-        await axios.post("http://localhost:3000/auth/forgot_password", null, 
+        await axios.post("https://leds-skills.herokuapp.com/auth/forgot_password", null, 
                 { params: {
                     email
                     }
@@ -116,7 +116,7 @@ export const recuperarSenha = usuario => {
         const { senha, token } = usuario
 
 
-        await axios.post("http://localhost:3000/auth/reset_password", null, 
+        await axios.post("https://leds-skills.herokuapp.com/auth/reset_password", null, 
                 { params: {
                     senha,
                     token

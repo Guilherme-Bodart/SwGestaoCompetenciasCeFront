@@ -6,7 +6,7 @@ export const criarCategoria = (nome) => {
 
     return async (dispatch, getState ) =>  {
         const token = 'Bearer ' + getState().usuario.token
-        await axios.post("http://localhost:3000/category", null, 
+        await axios.post("https://leds-skills.herokuapp.com/category", null, 
                 { params: {
                     token,
                     nome
@@ -38,7 +38,7 @@ export const getCategorias = () => {
     return async (dispatch, getState) => {
         const token = 'Bearer ' + getState().usuario.token
         const nome = 'dasd'
-        await axios.get("http://localhost:3000/category", { params: { token } })
+        await axios.get("https://leds-skills.herokuapp.com/category", { params: { token } })
             .then(response => {                
                 const categorias = response.data
                 dispatch(getSaveCategorias(categorias))
