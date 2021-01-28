@@ -6,12 +6,14 @@ import alertaReducer from './reducers/alertas/alerta'
 import usuarioReducer from './reducers/usuarios/usuario'
 import pageReducer from './reducers/pages/page'
 import adminViewReducer from './reducers/adminViews/adminView'
+import categoriaReducer from './reducers/categorias/categoria'
 
 const reducers = combineReducers({
     usuario: usuarioReducer,
     alerta: alertaReducer,
     page: pageReducer,
     adminView: adminViewReducer,
+    categoria: categoriaReducer,
 })
 
 const persistConfig = {

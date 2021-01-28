@@ -8,8 +8,8 @@ import Col from 'react-bootstrap/Col'
 import DropdownButton from 'react-bootstrap/DropdownButton'
 
 import { pageCadastrarCategoria, pageCadastrarSubCategoria, pageSubCategoria, 
-    pageCadastrarProjeto, pageProjeto } from '../../store/actions/adminView/adminView'
-
+    pageCadastrarProjeto, pageProjeto } from '../../store/actions/adminViews/adminView'
+import Alerta from "../../components/Alerta/Alerta"
 import '../../styles/principal.css'
 import { FaArrowLeft } from 'react-icons/fa';
 import { BsThreeDotsVertical } from "react-icons/bs";
@@ -78,9 +78,10 @@ class CriarSubCategoria extends Component {
     }
 }
 
-const mapStateToProps = ({ adminView }) => {
+const mapStateToProps = ({ adminView, alerta }) => {
     return {
-        adminView
+        adminView,
+        alerta
     }
   }
   

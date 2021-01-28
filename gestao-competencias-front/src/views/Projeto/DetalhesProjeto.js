@@ -9,7 +9,7 @@ import Table from 'react-bootstrap/Table'
 import DropdownButton from 'react-bootstrap/DropdownButton'
 
 import { pageCadastrarCategoria, pageCadastrarSubCategoria, pageSubCategoria, 
-    pageCadastrarProjeto, pageProjeto, pageDetalhesProjeto } from '../../store/actions/adminView/adminView'
+    pageCadastrarProjeto, pageProjeto, pageDetalhesProjeto } from '../../store/actions/adminViews/adminView'
 
 import '../../styles/principal.css'
 import { FaArrowLeft } from 'react-icons/fa';

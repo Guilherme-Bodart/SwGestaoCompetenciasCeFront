@@ -17,7 +17,7 @@ import DetalhesProjeto from "../../views/Projeto/DetalhesProjeto";
 import '../../styles/principal.css'
 
 import { pageCadastrarCategoria, pageCadastrarSubCategoria, pageSubCategoria, 
-         pageCadastrarProjeto, pageProjeto, pageDetalhesProjeto } from '../../store/actions/adminView/adminView'
+         pageCadastrarProjeto, pageProjeto, pageDetalhesProjeto } from '../../store/actions/adminViews/adminView'
 
 
 const initialState = {

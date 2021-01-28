@@ -19,7 +19,7 @@ import { FaMedapps, FaJira, FaSitemap, FaChartBar } from 'react-icons/fa';
 import { styled } from '@material-ui/core';
 
 import { pageCadastrarCategoria, pageCadastrarSubCategoria, pageSubCategoria, 
-  pageCadastrarProjeto, pageProjeto } from '../../store/actions/adminView/adminView'
+  pageCadastrarProjeto, pageProjeto } from '../../store/actions/adminViews/adminView'
 
 const initialState = {
 }

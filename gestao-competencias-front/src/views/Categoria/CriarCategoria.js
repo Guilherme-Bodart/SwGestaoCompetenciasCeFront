@@ -7,13 +7,13 @@ import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col'
 import DropdownButton from 'react-bootstrap/DropdownButton'
 
-import { criarCategoria } from '../../store/actions/admin/admin'
-
 import '../../styles/principal.css'
 import { FaArrowLeft } from 'react-icons/fa';
 import { BsThreeDotsVertical } from "react-icons/bs";
 
-import { pageCadastrarSubCategoria } from '../../store/actions/adminView/adminView'
+import Alerta from "../../components/Alerta/Alerta"
+import { criarCategoria } from '../../store/actions/categorias/categoria'
+import { pageCadastrarSubCategoria } from '../../store/actions/adminViews/adminView'
 
 
 const initialState = {
@@ -39,9 +39,9 @@ class CriarCategoria extends Component {
     //   if(!this.props.usuario.logado){
     //     return <Redirect to ="/"/>
     //   }
-        return(
-            
+        return(            
             <Container fluid>
+                <Alerta open= {true} alertTitle= {this.props.alerta.alertTitle} severity= {this.props.alerta.severity} texto= {this.props.alerta.texto}/>
                 <Row>
                 <p className="App-text-logo" style={{marginLeft:"1em", marginTop:"0.5em"}}>Criar Categoria</p>
                 <Button className="ml-auto" variant="outline-secondary" 
@@ -73,9 +73,10 @@ class CriarCategoria extends Component {
     }
 }
 
-const mapStateToProps = ({ adminView }) => {
+const mapStateToProps = ({ adminView, alerta }) => {
     return {
-        adminView
+        adminView,
+        alerta
     }
   }
   

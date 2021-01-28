@@ -8,7 +8,8 @@ import Dropdown from 'react-bootstrap/Dropdown'
 import DropdownButton from 'react-bootstrap/DropdownButton'
 
 import { pageCadastrarCategoria, pageCadastrarSubCategoria, pageSubCategoria, 
-    pageCadastrarProjeto, pageProjeto } from '../../store/actions/adminView/adminView'
+    pageCadastrarProjeto, pageProjeto } from '../../store/actions/adminViews/adminView'
+import { getCategorias } from '../../store/actions/categorias/categoria'
 
 import '../../styles/principal.css'
 import { FaPlus } from 'react-icons/fa';
@@ -24,10 +25,16 @@ class SubCategoria extends Component {
         this.state = initialState
     }
 
+    async componentDidMount(){
+        await this.props.getCategorias()
+      }
+    
+
     render(props){
     //   if(!this.props.usuario.logado){
     //     return <Redirect to ="/"/>
     //   }
+        alert(JSON.stringify(this.props.categoria.categorias))
         return(
             
             <Container fluid>
@@ -59,7 +66,7 @@ class SubCategoria extends Component {
                                 <Dropdown.Item href="#/action-1">Editar</Dropdown.Item>
                                 <Dropdown.Item href="#/action-2">Apagar</Dropdown.Item>
                             </DropdownButton>
-                            <td>NodeJS</td>
+                            <td>this.props.</td>
                             <td>Programação</td>
                             <td>27/11/2019</td>
                             <td>Paulo Ricardo</td>
@@ -72,21 +79,22 @@ class SubCategoria extends Component {
     }
 }
 
-const mapStateToProps = ({ adminView }) => {
+const mapStateToProps = ({ adminView, categoria }) => {
     return {
         adminView,
+        categoria
     }
   }
   
-  const mapDispatchToProps = dispatch => {
-    return {
-        pageCadastrarCategoria: () => dispatch(pageCadastrarCategoria()),
-        pageCadastrarProjeto: () => dispatch(pageCadastrarProjeto()),
-        pageCadastrarSubCategoria: () => dispatch(pageCadastrarSubCategoria()),
-        pageProjeto: () => dispatch(pageProjeto()),
-        pageSubCategoria: () => dispatch(pageSubCategoria()),
-       
-        
-    }
-  }
-  export default connect(mapStateToProps, mapDispatchToProps)(SubCategoria)
+const mapDispatchToProps = dispatch => {
+return {
+    pageCadastrarCategoria: () => dispatch(pageCadastrarCategoria()),
+    pageCadastrarProjeto: () => dispatch(pageCadastrarProjeto()),
+    pageCadastrarSubCategoria: () => dispatch(pageCadastrarSubCategoria()),
+    pageProjeto: () => dispatch(pageProjeto()),
+    pageSubCategoria: () => dispatch(pageSubCategoria()),
+    getCategorias: () => dispatch(getCategorias()),       
+    
+}
+}
+export default connect(mapStateToProps, mapDispatchToProps)(SubCategoria)

@@ -11,7 +11,7 @@ import '../../styles/principal.css'
 import { FaPlus } from 'react-icons/fa';
 
 import { pageCadastrarCategoria, pageCadastrarSubCategoria, pageSubCategoria, 
-    pageCadastrarProjeto, pageProjeto, pageDetalhesProjeto } from '../../store/actions/adminView/adminView'
+    pageCadastrarProjeto, pageProjeto, pageDetalhesProjeto } from '../../store/actions/adminViews/adminView'
 
 const initialState = {
   }

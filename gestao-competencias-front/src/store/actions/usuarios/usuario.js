@@ -11,8 +11,6 @@ export const logout = () => {
     }
 }
 
-
-
 export const autenticarUsuario = usuario => {
     return async (dispatch) => {
         const { email, senha } = usuario

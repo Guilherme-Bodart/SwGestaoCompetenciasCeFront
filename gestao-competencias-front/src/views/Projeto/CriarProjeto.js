@@ -8,7 +8,7 @@ import Col from 'react-bootstrap/Col'
 import DropdownButton from 'react-bootstrap/DropdownButton'
 
 import { pageCadastrarCategoria, pageCadastrarSubCategoria, pageSubCategoria, 
-    pageCadastrarProjeto, pageProjeto } from '../../store/actions/adminView/adminView'
+    pageCadastrarProjeto, pageProjeto } from '../../store/actions/adminViews/adminView'
 
 import '../../styles/principal.css'
 import { FaArrowLeft } from 'react-icons/fa';
