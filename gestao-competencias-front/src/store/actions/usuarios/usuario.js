@@ -69,6 +69,7 @@ export const criarUsuario = usuario => {
                     alertTitle: 'Cadastrado',
                     severity: 'success',
                     texto: 'Usuário cadastrado com sucesso'}))
+                dispatch(pageLogin());
             })
             .catch( error => {
                 if( error.response ){
@@ -126,7 +127,7 @@ export const recuperarSenha = usuario => {
             .then(response => {
                 
                 dispatch(alertin({open: true,
-                    alertTitle: 'Senha Alterada',
+                    alertTitle: 'Alterada',
                     severity: 'success',
                     texto: 'Sua senha foi alterada com sucesso'}))
 
