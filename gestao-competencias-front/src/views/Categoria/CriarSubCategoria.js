@@ -39,7 +39,6 @@ class CriarSubCategoria extends Component {
     //   }
     const categorias = this.props.categoria.categorias.map( categoria => <option value={categoria._id}>{categoria.nome}</option>);
 
-    alert(JSON.stringify(this.props.categoria.categorias))
         return(
             
             <Container fluid>
@@ -64,8 +63,8 @@ class CriarSubCategoria extends Component {
                     <Form.Row>
                         <Form.Group as={Col} controlId="formGridState">
                         <Form.Label>Categoria</Form.Label>
-                        <Form.Control as="select" defaultValue="0">
-                            <option>Selecione...</option>
+                        <Form.Control onChange={(e)=>alert(JSON.stringify(e.target.value))} as="select" defaultValue="0">
+                            <option value="0">Selecione...</option>
                             {categorias}
                         </Form.Control>
                         </Form.Group>
