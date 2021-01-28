@@ -94,7 +94,7 @@ export const enviarEmailReset = email => {
             )
             .then(response => {
                 dispatch(alertin({open: true,
-                    alertTitle: 'E-mail enviado',
+                    alertTitle: 'Enviado',
                     severity: 'success',
                     texto: 'O e-mail de recuperação de senha foi enviado com sucesso'}))
             })
