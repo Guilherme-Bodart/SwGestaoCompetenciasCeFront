@@ -61,6 +61,7 @@ class Alerta extends Component {
                     <Col>     
                         <Alert  severity = {this.props.severity}  action = {
                             <IconButton
+                            
                             aria-label="close"
                             color="inherit"
                             size="medium"
@@ -71,7 +72,11 @@ class Alerta extends Component {
                             <CloseIcon fontSize="inherit" />
                             </IconButton>
                         }>
-                            <AlertTitle style={{fontWeight:"bold", fontSize:"1.8em",marginTop:"-0.4em",marginLeft:"-3em", marginBottom:"-0.2em"}}>{this.props.alertTitle}</AlertTitle>
+                            <AlertTitle  style={{fontWeight:"bold", fontSize:"1.8em",
+                                                marginTop:"-0.4em", marginBottom:"-0.2em", width:"2.5em",
+                                                }}>
+                              {this.props.alertTitle}
+                            </AlertTitle>
                             {this.props.texto}
                         </Alert>
                     </Col>      

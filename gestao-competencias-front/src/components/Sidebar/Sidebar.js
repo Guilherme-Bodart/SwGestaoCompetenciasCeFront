@@ -18,6 +18,9 @@ import 'react-pro-sidebar/dist/css/styles.css';
 import { FaMedapps, FaJira, FaSitemap, FaChartBar } from 'react-icons/fa';
 import { styled } from '@material-ui/core';
 
+import { pageCadastrarCategoria, pageCadastrarSubCategoria, pageSubCategoria, 
+  pageCadastrarProjeto, pageProjeto } from '../../store/actions/adminView/adminView'
+
 const initialState = {
 }
 
@@ -32,15 +35,29 @@ class NavbarP extends Component {
     var styleIcon = {fontSize:"2.6em", color:"white"}
     var styleMenuItem = {fontSize:"1.21em", color:"white", marginLeft:"0.4em", fontWeight:"500", marginTop:"0.7em"}
     return (
-        <div className="sidebar-background" style={{height:"100vh", width:"20vw", opacity:"0.8", backgroundImage:"url(" + sidebar + ")",}}>
+        <div className="sidebar-background" style={{height:"100%", width:"20vw", opacity:"0.8", backgroundImage:"url(" + sidebar + ")",}}>
             <Sidelogo/>
             <div style={{height:"100vh", width:"20vw", opacity:"0.5"}}>
             <ProSidebar width="20vw" collapsed>
-              <Menu>
-                <MenuItem icon={<FaMedapps style={styleIcon} />} style={styleMenuItem} ><a href="admin/projetos">Projetos</a></MenuItem>
-                <MenuItem icon={<FaJira style={styleIcon} />} style={styleMenuItem}><a href="admin/categorias">Categorias</a></MenuItem>
-                <MenuItem icon={<FaSitemap style={styleIcon} />} style={styleMenuItem}><a href="admin/subcategorias">SubCategorias</a></MenuItem>
-                <MenuItem icon={<FaChartBar style={styleIcon} />} style={styleMenuItem}><a href="admin/relatorios">Relatórios</a></MenuItem>
+              <Menu >
+                <MenuItem onClick={()=>{
+                            this.props.pageProjeto()
+                          }}
+                  icon={<FaMedapps style={styleIcon} />} style={styleMenuItem}>
+                  Projetos
+                </MenuItem>
+                <MenuItem onClick={()=>{
+                            this.props.pageSubCategoria()
+                          }}
+                  icon={<FaSitemap style={styleIcon} />} style={styleMenuItem}>
+                  SubCategorias
+                </MenuItem>
+                <MenuItem onClick={()=>{
+                            alert("Em construção")
+                          }} icon={<FaChartBar style={styleIcon} />} style={styleMenuItem}>
+                  
+                  Relatórios
+                </MenuItem>
               </Menu>
             </ProSidebar>
 
@@ -58,7 +75,12 @@ const mapStateToProps = ({ usuario }) => {
 const mapDispatchToProps = dispatch => {
   return {
     alertout: () => dispatch(alertout()),
-
+    pageCadastrarCategoria: () => dispatch(pageCadastrarCategoria()),
+    pageCadastrarProjeto: () => dispatch(pageCadastrarProjeto()),
+    pageCadastrarSubCategoria: () => dispatch(pageCadastrarSubCategoria()),
+    pageProjeto: () => dispatch(pageProjeto()),
+    pageSubCategoria: () => dispatch(pageSubCategoria()),
+    
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(NavbarP)

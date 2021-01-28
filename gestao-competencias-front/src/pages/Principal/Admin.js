@@ -3,20 +3,25 @@ import { connect } from 'react-redux';
 import { Redirect } from "react-router-dom";
 
 import Row from 'react-bootstrap/Row'
-import Image from 'react-bootstrap/Image'
-import Nav from 'react-bootstrap/Nav'
-import Navbar from 'react-bootstrap/Navbar'
-import Button from 'react-bootstrap/Button'
 
 import NavbarP from "../../components/Navbar/NavbarP"
 import Sidebar from "../../components/Sidebar/Sidebar"
-import Categoria from "../../views/Categoria/Categoria"
+
+import SubCategoria from "../../views/Categoria/SubCategoria";
+import CriarSubCategoria from "../../views/Categoria/CriarSubCategoria";
+import CriarCategoria from "../../views/Categoria/CriarCategoria";
+import CriarProjeto from "../../views/Projeto/CriarProjeto";
+import Projeto from "../../views/Projeto/Projeto";
 
 import '../../styles/principal.css'
-import logo from "../../assets/leds-logo.svg";
+
+import { pageCadastrarCategoria, pageCadastrarSubCategoria, pageSubCategoria, 
+         pageCadastrarProjeto, pageProjeto } from '../../store/actions/adminView/adminView'
+
 
 const initialState = {
   }
+
 
 class Admin extends Component {
     constructor(props) {
@@ -25,38 +30,48 @@ class Admin extends Component {
     }
 
     render(props){
+      var renderizar
       if(!this.props.usuario.logado){
         return <Redirect to ="/"/>
       }
-        return(
-          <div style={{}} >
-            <Row>
-            <Sidebar/>
-            <div style={{height:"100vh", width:"80vw", backgroundColor:"#ddd"}}>
-              <NavbarP/>
-              <Categoria/>
-            </div>
-            </Row>
-            
-            
-           
+      renderizar = this.props.adminView.page === "projeto" ? <Projeto/> : 
+      this.props.adminView.page === "cadastroProjeto" ? <CriarProjeto/> :
+      this.props.adminView.page === "subcategoria" ? <SubCategoria/> :
+      this.props.adminView.page === "cadastroSubcategoria" ? <CriarSubCategoria/> :
+      this.props.adminView.page === "cadastroCategoria" ? <CriarCategoria/> : <Projeto/>
+      return(
+        <div style={{ backgroundColor:'rgba(220,220,220,0.7)',}} >
+          <Row>
+          <Sidebar/>
+          <div style={{height:"100vh", width:"80vw"}}>
+            <NavbarP/>
+            {renderizar}
           </div>
-          
-          
-        )
+          </Row>
+        </div>
+        
+        
+      )
     }
 }
 
-const mapStateToProps = ({ usuario, alerta, page }) => {
+const mapStateToProps = ({ usuario, alerta, page, adminView }) => {
     return {
         usuario,
         alerta,
-        page
+        page,
+        adminView
     }
   }
   
   const mapDispatchToProps = dispatch => {
     return {
+      pageCadastrarCategoria: () => dispatch(pageCadastrarCategoria()),
+      pageCadastrarProjeto: () => dispatch(pageCadastrarProjeto()),
+      pageCadastrarSubCategoria: () => dispatch(pageCadastrarSubCategoria()),
+      pageProjeto: () => dispatch(pageProjeto()),
+      pageSubCategoria: () => dispatch(pageSubCategoria()),
+      
     }
   }
   export default connect(mapStateToProps, mapDispatchToProps)(Admin)
