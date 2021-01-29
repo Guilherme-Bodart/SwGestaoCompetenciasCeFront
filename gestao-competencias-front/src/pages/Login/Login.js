@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button'
 import Image from 'react-bootstrap/Image'
 
 import Alerta from '../../components/Alerta/Alerta'
-import { autenticarUsuario } from '../../store/actions/usuarios/usuario'
+import { autenticarUsuario, logout } from '../../store/actions/usuarios/usuario'
 import { alertout } from '../../store/actions/alertas/alerta'
 import { pageCadastrar, pageEnviarEmail } from '../../store/actions/pages/page'
 
@@ -18,6 +18,7 @@ import '../../styles/login.css';
 const initialState = {
   email: '',
   senha: '',
+  logado: false,
 }
 
 class Login extends Component {
@@ -28,9 +29,9 @@ class Login extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  onChangeLogado = () => {
+  onChangeLogado = (logado) => {
     this.setState({ 
-      logado: true
+      logado
     })
   }
 
@@ -50,6 +51,10 @@ class Login extends Component {
     event.preventDefault()    
   }
 
+  async componentDidMount(){
+    await this.props.logout()
+}
+
   render(props) {    
     if(this.props.page.page === "cadastro"){
       return <Redirect to ="/cadastro"/>
@@ -57,9 +62,10 @@ class Login extends Component {
     if(this.props.page.page === "enviarEmail"){
       return <Redirect to ="/enviarEmail"/>
     }
-    if(this.props.usuario.logado){
+    if(this.state.logado){
       return <Redirect to ="/admin"/>
     }
+
   return (
     <div className="App">
       <header className="App-header">
@@ -91,6 +97,7 @@ class Login extends Component {
                 if(idx != -1){
                   var usuario = {email:this.state.email,senha:this.state.senha}
                   this.props.autenticarUsuario(usuario)
+                  this.onChangeLogado(this.props.usuario.logado)
                 }
               }
             }>
@@ -128,6 +135,7 @@ const mapStateToProps = ({ usuario, alerta, page }) => {
 const mapDispatchToProps = dispatch => {
   return {
       alertout: () => dispatch(alertout()),
+      logout: () => dispatch(logout()),
       pageEnviarEmail: () => dispatch(pageEnviarEmail()),
       pageCadastrar: () => dispatch(pageCadastrar()),
       autenticarUsuario: usuario => dispatch(autenticarUsuario(usuario)),

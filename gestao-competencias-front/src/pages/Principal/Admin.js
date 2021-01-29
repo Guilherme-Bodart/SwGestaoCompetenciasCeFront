@@ -22,6 +22,7 @@ import { pageCadastrarCategoria, pageCadastrarSubCategoria, pageSubCategoria,
 
 
 const initialState = {
+  logado:false
   }
 
 
