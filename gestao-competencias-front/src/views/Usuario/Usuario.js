@@ -29,7 +29,7 @@ class Usuario extends Component {
 
     render(props){
 
-            const usuarios = this.props.usuario.usuarios.map( user => 
+            /*const usuarios = this.props.usuario.usuarios.map( user => 
 
                 <tr>
                     <td>1</td>
@@ -43,11 +43,7 @@ class Usuario extends Component {
                     <td>{user.pessoa.dataNascimento.substr(0, 10).split('-').reverse().join('/')}</td>
                 </tr>
                 );
-              
-
-
-
-
+*/
         return(
             
             <Container fluid>
@@ -66,7 +62,7 @@ class Usuario extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                       {usuarios}
+                       
                     </tbody>
                 </Table>
             </Container>
