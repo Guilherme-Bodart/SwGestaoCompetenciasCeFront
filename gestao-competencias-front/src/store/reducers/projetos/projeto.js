@@ -10,10 +10,10 @@ const reducer = (state = initialState, action) => {
 switch (action.type) {
 
    case GET_PROJETO:
-        let categorias = []
-        categorias = action.payload.categorias;
+        let projetos = []
+        projetos = action.payload.projetos;
         return {
-            ...state, categorias
+            ...state, projetos
         }
 
    default:

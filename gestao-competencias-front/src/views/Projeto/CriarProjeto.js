@@ -4,11 +4,14 @@ import Button from "react-bootstrap/Button"
 import Row from 'react-bootstrap/Row'
 import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
-import Col from 'react-bootstrap/Col'
+import Col from 'react-bootstrap/Col' 
 import DropdownButton from 'react-bootstrap/DropdownButton'
 
 import { pageCadastrarCategoria, pageCadastrarSubCategoria, pageSubCategoria, 
     pageCadastrarProjeto, pageProjeto } from '../../store/actions/adminViews/adminView'
+
+import { getUsuarios } from '../../store/actions/usuarios/usuario'
+import { criarProjeto } from '../../store/actions/projetos/projeto'
 
 import '../../styles/principal.css'
 import { FaArrowLeft } from 'react-icons/fa';
@@ -16,8 +19,9 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 
 
 const initialState = {
-    membros : []
-  }
+    membros : [],
+    equipe: []
+}
 
 class CriarProjeto extends Component {
     constructor(props) {
@@ -30,27 +34,32 @@ class CriarProjeto extends Component {
       }
     
     adicionaMembro = () => {
-    var membros = this.state.membros
-    membros.push(1)
-    this.setState({ 
-        membros
-    })
+        var membros = this.state.membros
+        membros.push(1)
+        this.setState({ 
+            membros
+        })
     }
     removeMembro = () => {
-    var membros = this.state.membros
-    membros.pop()
-    this.setState({ 
-        membros
-    })
+        var membros = this.state.membros
+        membros.pop()
+        this.setState({ 
+            membros
+        })
+    }
+
+    async componentDidMount(){
+        await this.props.getUsuarios()
     }
 
 
     render(props){
-    //   if(!this.props.usuario.logado){
-    //     return <Redirect to ="/"/>
-    //   }
-        const membros = this.state.membros.map(m=> <Form.Control required as="select" defaultValue="Choose...">
-                                                        <option>Selecione...</option>
+
+        const usuarios = this.props.usuario.usuarios.map( user => <option value={user._id}>{user.pessoa.nome}</option>);
+
+        const membros = this.state.membros.map(m => <Form.Control required as="select" defaultValue="0">
+                                                        <option value="0">Selecione...</option>
+                                                        {usuarios}
                                                     </Form.Control>);
 
         return(
@@ -77,9 +86,9 @@ class CriarProjeto extends Component {
                     <Form.Row>
                         <Form.Group as={Col} controlId="formGridState">
                         <Form.Label>Equipe</Form.Label>
-                        
                         <Form.Control required as="select" defaultValue="0">
-                            <option>Selecione...</option>
+                            <option value="0">Selecione...</option>
+                            {usuarios}
                         </Form.Control>
                         {membros}
                         </Form.Group>
@@ -106,9 +115,11 @@ class CriarProjeto extends Component {
     }
 }
 
-const mapStateToProps = ({ adminView  }) => {
+const mapStateToProps = ({ adminView, usuario, projeto }) => {
     return {
         adminView,
+        usuario, 
+        projeto
     }
   }
   
@@ -119,6 +130,8 @@ const mapStateToProps = ({ adminView  }) => {
         pageCadastrarSubCategoria: () => dispatch(pageCadastrarSubCategoria()),
         pageProjeto: () => dispatch(pageProjeto()),
         pageSubCategoria: () => dispatch(pageSubCategoria()),
+        getUsuarios: () => dispatch(getUsuarios()),
+        criarProjeto: () => dispatch(criarProjeto()),
     }
   }
   export default connect(mapStateToProps, mapDispatchToProps)(CriarProjeto)

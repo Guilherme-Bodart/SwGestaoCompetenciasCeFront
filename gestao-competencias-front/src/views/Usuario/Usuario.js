@@ -29,7 +29,7 @@ class Usuario extends Component {
 
     render(props){
 
-            /*const usuarios = this.props.usuario.usuarios.usuarios.map( usuario => 
+            const usuarios = this.props.usuario.usuarios.map( user => 
 
                 <tr>
                     <td>1</td>
@@ -37,13 +37,13 @@ class Usuario extends Component {
                         <Dropdown.Item href="#">Editar</Dropdown.Item>
                         <Dropdown.Item href="#">Apagar</Dropdown.Item>
                     </DropdownButton>
-                    <td>{usuario.pessoa.nome}</td>
-                    <td>{usuario.pessoa.cpf}</td>
-                    <td>{usuario.email}</td>
-                    <td>{usuario.pessoa.dataNascimento.substr(0, 10).split('-').reverse().join('/')}</td>
+                    <td>{user.pessoa.nome}</td>
+                    <td>{user.pessoa.cpf}</td>
+                    <td>{user.email}</td>
+                    <td>{user.pessoa.dataNascimento.substr(0, 10).split('-').reverse().join('/')}</td>
                 </tr>
                 );
-              */  
+              
 
 
 
@@ -66,7 +66,7 @@ class Usuario extends Component {
                         </tr>
                     </thead>
                     <tbody>
-          
+                       {usuarios}
                     </tbody>
                 </Table>
             </Container>

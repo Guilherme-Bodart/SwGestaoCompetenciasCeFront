@@ -67,10 +67,10 @@ export const getUsuarios = () => {
     }
 }
 
-export const getSaveUsuario = usuario => {
+export const getSaveUsuario = usuarios => {
     return {
         type: GET_USUARIOS,
-        payload: usuario
+        payload: usuarios
     }
 }
 
