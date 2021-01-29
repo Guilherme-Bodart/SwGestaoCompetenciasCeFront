@@ -35,8 +35,8 @@ class Projeto extends Component {
             <tr>
                 <td>{index+1}</td>
                 <DropdownButton variant="dark" id="dropdown-basic-button" title="..." style={{marginLeft:"1em", marginTop:"1em"}}>
-                    <Dropdown.Item  onClick={()=>{
-                                        this.props.getProjeto(projeto._id)
+                    <Dropdown.Item  onClick={async ()=>{
+                                        await this.props.getProjeto(projeto._id)
                                         if(this.props.projeto.projeto_detalhado!={}){
                                             this.props.pageDetalhesProjeto()
                                         }
@@ -44,8 +44,8 @@ class Projeto extends Component {
                     }>  Detalhes
                     </Dropdown.Item>
 
-                    <Dropdown.Item  onClick={()=>{
-                                        this.props.getProjeto(projeto._id)
+                    <Dropdown.Item  onClick={async ()=>{
+                                        await this.props.getProjeto(projeto._id)
                                         if(this.props.projeto.projeto_detalhado!={}){
                                             this.props.pageEditarProjeto()
                                         }

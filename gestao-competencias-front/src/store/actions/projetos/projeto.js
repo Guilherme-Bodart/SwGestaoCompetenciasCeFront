@@ -78,14 +78,10 @@ export const getProjeto = (id_projeto) => {
                 dispatch(getSaveProjeto(projeto))
             })
             .catch( error => {
-                if( error.response ){
-                    var erro_msg = error.response.data.error; // => the response payload 
-               
-                }
-                /*dispatch(alertin({open: true,
+                dispatch(alertin({open: true,
                     alertTitle: 'Erro',
                     severity: 'error',
-                    texto: 'Falha no envio, '+erro_msg}))*/
+                    texto: 'Falha em acessar o projeto, tente novamente mais tarde'}))
             })
     }
 }
