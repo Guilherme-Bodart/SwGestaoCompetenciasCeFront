@@ -13,7 +13,7 @@ import { FaPlus } from 'react-icons/fa';
 import { pageCadastrarCategoria, pageCadastrarSubCategoria, pageSubCategoria, 
     pageCadastrarProjeto, pageProjeto, pageDetalhesProjeto } from '../../store/actions/adminViews/adminView'
 
-import { getProjetos } from '../../store/actions/projetos/projeto'
+import { getProjetos, getProjeto } from '../../store/actions/projetos/projeto'
 
 const initialState = {
   }
@@ -29,13 +29,13 @@ class Projeto extends Component {
     }
 
     render(props){
-        alert(JSON.stringify(this.props.projeto.projetos))
-        const projetos = this.props.projeto.projetos.map(projeto => 
 
+        const projetos = this.props.projeto.projetos.map((projeto, index) => 
+     
             <tr>
-                <td>1</td>
+                <td>{index+1}</td>
                 <DropdownButton variant="dark" id="dropdown-basic-button" title="..." style={{marginLeft:"1em", marginTop:"1em"}}>
-                    <Dropdown.Item onClick={()=>{this.props.pageDetalhesProjeto()}}>Detalhes</Dropdown.Item>
+                    <Dropdown.Item onClick={()=>{this.props.getProjeto(projeto._id)}}>Detalhes</Dropdown.Item>
                     <Dropdown.Item href="#">Editar</Dropdown.Item>
                     <Dropdown.Item href="#">Desativar</Dropdown.Item>
                 </DropdownButton>
@@ -96,6 +96,7 @@ const mapStateToProps = ({ adminView, projeto }) => {
         pageSubCategoria: () => dispatch(pageSubCategoria()),
         pageDetalhesProjeto: () => dispatch(pageDetalhesProjeto()),
         getProjetos: () => dispatch(getProjetos()),
+        getProjeto: (id_projeto) => dispatch(getProjeto(id_projeto)),
     }
   }
   export default connect(mapStateToProps, mapDispatchToProps)(Projeto)

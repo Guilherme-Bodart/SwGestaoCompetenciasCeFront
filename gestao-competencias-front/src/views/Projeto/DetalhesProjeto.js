@@ -6,7 +6,6 @@ import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col'
 import Table from 'react-bootstrap/Table'
-import DropdownButton from 'react-bootstrap/DropdownButton'
 
 import { pageCadastrarCategoria, pageCadastrarSubCategoria, pageSubCategoria, 
     pageCadastrarProjeto, pageProjeto, pageDetalhesProjeto } from '../../store/actions/adminViews/adminView'
@@ -17,8 +16,8 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 
 
 const initialState = {
-    membros : []
-  }
+
+}
 
 class DetalhesProjeto extends Component {
     constructor(props) {
@@ -28,25 +27,18 @@ class DetalhesProjeto extends Component {
 
     handleSubmit(event){
         event.preventDefault()    
-      }
-    
-    adicionaMembro = () => {
-    var membros = this.state.membros
-    membros.push(1)
-    this.setState({ 
-        membros
-    })
     }
-    removeMembro = () => {
-    var membros = this.state.membros
-    membros.pop()
-    this.setState({ 
-        membros
-    })
-    }
-
 
     render(props){
+
+        const equipe = this.props.projeto.projeto_detalhado.equipe.map((usuario, index) => 
+     
+            <tr>
+                <td>{index+1}</td>
+                <td>{usuario.pessoa.nome}</td>
+                <td>{usuario.email}</td>
+            </tr>
+        );
 
         return(
             
@@ -65,26 +57,19 @@ class DetalhesProjeto extends Component {
                     <Form.Row>
                         <Form.Group as={Col} controlId="formGridEmail">
                         <Form.Label>Nome</Form.Label>
-                        <Form.Control readOnly value="LEDS skills" />
+                        <Form.Control readOnly value={this.props.projeto.projeto_detalhado.nome} />
                         </Form.Group>
                     </Form.Row>
 
                     <Form.Group controlId="formGridAddress1">
                         <Form.Label>Descrição</Form.Label>
-                        <Form.Control as="textarea" readOnly value="paulo gameplays" />
+                        <Form.Control as="textarea" readOnly value={this.props.projeto.projeto_detalhado.descricao} />
                     </Form.Group>
 
                     <Form.Row>
                         <Form.Group as={Col} controlId="formGridEmail">
                         <Form.Label>Data Cadastro</Form.Label>
-                        <Form.Control readOnly value="21/01/2019" />
-                        </Form.Group>
-                    </Form.Row>
-
-                    <Form.Row>
-                        <Form.Group as={Col} controlId="formGridEmail">
-                        <Form.Label>Responsável pelo cadastro</Form.Label>
-                        <Form.Control readOnly value="Paulo Ricardo" />
+                        <Form.Control readOnly value={this.props.projeto.projeto_detalhado.dataCriacao.substr(0, 10).split('-').reverse().join('/')} />
                         </Form.Group>
                     </Form.Row>
 
@@ -100,11 +85,7 @@ class DetalhesProjeto extends Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Brenno Milanezi</td>
-                                    <td>milanezibrenno@gmail.com</td>
-                                </tr>
+                               {equipe}
                             </tbody>
                         </Table>
                         </Form.Group>
@@ -126,12 +107,7 @@ class DetalhesProjeto extends Component {
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>1</td>
-                                    <td>Teste</td>
-                                    <td>Testar criação de projeto</td>
-                                    <td>Tester</td>
-                                    <td>Teste de usuário</td>
-                                    <td>Brenno Milanezi</td>
+                                    <td colSpan="7">Em produção</td>
                                 </tr>
                             </tbody>
                         </Table>
@@ -145,9 +121,10 @@ class DetalhesProjeto extends Component {
     }
 }
 
-const mapStateToProps = ({ adminView  }) => {
+const mapStateToProps = ({ adminView, projeto  }) => {
     return {
         adminView,
+        projeto
     }
   }
   

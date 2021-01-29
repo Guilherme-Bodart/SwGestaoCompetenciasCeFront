@@ -80,7 +80,7 @@ class CriarProjeto extends Component {
 
     render(props){
 
-        const usuarios = this.props.usuario.usuarios.map( user => <option value={user._id}>{user.pessoa.nome}</option>);
+        const usuarios = this.props.usuario.usuarios.map( user => (user.permissao == 1) ? <option value={user._id}>{user.pessoa.nome}</option> : '' );
 
         const membros = this.state.membros.map(m => <Form.Control onChange={value => this.onChangeEquipe(value)} required as="select" defaultValue="0">
                                                         <option value="0">Selecione...</option>

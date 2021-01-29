@@ -23,10 +23,11 @@ class NavbarP extends Component {
 
 
   render(props) {
+
     return (
         <Navbar bg="light" variant="light" >
           <Navbar.Brand href="/" style={{marginTop:"0.5em", color:"#666", fontWeight:"500", fontSize:"1.9em", alignItems:"center"}} >
-            {this.props.page.page}
+            {this.props.usuario.nome}
           </Navbar.Brand>
           
           <Nav className="ml-auto">

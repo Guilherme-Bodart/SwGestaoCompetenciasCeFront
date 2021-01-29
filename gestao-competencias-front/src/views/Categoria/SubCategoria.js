@@ -33,10 +33,10 @@ class SubCategoria extends Component {
 
     render(props){
 
-        const subcategorias = this.props.categoria.subcategorias.map( subcategoria => 
+        const subcategorias = this.props.categoria.subcategorias.map((subcategoria, index) => 
 
         <tr>
-            <td>1</td>
+            <td>{index+1}</td>
             <DropdownButton variant="dark" id="dropdown-basic-button" title="..." style={{marginLeft:"1em", marginTop:"1em"}}>
                 <Dropdown.Item href="#">Editar</Dropdown.Item>
                 <Dropdown.Item href="#">Desativar</Dropdown.Item>

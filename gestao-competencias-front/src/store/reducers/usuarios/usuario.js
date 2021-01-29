@@ -18,11 +18,11 @@ const reducer = (state = initialState, action) => {
 switch (action.type) {
 
    case LOGIN_USUARIO:
-        let { email, nome, _id, permissao } = action.payload.usuario;
+        let { email, _id, permissao } = action.payload.usuario;
         let token = action.payload.token
         let logado = true
         return {
-            ...state, email, nome, token, _id, permissao, logado
+            ...state, email, nome: action.payload.usuario.pessoa.nome, token, _id, permissao, logado
         }
 
    case LOGOUT_USUARIO:
