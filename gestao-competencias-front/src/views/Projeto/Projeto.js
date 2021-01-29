@@ -13,6 +13,8 @@ import { FaPlus } from 'react-icons/fa';
 import { pageCadastrarCategoria, pageCadastrarSubCategoria, pageSubCategoria, 
     pageCadastrarProjeto, pageProjeto, pageDetalhesProjeto } from '../../store/actions/adminViews/adminView'
 
+import { getProjetos } from '../../store/actions/projetos/projeto'
+
 const initialState = {
   }
 
@@ -22,10 +24,28 @@ class Projeto extends Component {
         this.state = initialState
     }
 
+    async componentDidMount(){
+        await this.props.getProjetos()
+    }
+
     render(props){
-    //   if(!this.props.usuario.logado){
-    //     return <Redirect to ="/"/>
-    //   }
+        alert(JSON.stringify(this.props.projeto.projetos))
+        const projetos = this.props.projeto.projetos.map(projeto => 
+
+            <tr>
+                <td>1</td>
+                <DropdownButton variant="dark" id="dropdown-basic-button" title="..." style={{marginLeft:"1em", marginTop:"1em"}}>
+                    <Dropdown.Item onClick={()=>{this.props.pageDetalhesProjeto()}}>Detalhes</Dropdown.Item>
+                    <Dropdown.Item href="#">Editar</Dropdown.Item>
+                    <Dropdown.Item href="#">Desativar</Dropdown.Item>
+                </DropdownButton>
+                <td>{projeto.nome}</td>
+                <td>{projeto.descricao}</td>
+                <td>{projeto.dataCriacao.substr(0, 10).split('-').reverse().join('/')}</td>
+                <td>{projeto.usuarioCriacao.pessoa.nome}</td>
+            </tr>
+        );
+
         return(
             
             <Container fluid>
@@ -51,18 +71,7 @@ class Projeto extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <DropdownButton variant="dark" id="dropdown-basic-button" title="..." style={{marginLeft:"1em", marginTop:"1em"}}>
-                                <Dropdown.Item onClick={()=>{this.props.pageDetalhesProjeto()}}>Detalhes</Dropdown.Item>
-                                <Dropdown.Item href="#/action-2">Editar</Dropdown.Item>
-                                <Dropdown.Item href="#/action-3">Apagar</Dropdown.Item>
-                            </DropdownButton>
-                            <td>LEDS skills</td>
-                            <td>projeto paulo</td>
-                            <td>27/11/2019</td>
-                            <td>Paulo Ricardo</td>
-                        </tr>
+                        {projetos}
                     </tbody>
                 </Table>
             </Container>
@@ -71,9 +80,10 @@ class Projeto extends Component {
     }
 }
 
-const mapStateToProps = ({ adminView }) => {
+const mapStateToProps = ({ adminView, projeto }) => {
     return {
-        adminView
+        adminView,
+        projeto
     }
   }
   
@@ -85,6 +95,7 @@ const mapStateToProps = ({ adminView }) => {
         pageProjeto: () => dispatch(pageProjeto()),
         pageSubCategoria: () => dispatch(pageSubCategoria()),
         pageDetalhesProjeto: () => dispatch(pageDetalhesProjeto()),
+        getProjetos: () => dispatch(getProjetos()),
     }
   }
   export default connect(mapStateToProps, mapDispatchToProps)(Projeto)

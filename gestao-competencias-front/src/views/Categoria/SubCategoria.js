@@ -39,7 +39,7 @@ class SubCategoria extends Component {
             <td>1</td>
             <DropdownButton variant="dark" id="dropdown-basic-button" title="..." style={{marginLeft:"1em", marginTop:"1em"}}>
                 <Dropdown.Item href="#">Editar</Dropdown.Item>
-                <Dropdown.Item href="#">Apagar</Dropdown.Item>
+                <Dropdown.Item href="#">Desativar</Dropdown.Item>
             </DropdownButton>
             <td>{subcategoria.nome}</td>
             <td>{subcategoria.categoria.nome}</td>

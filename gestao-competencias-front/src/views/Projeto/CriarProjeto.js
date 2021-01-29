@@ -13,6 +13,7 @@ import { pageCadastrarCategoria, pageCadastrarSubCategoria, pageSubCategoria,
 import { getUsuarios } from '../../store/actions/usuarios/usuario'
 import { criarProjeto } from '../../store/actions/projetos/projeto'
 
+import Alerta from "../../components/Alerta/Alerta"
 import '../../styles/principal.css'
 import { FaArrowLeft } from 'react-icons/fa';
 import { BsThreeDotsVertical } from "react-icons/bs";
@@ -89,6 +90,7 @@ class CriarProjeto extends Component {
         return(
             
             <Container fluid>
+                <Alerta open= {true} alertTitle= {this.props.alerta.alertTitle} severity= {this.props.alerta.severity} texto= {this.props.alerta.texto}/>
                 <Row>
                 <p className="App-text-logo" style={{marginLeft:"1em", marginTop:"0.5em"}}>Criar Projeto</p>
                 <Button className="ml-auto" variant="outline-secondary" 
@@ -130,7 +132,7 @@ class CriarProjeto extends Component {
                     
 
                     <Button variant="primary" type="submit" onClick= { async ()  =>{
-                        alert(this.state.equipe)
+                        await this.props.criarProjeto({nome:this.state.nome, equipe:this.state.equipe, descricao:this.state.descricao})
                         }}>
                         Criar Projeto
                     </Button>
@@ -141,11 +143,12 @@ class CriarProjeto extends Component {
     }
 }
 
-const mapStateToProps = ({ adminView, usuario, projeto }) => {
+const mapStateToProps = ({ adminView, usuario, projeto, alerta }) => {
     return {
         adminView,
         usuario, 
-        projeto
+        projeto,
+        alerta
     }
   }
   
@@ -157,7 +160,7 @@ const mapStateToProps = ({ adminView, usuario, projeto }) => {
         pageProjeto: () => dispatch(pageProjeto()),
         pageSubCategoria: () => dispatch(pageSubCategoria()),
         getUsuarios: () => dispatch(getUsuarios()),
-        criarProjeto: () => dispatch(criarProjeto()),
+        criarProjeto: projeto => dispatch(criarProjeto(projeto)),
     }
   }
   export default connect(mapStateToProps, mapDispatchToProps)(CriarProjeto)

@@ -15,7 +15,7 @@ import '../../styles/principal.css'
 
 const initialState = {
 
-  }
+}
 
 class Usuario extends Component {
     constructor(props) {
@@ -30,17 +30,17 @@ class Usuario extends Component {
     render(props){
 
             const usuarios = this.props.usuario.usuarios.map( user => 
-
                 <tr>
                     <td>1</td>
                     <DropdownButton variant="dark" id="dropdown-basic-button" title="..." style={{marginLeft:"1em", marginTop:"1em"}}>
                         <Dropdown.Item href="#">Editar</Dropdown.Item>
-                        <Dropdown.Item href="#">Apagar</Dropdown.Item>
+                        <Dropdown.Item href="#">Desativar</Dropdown.Item>
                     </DropdownButton>
                     <td>{user.pessoa.nome}</td>
                     <td>{user.pessoa.cpf}</td>
                     <td>{user.email}</td>
                     <td>{user.pessoa.dataNascimento.substr(0, 10).split('-').reverse().join('/')}</td>
+                    <td>{user.permissao}</td>
                 </tr>
                 );
 
@@ -59,6 +59,7 @@ class Usuario extends Component {
                             <th>CPF</th>
                             <th>E-mail</th>
                             <th>Data de Nascimento</th>
+                            <th>Permissão</th>
                         </tr>
                     </thead>
                     <tbody>

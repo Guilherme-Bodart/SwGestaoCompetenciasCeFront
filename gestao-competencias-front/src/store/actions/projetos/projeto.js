@@ -2,29 +2,31 @@ import axios from 'axios'
 import { GET_PROJETO } from '../actionsTypes'
 import { alertin } from '../alertas/alerta'
 
-export const criarProjeto = (nome) => {
+export const criarProjeto = (projeto) => {
 
     return async (dispatch, getState ) =>  {
         const token = 'Bearer ' + getState().usuario.token
+
         await axios.post("https://leds-skills.herokuapp.com/projects", null, 
                 { params: {
                     token,
-                    nome
+                    nome: projeto.nome,
+                    equipe: projeto.equipe,
+                    descricao: projeto.descricao
                     },
                 }
             ).then(response => {
-                
                 dispatch(alertin({open: true,
                     alertTitle: 'Criado',
                     severity: 'success',
-                    texto: 'A categoria foi cadastrada com sucesso'}))
+                    texto: 'O projeto foi cadastrado com sucesso'}))
 
             })
             .catch( error => {
                 dispatch(alertin({open: true,
                     alertTitle: 'Erro',
                     severity: 'error',
-                    texto: 'Erro na criação da categoria '}))
+                    texto: 'Erro na criação do projeto '}))
             })
         
     }
