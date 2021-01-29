@@ -91,13 +91,13 @@ class Login extends Component {
           </Form.Group>
           
           <Button variant="outline-success" type="submit" className="App-button-login" 
-            onClick = { () =>
+            onClick = { async () =>
               {
                 var idx = this.state.email.indexOf('@');
                 if(idx != -1){
                   var usuario = {email:this.state.email,senha:this.state.senha}
-                  this.props.autenticarUsuario(usuario)
-                  this.onChangeLogado(this.props.usuario.logado)
+                  await this.props.autenticarUsuario(usuario)
+                  await this.onChangeLogado(this.props.usuario.logado)
                 }
               }
             }>
