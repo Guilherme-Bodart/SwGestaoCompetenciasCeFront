@@ -1,6 +1,12 @@
 import axios from 'axios'
-import { GET_CATEGORIA, GET_SUBCATEGORIA } from '../actionsTypes'
+import { GET_CATEGORIA, GET_SUBCATEGORIA, LOGOUT_CATEGORIA } from '../actionsTypes'
 import { alertin } from '../alertas/alerta'
+
+export const logoutCategoria = () => {
+    return  {
+        type: LOGOUT_CATEGORIA
+    }
+}
 
 export const criarCategoria = (nome) => {
 

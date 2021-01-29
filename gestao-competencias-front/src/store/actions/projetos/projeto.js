@@ -1,8 +1,14 @@
 import axios from 'axios'
-import { GET_PROJETO, GET_DETALHARPROJETO } from '../actionsTypes'
+import { GET_PROJETO, GET_DETALHARPROJETO, LOGOUT_PROJETO } from '../actionsTypes'
 import { alertin } from '../alertas/alerta'
 
 import { pageDetalhesProjeto } from '../adminViews/adminView'
+
+export const logoutProjeto = () => {
+    return  {
+        type: LOGOUT_PROJETO
+    }
+}
 
 export const criarProjeto = (projeto) => {
 
@@ -70,7 +76,6 @@ export const getProjeto = (id_projeto) => {
             .then(response => {                
                 const projeto = response.data
                 dispatch(getSaveProjeto(projeto))
-                dispatch(pageDetalhesProjeto())
             })
             .catch( error => {
                 if( error.response ){

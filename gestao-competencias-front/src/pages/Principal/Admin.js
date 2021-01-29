@@ -13,18 +13,17 @@ import CriarCategoria from "../../views/Categoria/CriarCategoria";
 import CriarProjeto from "../../views/Projeto/CriarProjeto";
 import Projeto from "../../views/Projeto/Projeto";
 import DetalhesProjeto from "../../views/Projeto/DetalhesProjeto";
+import EditarProjeto from "../../views/Projeto/EditarProjeto";
 import Usuario from "../../views/Usuario/Usuario";
+import Dashboard from "../../views/Dashboard/Dashboard";
 
 import '../../styles/principal.css'
 
-import { pageCadastrarCategoria, pageCadastrarSubCategoria, pageSubCategoria, 
-         pageCadastrarProjeto, pageProjeto, pageDetalhesProjeto, pageUsuario } from '../../store/actions/adminViews/adminView'
-
 
 const initialState = {
-  logado:false
-  }
-
+  logado:false,
+  page: "dashboard"
+}
 
 class Admin extends Component {
     constructor(props) {
@@ -37,13 +36,15 @@ class Admin extends Component {
       if(!this.props.usuario.logado){
         return <Redirect to ="/"/>
       }
-      renderizar = this.props.adminView.page === "projeto" ? <Projeto/> : 
+      renderizar = this.props.adminView.page === "dashboard" ? <Dashboard/> :
+      this.props.adminView.page === "projeto" ? <Projeto/> : 
       this.props.adminView.page === "cadastroProjeto" ? <CriarProjeto/> :
       this.props.adminView.page === "subcategoria" ? <SubCategoria/> :
       this.props.adminView.page === "cadastroSubcategoria" ? <CriarSubCategoria/> :
       this.props.adminView.page === "cadastroCategoria" ? <CriarCategoria/> :
       this.props.adminView.page === "detalhesProjeto" ? <DetalhesProjeto/> :
-      this.props.adminView.page === "usuario" ? <Usuario/> : <Projeto/>
+      this.props.adminView.page === "editarProjeto" ? <EditarProjeto/> :
+      this.props.adminView.page === "usuario" ? <Usuario/> : <Dashboard/>
       return(
         <div style={{ backgroundColor:'rgba(220,220,220,0.7)',}} >
           <Row>
@@ -71,12 +72,6 @@ const mapStateToProps = ({ usuario, alerta, page, adminView }) => {
   
   const mapDispatchToProps = dispatch => {
     return {
-      pageCadastrarCategoria: () => dispatch(pageCadastrarCategoria()),
-      pageCadastrarProjeto: () => dispatch(pageCadastrarProjeto()),
-      pageCadastrarSubCategoria: () => dispatch(pageCadastrarSubCategoria()),
-      pageProjeto: () => dispatch(pageProjeto()),
-      pageSubCategoria: () => dispatch(pageSubCategoria()),
-      pageUsuario: () => dispatch(pageUsuario()),
       
     }
   }

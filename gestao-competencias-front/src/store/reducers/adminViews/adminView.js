@@ -1,9 +1,11 @@
 import { PAGE_CADASTRO_CATEGORIA,PAGE_CADASTRO_PROJETO, 
-        PAGE_CADASTRO_SUBCATEGORIA, PAGE_SUBCATEGORIA, PAGE_PROJETO, PAGE_DETALHES_PROJETO, PAGE_USUARIO
+        PAGE_CADASTRO_SUBCATEGORIA, PAGE_SUBCATEGORIA, 
+        PAGE_PROJETO, PAGE_DETALHES_PROJETO, PAGE_USUARIO,
+        PAGE_DASHBOARD, PAGE_EDITAR_PROJETO, LOGOUT_ADMINVIEW
 } from '../../actions/actionsTypes'
 
 const initialState = {
-    page: 'projeto',
+    page: 'dashboard',
 }
 
 const reducer = (state = initialState, action) => {
@@ -49,12 +51,30 @@ switch (action.type) {
         return {
             ...state, page
         }
+
+    case PAGE_EDITAR_PROJETO:
+        page = 'editarProjeto'
+        return {
+            ...state, page
+        }
+        
     
     case PAGE_USUARIO:
         page = 'usuario'
         return {
             ...state, page
         }
+
+    case PAGE_DASHBOARD:
+        page = 'dashboard'
+        return {
+            ...state, page
+        }
+
+    case LOGOUT_ADMINVIEW:
+        return initialState
+    
+    
        
    default:
        return state

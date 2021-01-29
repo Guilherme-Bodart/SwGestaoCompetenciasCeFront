@@ -9,7 +9,12 @@ import Button from 'react-bootstrap/Button'
 
 import { alertout } from '../../store/actions/alertas/alerta'
 import { logout } from '../../store/actions/usuarios/usuario'
+import { logoutPage } from '../../store/actions/pages/page'
+import { logoutCategoria } from '../../store/actions/categorias/categoria'
+import { logoutAdminview } from '../../store/actions/adminViews/adminView'
+import { logoutProjeto } from '../../store/actions/projetos/projeto'
 
+import { pageDashboard } from '../../store/actions/adminViews/adminView'
 
 const initialState = {
 }
@@ -26,7 +31,7 @@ class NavbarP extends Component {
 
     return (
         <Navbar bg="light" variant="light" >
-          <Navbar.Brand href="/" style={{marginTop:"0.5em", color:"#666", fontWeight:"500", fontSize:"1.9em", alignItems:"center"}} >
+          <Navbar.Brand href="/admin" onClick={()=>{this.props.pageDashboard()}} style={{marginTop:"0.5em", color:"#666", fontWeight:"500", fontSize:"1.9em", alignItems:"center"}} >
             {this.props.usuario.nome}
           </Navbar.Brand>
           
@@ -35,6 +40,10 @@ class NavbarP extends Component {
             onClick = { () =>
                 { 
                   this.props.logout()
+                  this.props.logoutAdminview()
+                  this.props.logoutCategoria()
+                  this.props.logoutPage()
+                  this.props.logoutProjeto()
                   this.props.alertout()
 
                 }
@@ -57,6 +66,11 @@ const mapDispatchToProps = dispatch => {
   return {
     alertout: () => dispatch(alertout()),
     logout: () => dispatch(logout()),
+    logoutPage: () => dispatch(logoutPage()),
+    logoutAdminview: () => dispatch(logoutAdminview()),
+    logoutProjeto: () => dispatch(logoutProjeto()),
+    logoutCategoria: () => dispatch(logoutCategoria()),
+    pageDashboard: () => dispatch(pageDashboard()),
 
   }
 }

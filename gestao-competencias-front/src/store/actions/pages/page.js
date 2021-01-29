@@ -1,4 +1,10 @@
-import { PAGE_CADASTRO, PAGE_LOGIN, PAGE_RECUPERAR, PAGE_ENVIAREMAIL } from '../actionsTypes'
+import { PAGE_CADASTRO, PAGE_LOGIN, PAGE_RECUPERAR, PAGE_ENVIAREMAIL, LOGOUT_PAGE } from '../actionsTypes'
+
+export const logoutPage = () => {
+    return  {
+        type: LOGOUT_PAGE
+    }
+}
 
 export const pageCadastrar = () => {
     return {
@@ -23,3 +29,4 @@ export const pageLogin = () => {
         type: PAGE_LOGIN
     }
 }
+

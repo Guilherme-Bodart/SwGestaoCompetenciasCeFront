@@ -1,4 +1,4 @@
-import { GET_CATEGORIA, GET_SUBCATEGORIA } from '../../actions/actionsTypes'
+import { GET_CATEGORIA, GET_SUBCATEGORIA, LOGOUT_CATEGORIA } from '../../actions/actionsTypes'
 
 const initialState = {
     categorias: [],
@@ -24,6 +24,9 @@ switch (action.type) {
         return {
             ...state, subcategorias
         }
+    case LOGOUT_CATEGORIA:
+        return initialState
+
    
    default:
        return state

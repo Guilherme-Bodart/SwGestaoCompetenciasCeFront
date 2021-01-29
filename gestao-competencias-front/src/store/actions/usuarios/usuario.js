@@ -6,7 +6,7 @@ import { alertin, alertout } from '../alertas/alerta'
 import { pageLogin } from '../pages/page'
 
 export const logout = () => {
-    return {
+    return  {
         type: LOGOUT_USUARIO
     }
 }

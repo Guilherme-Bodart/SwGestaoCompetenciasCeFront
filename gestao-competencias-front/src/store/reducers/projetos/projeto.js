@@ -1,4 +1,4 @@
-import { GET_PROJETO, GET_DETALHARPROJETO } from '../../actions/actionsTypes'
+import { GET_PROJETO, GET_DETALHARPROJETO, LOGOUT_PROJETO } from '../../actions/actionsTypes'
 
 const initialState = {
     projetos: [],
@@ -22,7 +22,10 @@ switch (action.type) {
         return {
             ...state, projeto_detalhado
         }
-
+    
+    case LOGOUT_PROJETO:
+        return initialState
+    
    default:
        return state
 }

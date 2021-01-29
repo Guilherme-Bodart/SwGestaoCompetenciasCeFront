@@ -88,6 +88,10 @@ class CriarConta extends Component {
     event.preventDefault()    
   }
 
+  async componentDidMount(){
+    this.props.alertout()
+  }
+
   render(props) {
     if(this.props.page.page === "login"){
       return <Redirect to ="/"/>

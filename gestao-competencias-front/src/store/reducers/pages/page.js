@@ -1,7 +1,5 @@
-import { PAGE_LOGIN, 
-    PAGE_CADASTRO,
-    PAGE_RECUPERAR,
-    PAGE_ENVIAREMAIL
+import { PAGE_LOGIN, PAGE_CADASTRO, PAGE_RECUPERAR,
+    PAGE_ENVIAREMAIL, LOGOUT_PAGE
 } from '../../actions/actionsTypes'
 
 const initialState = {
@@ -36,6 +34,9 @@ switch (action.type) {
         return {
             ...state, page
         }
+    case LOGOUT_PAGE:
+       return initialState
+
 
    
    default:

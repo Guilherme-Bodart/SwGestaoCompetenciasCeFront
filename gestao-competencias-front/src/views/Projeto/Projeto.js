@@ -11,7 +11,7 @@ import '../../styles/principal.css'
 import { FaPlus } from 'react-icons/fa';
 
 import { pageCadastrarCategoria, pageCadastrarSubCategoria, pageSubCategoria, 
-    pageCadastrarProjeto, pageProjeto, pageDetalhesProjeto } from '../../store/actions/adminViews/adminView'
+    pageCadastrarProjeto, pageProjeto, pageDetalhesProjeto, pageEditarProjeto } from '../../store/actions/adminViews/adminView'
 
 import { getProjetos, getProjeto } from '../../store/actions/projetos/projeto'
 
@@ -35,8 +35,23 @@ class Projeto extends Component {
             <tr>
                 <td>{index+1}</td>
                 <DropdownButton variant="dark" id="dropdown-basic-button" title="..." style={{marginLeft:"1em", marginTop:"1em"}}>
-                    <Dropdown.Item onClick={()=>{this.props.getProjeto(projeto._id)}}>Detalhes</Dropdown.Item>
-                    <Dropdown.Item href="#">Editar</Dropdown.Item>
+                    <Dropdown.Item  onClick={()=>{
+                                        this.props.getProjeto(projeto._id)
+                                        if(this.props.projeto.projeto_detalhado!={}){
+                                            this.props.pageDetalhesProjeto()
+                                        }
+                                    }
+                    }>  Detalhes
+                    </Dropdown.Item>
+
+                    <Dropdown.Item  onClick={()=>{
+                                        this.props.getProjeto(projeto._id)
+                                        if(this.props.projeto.projeto_detalhado!={}){
+                                            this.props.pageEditarProjeto()
+                                        }
+                                    }
+                    }>  Editar
+                    </Dropdown.Item>
                     <Dropdown.Item href="#">Desativar</Dropdown.Item>
                 </DropdownButton>
                 <td>{projeto.nome}</td>
@@ -95,6 +110,7 @@ const mapStateToProps = ({ adminView, projeto }) => {
         pageProjeto: () => dispatch(pageProjeto()),
         pageSubCategoria: () => dispatch(pageSubCategoria()),
         pageDetalhesProjeto: () => dispatch(pageDetalhesProjeto()),
+        pageEditarProjeto: () => dispatch(pageEditarProjeto()),
         getProjetos: () => dispatch(getProjetos()),
         getProjeto: (id_projeto) => dispatch(getProjeto(id_projeto)),
     }
