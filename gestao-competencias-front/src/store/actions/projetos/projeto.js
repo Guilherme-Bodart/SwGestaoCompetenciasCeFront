@@ -86,6 +86,27 @@ export const getProjeto = (id_projeto) => {
     }
 }
 
+export const atualizarProjeto = (id_projeto) => {
+    return async (dispatch, getState) => {
+        const token = 'Bearer ' + getState().usuario.token
+
+        await axios.get("https://leds-skills.herokuapp.com/projects/"+id_projeto, null, { params: { token } })
+            .then(response => {             
+                alert("teste1")   
+                const projeto = response.data
+                dispatch(getSaveProjeto(projeto))
+            })
+            .catch( error => {
+                alert("teste2")
+                dispatch(alertin({open: true,
+                    alertTitle: 'Erro',
+                    severity: 'error',
+                    texto: 'Falha em acessar o projeto, tente novamente mais tarde'}))
+            })
+    }
+}
+
+
 export const getSaveProjeto = projeto => {
     return {
         type: GET_DETALHARPROJETO,

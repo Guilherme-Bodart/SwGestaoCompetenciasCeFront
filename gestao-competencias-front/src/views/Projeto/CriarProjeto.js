@@ -69,7 +69,8 @@ class CriarProjeto extends Component {
         membros.pop()
         equipe.pop()
         this.setState({ 
-            membros
+            membros,
+            equipe
         })
     }
 

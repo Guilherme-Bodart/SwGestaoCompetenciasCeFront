@@ -16,7 +16,7 @@ import { criarProjeto } from '../../store/actions/projetos/projeto'
 import Alerta from "../../components/Alerta/Alerta"
 import '../../styles/principal.css'
 import { FaArrowLeft } from 'react-icons/fa';
-import { RiDeleteBin2Line } from "react-icons/ri";
+import { BsThreeDotsVertical } from "react-icons/bs";
 
 
 class CriarProjeto extends Component {
@@ -25,19 +25,26 @@ class CriarProjeto extends Component {
         this.state = {
             nome: this.props.projeto.projeto_detalhado.nome,
             descricao: this.props.projeto.projeto_detalhado.descricao,
-            equipe: this.props.projeto.projeto_detalhado.equipe,
             membros: [],
-            novoMembros: []
+            equipe: this.props.projeto.projeto_detalhado.equipe,
         }
     }
 
     handleSubmit(event){
         event.preventDefault()
-    }
-
+      }
+    
     onChangeNome = (event) => {
         this.setState({
             nome: event.target.value
+        })
+    }
+
+    onChangeEquipe = (event) => {
+        var equipe = this.state.equipe
+        equipe.push(event.target.value)
+        this.setState({ 
+            equipe
         })
     }
 
@@ -47,94 +54,44 @@ class CriarProjeto extends Component {
         })
     }
 
-    preencheMembros = (id) => {
+    adicionaMembro = () => {
         var membros = this.state.membros
-        membros.push(id)
+        membros.push(1)
         this.setState({ 
             membros
         })
     }
-
-    adicionaMembro = (event) => {
+    removeMembro = () => {
         var membros = this.state.membros
-        membros.push(event.target.value)
+        var equipe = this.state.equipe
+        membros.pop()
+        equipe.pop()
         this.setState({ 
             membros
-        })
-    }
-
-    removerMembros = (membros, id) => {
-        var novoMembros = []
-        membros.map(membro => membro==id ? novoMembros.push(membro) : novoMembros)
-        return novoMembros
-    }
-
-    removerEquipe = (equipe, id) => {
-        var novaEquipe = {}
-        equipe.map()
-    }
-    
-    removeMembro = (id) => {
-        var membrosA = this.state.membros
-        var membros = []
-        var equipeA = this.state.equipe
-        var equipe = []
-        membrosA.map(membro => membro != id ? membros.push(membro) : membros)
-        equipeA.map(membro => membro.pessoa._id != id ? equipe.push(membro) : equipe)
-        this.setState({ 
-            membros,
-            equipe
-        })
-    }
-
-    adicionaNovoMembro = () => {
-        var novoMembro = []
-        novoMembro = this.state.novoMembros
-        novoMembro.push(1)
-        this.setState({ 
-            novoMembro
-        })
-    }
-    
-    removeNovoMembro = () => {
-        var novoMembro = this.state.novoMembro
-        if(novoMembro!=[]){
-            var equipe = this.state.equipe
-            equipe.pop()
-        }
-        novoMembro.pop()
-        this.setState({ 
-            novoMembro
         })
     }
 
     async componentDidMount(){
         await this.props.getUsuarios()
-        await this.props.projeto.projeto_detalhado.equipe.map( membro => this.preencheMembros(membro.pessoa._id))
     }
 
 
     render(props){
-        const usuarios = this.props.usuario.usuarios.map( user => (user.permissao == 1) 
-                                                                    ? <option value={user._id}>{user.pessoa.nome}</option> 
-                                                                    : '' );
-
-        const membrosNovo = this.state.membros.map(m => <Form.Control style={{width:"95%"}} onChange={value => this.onChangeEquipe(value)} required as="select" >
+        const usuarios = this.props.usuario.usuarios.map( user => (user.permissao == 1) ? <option value={user._id}>{user.pessoa.nome}</option> : '' );
+        const membros = this.state.membros.map( m => <Form.Control onChange={value => this.onChangeEquipe(value)} required as="select" >
+                                                        
                                                         <option value="0">Selecione...</option>
-                                                        {usuarios}                                                        
+                                                        {usuarios}
+                                                        
                                                     </Form.Control>
         );
-        const equipe = this.state.equipe.map(membro => 
-                                                <Form.Row>
-                                                    <Form.Control required as="select" style={{width:"95%", marginLeft:"0.5%"}}>
-                                                        <option value={membro._id}>{membro.pessoa.nome}</option>
+
+        const equipeM = this.props.projeto.projeto_detalhado.equipe.map(membro => <Form.Control required as="select" >
+                                                     <option value={membro._id}>{membro.pessoa.nome}</option>
+                                                     {usuarios})
                                                     </Form.Control>
-                                                    <Button className="ml-auto" variant="outline-danger" 
-                                                        onClick = { () => {this.removeMembro(membro)}}>
-                                                        <RiDeleteBin2Line />
-                                                    </Button>
-                                                </Form.Row>
         );
+
         return(
             
             <Container fluid>
@@ -154,30 +111,18 @@ class CriarProjeto extends Component {
                         <Form.Group as={Col} controlId="formGridEmail">
                         <Form.Label>Nome</Form.Label>
                         <Form.Control required onChange={value => this.onChangeNome(value)} value={this.state.nome}/>
-                        
                         </Form.Group>
                     </Form.Row>
 
                     <Form.Row>
                         <Form.Group as={Col} controlId="formGridState">
                         <Form.Label>Equipe</Form.Label>
-                        {equipe}
-                        <Form.Control required as="select" style={{width:"95%"}}>
-                            <option value={0}>teste</option>
-                            
-                        </Form.Control>
-                        
+                        {equipeM}
+                        {membros}
                         </Form.Group>
                     </Form.Row>
-                    <Button variant="outline-primary" style={{marginBottom:"0.5em", width:"10em", height:"3em"}} 
-                        onClick={()=>{this.adicionaNovoMembro()}}>
-                            Adicionar Membro
-                    </Button>
-
-                    <Button variant="outline-danger"  style={{marginBottom:"0.5em",width:"10em", height:"3em", marginLeft:"2em"}}
-                        onClick={()=>{this.removeMembro()}}>
-                            Remover Membro                    
-                    </Button>
+                    <Button variant="outline-primary" style={{marginBottom:"0.5em", width:"10em", height:"3em"}} onClick={()=>{this.adicionaMembro()}}>Adicionar Membro</Button>
+                    <Button variant="outline-danger"  style={{marginBottom:"0.5em",width:"10em", height:"3em", marginLeft:"2em"}} onClick={()=>{this.removeMembro()}}>Remover Membro</Button>
                         
 
 
@@ -188,10 +133,9 @@ class CriarProjeto extends Component {
 
                     
 
-                    <Button variant="primary" type="submit" 
-                    onClick= { async ()  =>{
-                        alert("EDITAR PROJETO")
-                    }}>
+                    <Button variant="primary" type="submit" onClick= { async ()  =>{
+                        await this.props.criarProjeto({nome:this.state.nome, equipe:this.state.equipe, descricao:this.state.descricao})
+                        }}>
                         Editar Projeto
                     </Button>
                     </Form>
