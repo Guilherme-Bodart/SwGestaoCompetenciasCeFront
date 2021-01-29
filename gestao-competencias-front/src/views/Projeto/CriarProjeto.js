@@ -19,6 +19,8 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 
 
 const initialState = {
+    nome: '',
+    descricao: '',
     membros : [],
     equipe: []
 }
@@ -33,6 +35,26 @@ class CriarProjeto extends Component {
         event.preventDefault()    
       }
     
+    onChangeNome = (event) => {
+        this.setState({
+            nome: event.target.value
+        })
+    }
+
+    onChangeEquipe = (event) => {
+        var equipe = this.state.equipe
+        equipe.push(event.target.value)
+        this.setState({ 
+            equipe
+        })
+    }
+
+    onChangeDescricao = (event) => {
+        this.setState({
+            descricao: event.target.value
+        })
+    }
+
     adicionaMembro = () => {
         var membros = this.state.membros
         membros.push(1)
@@ -42,7 +64,9 @@ class CriarProjeto extends Component {
     }
     removeMembro = () => {
         var membros = this.state.membros
+        var equipe = this.state.equipe
         membros.pop()
+        equipe.pop()
         this.setState({ 
             membros
         })
@@ -57,7 +81,7 @@ class CriarProjeto extends Component {
 
         const usuarios = this.props.usuario.usuarios.map( user => <option value={user._id}>{user.pessoa.nome}</option>);
 
-        const membros = this.state.membros.map(m => <Form.Control required as="select" defaultValue="0">
+        const membros = this.state.membros.map(m => <Form.Control onChange={value => this.onChangeEquipe(value)} required as="select" defaultValue="0">
                                                         <option value="0">Selecione...</option>
                                                         {usuarios}
                                                     </Form.Control>);
@@ -79,14 +103,14 @@ class CriarProjeto extends Component {
                     <Form.Row>
                         <Form.Group as={Col} controlId="formGridEmail">
                         <Form.Label>Nome</Form.Label>
-                        <Form.Control required placeholder="Nome do Projeto" />
+                        <Form.Control required onChange={value => this.onChangeNome(value)} placeholder="Nome do Projeto" />
                         </Form.Group>
                     </Form.Row>
 
                     <Form.Row>
                         <Form.Group as={Col} controlId="formGridState">
                         <Form.Label>Equipe</Form.Label>
-                        <Form.Control required as="select" defaultValue="0">
+                        <Form.Control required onChange={value => this.onChangeEquipe(value)} as="select" defaultValue="0">
                             <option value="0">Selecione...</option>
                             {usuarios}
                         </Form.Control>
@@ -100,12 +124,14 @@ class CriarProjeto extends Component {
 
                     <Form.Group controlId="formGridAddress1">
                         <Form.Label>Descrição</Form.Label>
-                        <Form.Control as="textarea" placeholder="Sobre" />
+                        <Form.Control as="textarea" onChange={value => this.onChangeDescricao(value)} required placeholder="Sobre" />
                     </Form.Group>
 
                     
 
-                    <Button variant="primary" type="submit">
+                    <Button variant="primary" type="submit" onClick= { async ()  =>{
+                        alert(this.state.equipe)
+                        }}>
                         Criar Projeto
                     </Button>
                     </Form>
