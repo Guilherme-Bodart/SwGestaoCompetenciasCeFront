@@ -88,8 +88,7 @@ class CriarProjeto extends Component {
     }
 
     adicionaNovoMembro = () => {
-        var novoMembro = []
-        novoMembro = this.state.novoMembros
+        var novoMembro = this.state.novoMembro
         novoMembro.push(1)
         this.setState({ 
             novoMembro
@@ -124,10 +123,11 @@ class CriarProjeto extends Component {
                                                         {usuarios}                                                        
                                                     </Form.Control>
         );
-        const equipe = this.state.equipe.map(membro => 
+        const membros = this.state.membros.map(membro => 
                                                 <Form.Row>
                                                     <Form.Control required as="select" style={{width:"95%", marginLeft:"0.5%"}}>
-                                                        <option value={membro._id}>{membro.pessoa.nome}</option>
+                                                        <option value={membro}>{membro}</option>
+                                                        {usuarios})
                                                     </Form.Control>
                                                     <Button className="ml-auto" variant="outline-danger" 
                                                         onClick = { () => {this.removeMembro(membro)}}>
@@ -161,11 +161,11 @@ class CriarProjeto extends Component {
                     <Form.Row>
                         <Form.Group as={Col} controlId="formGridState">
                         <Form.Label>Equipe</Form.Label>
-                        {equipe}
                         <Form.Control required as="select" style={{width:"95%"}}>
                             <option value={0}>teste</option>
                             
                         </Form.Control>
+                        {membros}
                         
                         </Form.Group>
                     </Form.Row>
