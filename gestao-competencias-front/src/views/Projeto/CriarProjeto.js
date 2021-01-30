@@ -23,7 +23,8 @@ const initialState = {
     nome: '',
     descricao: '',
     membros : [],
-    equipe: []
+    equipe: [],
+    qtdEquipe: 0
 }
 
 class CriarProjeto extends Component {
@@ -42,8 +43,10 @@ class CriarProjeto extends Component {
         })
     }
 
-    onChangeEquipe = (event) => {
-        var equipe = this.state.equipe
+    onChangeEquipe = (event, index) => {
+        var equipe = []
+        var equipeA = this.state.equipe
+        equipeA.map((membro, pos) => index != pos ? equipe.push(membro) : equipe)
         equipe.push(event.target.value)
         this.setState({ 
             equipe
@@ -59,8 +62,10 @@ class CriarProjeto extends Component {
     adicionaMembro = () => {
         var membros = this.state.membros
         membros.push(1)
-        this.setState({ 
-            membros
+        this.setState({
+            membros,
+            qtdEquipe: this.state.qtdEquipe + 1
+
         })
     }
     removeMembro = () => {
@@ -68,9 +73,11 @@ class CriarProjeto extends Component {
         var equipe = this.state.equipe
         membros.pop()
         equipe.pop()
+        var qtdEquipe = this.state.qtdEquipe > 0 ? this.state.qtdEquipe - 1 : 0
         this.setState({ 
             membros,
-            equipe
+            equipe,
+            qtdEquipe
         })
     }
 
@@ -80,13 +87,16 @@ class CriarProjeto extends Component {
 
 
     render(props){
-
         const usuarios = this.props.usuario.usuarios.map( user => (user.permissao == 1) ? <option value={user._id}>{user.pessoa.nome}</option> : '' );
 
-        const membros = this.state.membros.map(m => <Form.Control onChange={value => this.onChangeEquipe(value)} required as="select" defaultValue="0">
-                                                        <option value="0">Selecione...</option>
-                                                        {usuarios}
-                                                    </Form.Control>);
+        const membros = this.state.membros.map((m, index) => {
+                            var ind = index + 1
+                            return(
+                            <Form.Control onChange={value => this.onChangeEquipe(value, ind)} required as="select" >
+                                <option value="0">Selecione...</option>
+                                {usuarios}
+                            </Form.Control>)
+                            })
 
         return(
             
@@ -113,8 +123,10 @@ class CriarProjeto extends Component {
                     <Form.Row>
                         <Form.Group as={Col} controlId="formGridState">
                         <Form.Label>Equipe</Form.Label>
-                        <Form.Control required onChange={value => this.onChangeEquipe(value)} as="select" defaultValue="0">
-                            <option value="0">Selecione...</option>
+                        <Form.Control required
+                        onChange={value => this.onChangeEquipe(value, 0)} 
+                            as="select">
+                            <option value="0" >Selecione...</option>
                             {usuarios}
                         </Form.Control>
                         {membros}
@@ -132,7 +144,7 @@ class CriarProjeto extends Component {
 
                     
 
-                    <Button variant="primary" type="submit" onClick= { async ()  =>{
+                    <Button variant="primary" onClick= { async ()  =>{
                         await this.props.criarProjeto({nome:this.state.nome, equipe:this.state.equipe, descricao:this.state.descricao})
                         }}>
                         Criar Projeto
