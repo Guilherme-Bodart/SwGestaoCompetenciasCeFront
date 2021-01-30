@@ -4,141 +4,45 @@ import Button from "react-bootstrap/Button"
 import Row from 'react-bootstrap/Row'
 import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
-import Col from 'react-bootstrap/Col' 
-import DropdownButton from 'react-bootstrap/DropdownButton'
+import Col from 'react-bootstrap/Col'
+import Table from 'react-bootstrap/Table'
 
 import { pageCadastrarCategoria, pageCadastrarSubCategoria, pageSubCategoria, 
-    pageCadastrarProjeto, pageProjeto } from '../../store/actions/adminViews/adminView'
+    pageCadastrarProjeto, pageProjeto, pageEditarProjeto } from '../../store/actions/adminViews/adminView'
 
-import { getUsuarios } from '../../store/actions/usuarios/usuario'
-import { criarProjeto } from '../../store/actions/projetos/projeto'
-
-import Alerta from "../../components/Alerta/Alerta"
 import '../../styles/principal.css'
 import { FaArrowLeft } from 'react-icons/fa';
-import { RiDeleteBin2Line } from "react-icons/ri";
+import { BsThreeDotsVertical } from "react-icons/bs";
 
 
-class CriarProjeto extends Component {
+const initialState = {
+
+}
+
+class EditarProjeto extends Component {
     constructor(props) {
         super(props)
-        this.state = {
-            nome: this.props.projeto.projeto_detalhado.nome,
-            descricao: this.props.projeto.projeto_detalhado.descricao,
-            equipe: this.props.projeto.projeto_detalhado.equipe,
-            membros: [],
-            novoMembros: []
-        }
+        this.state = initialState
     }
 
     handleSubmit(event){
-        event.preventDefault()
+        event.preventDefault()    
     }
-
-    onChangeNome = (event) => {
-        this.setState({
-            nome: event.target.value
-        })
-    }
-
-    onChangeDescricao = (event) => {
-        this.setState({
-            descricao: event.target.value
-        })
-    }
-
-    preencheMembros = (id) => {
-        var membros = this.state.membros
-        membros.push(id)
-        this.setState({ 
-            membros
-        })
-    }
-
-    adicionaMembro = (event) => {
-        var membros = this.state.membros
-        membros.push(event.target.value)
-        this.setState({ 
-            membros
-        })
-    }
-
-    removerMembros = (membros, id) => {
-        var novoMembros = []
-        membros.map(membro => membro==id ? novoMembros.push(membro) : novoMembros)
-        return novoMembros
-    }
-
-    removerEquipe = (equipe, id) => {
-        var novaEquipe = {}
-        equipe.map()
-    }
-    
-    removeMembro = (id) => {
-        var membrosA = this.state.membros
-        var membros = []
-        var equipeA = this.state.equipe
-        var equipe = []
-        membrosA.map(membro => membro != id ? membros.push(membro) : membros)
-        equipeA.map(membro => membro.pessoa._id != id ? equipe.push(membro) : equipe)
-        this.setState({ 
-            membros,
-            equipe
-        })
-    }
-
-    adicionaNovoMembro = () => {
-        var novoMembro = []
-        novoMembro = this.state.novoMembros
-        novoMembro.push(1)
-        this.setState({ 
-            novoMembro
-        })
-    }
-    
-    removeNovoMembro = () => {
-        var novoMembro = this.state.novoMembro
-        if(novoMembro!=[]){
-            var equipe = this.state.equipe
-            equipe.pop()
-        }
-        novoMembro.pop()
-        this.setState({ 
-            novoMembro
-        })
-    }
-
-    async componentDidMount(){
-        await this.props.getUsuarios()
-        await this.props.projeto.projeto_detalhado.equipe.map( membro => this.preencheMembros(membro.pessoa._id))
-    }
-
 
     render(props){
-        const usuarios = this.props.usuario.usuarios.map( user => (user.permissao == 1) 
-                                                                    ? <option value={user._id}>{user.pessoa.nome}</option> 
-                                                                    : '' );
 
-        const membrosNovo = this.state.membros.map(m => <Form.Control style={{width:"95%"}} onChange={value => this.onChangeEquipe(value)} required as="select" >
-                                                        <option value="0">Selecione...</option>
-                                                        {usuarios}                                                        
-                                                    </Form.Control>
+        const equipe = this.props.projeto.projeto_detalhado.equipe.map((usuario, index) => 
+     
+            <tr>
+                <td>{index+1}</td>
+                <td>{usuario.pessoa.nome}</td>
+                <td>{usuario.email}</td>
+            </tr>
         );
-        const equipe = this.state.equipe.map(membro => 
-                                                <Form.Row>
-                                                    <Form.Control required as="select" style={{width:"95%", marginLeft:"0.5%"}}>
-                                                        <option value={membro._id}>{membro.pessoa.nome}</option>
-                                                    </Form.Control>
-                                                    <Button className="ml-auto" variant="outline-danger" 
-                                                        onClick = { () => {this.removeMembro(membro)}}>
-                                                        <RiDeleteBin2Line />
-                                                    </Button>
-                                                </Form.Row>
-        );
+
         return(
             
             <Container fluid>
-                <Alerta open= {true} alertTitle= {this.props.alerta.alertTitle} severity= {this.props.alerta.severity} texto= {this.props.alerta.texto}/>
                 <Row>
                 <p className="App-text-logo" style={{marginLeft:"1em", marginTop:"0.5em"}}>Editar Projeto</p>
                 <Button className="ml-auto" variant="outline-secondary" 
@@ -153,47 +57,63 @@ class CriarProjeto extends Component {
                     <Form.Row>
                         <Form.Group as={Col} controlId="formGridEmail">
                         <Form.Label>Nome</Form.Label>
-                        <Form.Control required onChange={value => this.onChangeNome(value)} value={this.state.nome}/>
-                        
+                        <Form.Control readOnly value={this.props.projeto.projeto_detalhado.nome} />
+                        </Form.Group>
+                    </Form.Row>
+
+                    <Form.Group controlId="formGridAddress1">
+                        <Form.Label>Descrição</Form.Label>
+                        <Form.Control as="textarea" readOnly value={this.props.projeto.projeto_detalhado.descricao} />
+                    </Form.Group>
+
+                    <Form.Row>
+                        <Form.Group as={Col} controlId="formGridEmail">
+                        <Form.Label>Data Cadastro</Form.Label>
+                        <Form.Control readOnly value={this.props.projeto.projeto_detalhado.dataCriacao.substr(0, 10).split('-').reverse().join('/')} />
                         </Form.Group>
                     </Form.Row>
 
                     <Form.Row>
                         <Form.Group as={Col} controlId="formGridState">
                         <Form.Label>Equipe</Form.Label>
-                        {equipe}
-                        <Form.Control required as="select" style={{width:"95%"}}>
-                            <option value={0}>teste</option>
-                            
-                        </Form.Control>
-                        
+                        <Table responsive style={{backgroundColor:"#ccc", textAlign: "center"}}>
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Nome</th>
+                                    <th>E-mail</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                               {equipe}
+                            </tbody>
+                        </Table>
                         </Form.Group>
                     </Form.Row>
-                    <Button variant="outline-primary" style={{marginBottom:"0.5em", width:"10em", height:"3em"}} 
-                        onClick={()=>{this.adicionaNovoMembro()}}>
-                            Adicionar Membro
-                    </Button>
 
-                    <Button variant="outline-danger"  style={{marginBottom:"0.5em",width:"10em", height:"3em", marginLeft:"2em"}}
-                        onClick={()=>{this.removeMembro()}}>
-                            Remover Membro                    
-                    </Button>
-                        
+                    <Form.Row>
+                        <Form.Group as={Col} controlId="formGridState">
+                        <Form.Label>Atividades</Form.Label>
+                        <Table responsive style={{backgroundColor:"#ccc", textAlign: "center"}}>
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Atividade</th>
+                                    <th>Descrição</th>
+                                    <th>Categoria</th>
+                                    <th>SubCategoria</th>
+                                    <th>Responsável</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colSpan="7">Em produção</td>
+                                </tr>
+                            </tbody>
+                        </Table>
+                        </Form.Group>
+                    </Form.Row>
 
-
-                    <Form.Group controlId="formGridAddress1">
-                        <Form.Label>Descrição</Form.Label>
-                        <Form.Control as="textarea" onChange={value => this.onChangeDescricao(value)} required placeholder="Sobre" value={this.state.descricao} />
-                    </Form.Group>
-
-                    
-
-                    <Button variant="primary" type="submit" 
-                    onClick= { async ()  =>{
-                        alert("EDITAR PROJETO")
-                    }}>
-                        Editar Projeto
-                    </Button>
                     </Form>
             </Container>
           
@@ -201,12 +121,10 @@ class CriarProjeto extends Component {
     }
 }
 
-const mapStateToProps = ({ adminView, usuario, projeto, alerta }) => {
+const mapStateToProps = ({ adminView, projeto  }) => {
     return {
         adminView,
-        usuario, 
-        projeto,
-        alerta
+        projeto
     }
   }
   
@@ -217,8 +135,7 @@ const mapStateToProps = ({ adminView, usuario, projeto, alerta }) => {
         pageCadastrarSubCategoria: () => dispatch(pageCadastrarSubCategoria()),
         pageProjeto: () => dispatch(pageProjeto()),
         pageSubCategoria: () => dispatch(pageSubCategoria()),
-        getUsuarios: () => dispatch(getUsuarios()),
-        criarProjeto: projeto => dispatch(criarProjeto(projeto)),
+        pageEditarProjeto: () => dispatch(pageEditarProjeto()),
     }
   }
-  export default connect(mapStateToProps, mapDispatchToProps)(CriarProjeto)
+  export default connect(mapStateToProps, mapDispatchToProps)(EditarProjeto)
