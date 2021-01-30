@@ -8,14 +8,12 @@ import Dropdown from 'react-bootstrap/Dropdown'
 import DropdownButton from 'react-bootstrap/DropdownButton'
 
 import { pageCadastrarCategoria, pageCadastrarSubCategoria, pageSubCategoria, 
-    pageCadastrarProjeto, pageProjeto, pageEditarSubCategoria } from '../../store/actions/adminViews/adminView'
-import { getSubCategorias, getSubCategoria } from '../../store/actions/categorias/categoria'
+    pageCadastrarProjeto, pageProjeto } from '../../store/actions/adminViews/adminView'
+import { getSubCategorias } from '../../store/actions/categorias/categoria'
 
 import '../../styles/principal.css'
 import { FaPlus } from 'react-icons/fa';
 import { BsThreeDotsVertical } from "react-icons/bs";
-
-import Alerta from "../../components/Alerta/Alerta"
 
 
 const initialState = {
@@ -40,13 +38,7 @@ class SubCategoria extends Component {
         <tr>
             <td>{index+1}</td>
             <DropdownButton variant="dark" id="dropdown-basic-button" title="..." style={{marginLeft:"1em", marginTop:"1em"}}>
-                <Dropdown.Item onClick={async ()=>{
-                                        await this.props.getSubCategoria(subcategoria._id)
-                                        if(this.props.categoria.getSubcategoria!={}){
-                                            this.props.pageEditarSubCategoria()
-                                        }
-                                    }
-                                    }>Editar</Dropdown.Item>
+                <Dropdown.Item href="#">Editar</Dropdown.Item>
                 <Dropdown.Item href="#">Desativar</Dropdown.Item>
             </DropdownButton>
             <td>{subcategoria.nome}</td>
@@ -60,7 +52,6 @@ class SubCategoria extends Component {
             
             
             <Container fluid>
-                <Alerta open= {true} alertTitle= {this.props.alerta.alertTitle} severity= {this.props.alerta.severity} texto= {this.props.alerta.texto}/>
                 <Row>
                 <p className="App-text-logo" style={{marginLeft:"1em", marginTop:"0.5em"}}>SubCategorias</p>
                 <Button className="ml-auto" variant="outline-secondary" 
@@ -92,11 +83,10 @@ class SubCategoria extends Component {
     }
 }
 
-const mapStateToProps = ({ adminView, categoria, alerta }) => {
+const mapStateToProps = ({ adminView, categoria }) => {
     return {
         adminView,
-        categoria,
-        alerta
+        categoria
     }
   }
   
@@ -105,11 +95,9 @@ return {
     pageCadastrarCategoria: () => dispatch(pageCadastrarCategoria()),
     pageCadastrarProjeto: () => dispatch(pageCadastrarProjeto()),
     pageCadastrarSubCategoria: () => dispatch(pageCadastrarSubCategoria()),
-    pageEditarSubCategoria: () => dispatch(pageEditarSubCategoria()),
     pageProjeto: () => dispatch(pageProjeto()),
     pageSubCategoria: () => dispatch(pageSubCategoria()),
     getSubCategorias: () => dispatch(getSubCategorias()),       
-    getSubCategoria: (subcategoria) => dispatch(getSubCategoria(subcategoria)),       
     
 }
 }
