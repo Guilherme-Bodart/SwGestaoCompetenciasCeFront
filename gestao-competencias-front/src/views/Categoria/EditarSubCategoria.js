@@ -83,7 +83,7 @@ class EditarSubCategoria extends Component {
                     <Form.Row>
                         <Form.Group as={Col} controlId="formGridEmail">
                         <Form.Label>Nome</Form.Label>
-                        <Form.Control value={this.state.subcategoria} onChange={value => this.onChangeSubCategoria(value)} required placeholder="Nome da Subcategoria" />
+                        <Form.Control value={this.props.categoria.getSubcategoria.nome} onChange={value => this.onChangeSubCategoria(value)} required placeholder="Nome da Subcategoria" />
                         </Form.Group>
                     </Form.Row>
 

@@ -1,8 +1,7 @@
 import { PAGE_CADASTRO_CATEGORIA,PAGE_CADASTRO_PROJETO, 
         PAGE_CADASTRO_SUBCATEGORIA, PAGE_SUBCATEGORIA, 
         PAGE_PROJETO, PAGE_DETALHES_PROJETO, PAGE_USUARIO,
-        PAGE_DASHBOARD, PAGE_EDITAR_PROJETO, LOGOUT_ADMINVIEW, PAGE_EDITAR_SUBCATEGORIA,
-        PAGE_EDITAR_USUARIO
+        PAGE_DASHBOARD, PAGE_EDITAR_PROJETO, LOGOUT_ADMINVIEW, PAGE_EDITAR_SUBCATEGORIA
 } from '../../actions/actionsTypes'
 
 const initialState = {
@@ -65,13 +64,6 @@ switch (action.type) {
         return {
             ...state, page
         }
-    
-    case PAGE_EDITAR_USUARIO:
-        page = 'editarUsuario'
-        return {
-            ...state, page
-        }
-    
 
     case PAGE_DASHBOARD:
         page = 'dashboard'

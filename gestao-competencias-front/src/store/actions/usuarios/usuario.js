@@ -1,11 +1,9 @@
-import { LOGIN_USUARIO, LOGOUT_USUARIO, GET_USUARIOS, GET_USUARIO } from '../actionsTypes'
+import { LOGIN_USUARIO, LOGOUT_USUARIO, GET_USUARIOS } from '../actionsTypes'
 
 import axios from 'axios'
 
 import { alertin, alertout } from '../alertas/alerta'
 import { pageLogin } from '../pages/page'
-
-import { pageUsuario } from '../adminViews/adminView'
 
 export const logout = () => {
     return  {
@@ -82,7 +80,7 @@ export const criarUsuario = usuario => {
         const { nome, email, senha, cpf, telefone, endereco, dataNascimento, permissao } = usuario
 
 
-        await axios.put("https://leds-skills.herokuapp.com/auth/register", null, 
+        await axios.post("https://leds-skills.herokuapp.com/auth/register", null, 
                 { params: {
                     nome,
                     email,
@@ -110,69 +108,6 @@ export const criarUsuario = usuario => {
                     alertTitle: 'Erro',
                     severity: 'error',
                     texto: 'Falha no cadastro, '+erro_msg}))
-            })
-    }
-}
-
-export const getUsuario = (id_usuario) => {
-    return async (dispatch, getState) => {
-        const token = 'Bearer ' + getState().usuario.token
-        await axios.get("https://leds-skills.herokuapp.com/users/"+id_usuario, { params: { token } })
-            .then(response => {                
-                const usuarios = response.data
-                dispatch(getSaveDetalharUsuario(usuarios))
-            })
-            .catch( error => {
-                if( error.response ){
-                    var erro_msg = error.response.data.error; // => the response payload 
-                    alert(erro_msg)
-                }
-                /*dispatch(alertin({open: true,
-                    alertTitle: 'Erro',
-                    severity: 'error',
-                    texto: 'Falha no envio, '+erro_msg}))*/
-            })
-    }
-}
-
-export const getSaveDetalharUsuario = usuario => {
-    return {
-        type: GET_USUARIO,
-        payload: usuario
-    }
-}
-
-export const editarUsuario = usuario => {
-
-    return async (dispatch) =>  {
-
-        await axios.put("https://leds-skills.herokuapp.com/users/"+usuario.id, null, 
-                { params: {
-                    nome: usuario.nome,
-                    email: usuario.email,
-                    cpf: usuario.cpf,
-                    telefone: usuario.telefone,
-                    endereco: usuario.endereco,
-                    dataNascimento: usuario.dataNascimento,
-                    permissao: usuario.permissao
-                    }
-                }
-            )
-            .then(response => {
-                dispatch(alertin({open: true,
-                    alertTitle: 'Editado',
-                    severity: 'success',
-                    texto: 'Usuário editado com sucesso'}))
-                dispatch(pageUsuario());
-            })
-            .catch( error => {
-                if( error.response ){
-                    var erro_msg = error.response.data.error; // => the response payload 
-                }
-                dispatch(alertin({open: true,
-                    alertTitle: 'Erro',
-                    severity: 'error',
-                    texto: 'Falha na edição, '+erro_msg}))
             })
     }
 }
