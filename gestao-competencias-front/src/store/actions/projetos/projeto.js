@@ -15,7 +15,7 @@ export const criarProjeto = (projeto) => {
     return async (dispatch, getState ) =>  {
         const token = 'Bearer ' + getState().usuario.token
 
-        await axios.post("https://leds-skills.herokuapp.com/projects", null, 
+        await axios.post("http://localhost:3000/projects", null, 
                 { params: {
                     token,
                     nome: projeto.nome,
@@ -89,7 +89,7 @@ export const atualizarProjeto = (projeto,id_projeto) => {
     return async (dispatch, getState) => {
         const token = 'Bearer ' + getState().usuario.token
 
-        await axios.put("https://leds-skills.herokuapp.com/projects/"+id_projeto, null, 
+        await axios.put("http://localhost:3000/projects/"+id_projeto, null, 
                                                     { params: 
                                                         {   
                                                             token,
