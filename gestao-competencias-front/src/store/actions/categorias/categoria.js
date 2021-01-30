@@ -48,12 +48,13 @@ export const getCategorias = () => {
             })
             .catch( error => {
                 if( error.response ){
-                    var erro_msg = error.response.data.error; 
+                    var erro_msg = error.response.data.error; // => the response payload 
+                    alert(erro_msg)
                 }
-                dispatch(alertin({open: true,
+                /*dispatch(alertin({open: true,
                     alertTitle: 'Erro',
                     severity: 'error',
-                    texto: 'Falha no envio, '+erro_msg}))
+                    texto: 'Falha no envio, '+erro_msg}))*/
             })
     }
 }
@@ -106,12 +107,13 @@ export const getSubCategorias = () => {
             })
             .catch( error => {
                 if( error.response ){
-                    var erro_msg = error.response.data.error; 
+                    var erro_msg = error.response.data.error; // => the response payload 
+                    alert(erro_msg)
                 }
-                dispatch(alertin({open: true,
+                /*dispatch(alertin({open: true,
                     alertTitle: 'Erro',
                     severity: 'error',
-                    texto: 'Falha no envio, '+erro_msg}))
+                    texto: 'Falha no envio, '+erro_msg}))*/
             })
     }
 }
@@ -135,12 +137,13 @@ export const getSubCategoria = (id_subcategoria) => {
             })
             .catch( error => {
                 if( error.response ){
-                    var erro_msg = error.response.data.error;
+                    var erro_msg = error.response.data.error; // => the response payload 
+                    alert(erro_msg)
                 }
-                dispatch(alertin({open: true,
+                /*dispatch(alertin({open: true,
                     alertTitle: 'Erro',
                     severity: 'error',
-                    texto: 'Falha no envio, '+erro_msg}))
+                    texto: 'Falha no envio, '+erro_msg}))*/
             })
     }
 }
@@ -155,6 +158,8 @@ export const getSaveSubCategoria = subcategoria => {
 export const editarSubCategoria = (subcategoria) => {
 
     return async (dispatch, getState ) =>  {
+
+        alert(JSON.stringify(subcategoria));
 
         const token = 'Bearer ' + getState().usuario.token
         await axios.put("https://leds-skills.herokuapp.com/subcategory/"+subcategoria.id, null, 

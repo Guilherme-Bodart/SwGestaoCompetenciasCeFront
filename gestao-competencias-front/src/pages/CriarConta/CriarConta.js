@@ -80,7 +80,7 @@ class CriarConta extends Component {
 
   onChangeEndereco = (event) => {
     this.setState({
-      endereco: event.target.value
+      estudante: event.target.value
    })
   }
 

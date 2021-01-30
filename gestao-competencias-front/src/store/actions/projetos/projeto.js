@@ -15,7 +15,7 @@ export const criarProjeto = (projeto) => {
     return async (dispatch, getState ) =>  {
         const token = 'Bearer ' + getState().usuario.token
 
-        await axios.post("http://localhost:3000/projects", null, 
+        await axios.post("https://leds-skills.herokuapp.com/projects", null, 
                 { params: {
                     token,
                     nome: projeto.nome,
@@ -50,12 +50,13 @@ export const getProjetos = () => {
             })
             .catch( error => {
                 if( error.response ){
-                    var erro_msg = error.response.data.error;
+                    var erro_msg = error.response.data.error; // => the response payload 
+                    alert(erro_msg)
                 }
-                dispatch(alertin({open: true,
+                /*dispatch(alertin({open: true,
                     alertTitle: 'Erro',
                     severity: 'error',
-                    texto: 'Falha no envio, '+erro_msg}))
+                    texto: 'Falha no envio, '+erro_msg}))*/
             })
     }
 }
@@ -85,28 +86,18 @@ export const getProjeto = (id_projeto) => {
     }
 }
 
-export const atualizarProjeto = (projeto,id_projeto) => {
+export const atualizarProjeto = (id_projeto) => {
     return async (dispatch, getState) => {
         const token = 'Bearer ' + getState().usuario.token
 
-        await axios.put("http://localhost:3000/projects/"+id_projeto, null, 
-                                                    { params: 
-                                                        {   
-                                                            token,
-                                                            nome: projeto.nome,
-                                                            equipe: projeto.equipe,
-                                                            descricao: projeto.descricao
-                                                        } 
-                                                    })
-            .then(response => {   
+        await axios.get("https://leds-skills.herokuapp.com/projects/"+id_projeto, null, { params: { token } })
+            .then(response => {             
+                alert("teste1")   
                 const projeto = response.data
-                dispatch(alertin({open: true,
-                    alertTitle: 'Salvo',
-                    severity: 'success',
-                    texto: 'Projeto salvo com sucesso'}))
-                
+                dispatch(getSaveProjeto(projeto))
             })
             .catch( error => {
+                alert("teste2")
                 dispatch(alertin({open: true,
                     alertTitle: 'Erro',
                     severity: 'error',

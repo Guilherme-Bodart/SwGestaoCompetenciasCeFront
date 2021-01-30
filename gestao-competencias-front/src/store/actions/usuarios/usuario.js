@@ -58,11 +58,13 @@ export const getUsuarios = () => {
             })
             .catch( error => {
                 if( error.response ){
-                    var erro_msg = error.response.data.error;
-                }dispatch(alertin({open: true,
+                    var erro_msg = error.response.data.error; // => the response payload 
+                    alert(erro_msg)
+                }
+                /*dispatch(alertin({open: true,
                     alertTitle: 'Erro',
                     severity: 'error',
-                    texto: 'Falha no envio, '+erro_msg}))
+                    texto: 'Falha no envio, '+erro_msg}))*/
             })
     }
 }
@@ -80,7 +82,7 @@ export const criarUsuario = usuario => {
         const { nome, email, senha, cpf, telefone, endereco, dataNascimento, permissao } = usuario
 
 
-        await axios.post("https://leds-skills.herokuapp.com/auth/register", null, 
+        await axios.put("https://leds-skills.herokuapp.com/auth/register", null, 
                 { params: {
                     nome,
                     email,
@@ -122,12 +124,13 @@ export const getUsuario = (id_usuario) => {
             })
             .catch( error => {
                 if( error.response ){
-                    var erro_msg = error.response.data.error;
+                    var erro_msg = error.response.data.error; // => the response payload 
+                    alert(erro_msg)
                 }
-                dispatch(alertin({open: true,
+                /*dispatch(alertin({open: true,
                     alertTitle: 'Erro',
                     severity: 'error',
-                    texto: 'Falha no envio, '+erro_msg}))
+                    texto: 'Falha no envio, '+erro_msg}))*/
             })
     }
 }
