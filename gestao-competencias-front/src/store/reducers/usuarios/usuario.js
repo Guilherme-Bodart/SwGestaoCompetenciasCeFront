@@ -1,6 +1,7 @@
 import { LOGIN_USUARIO, 
     LOGOUT_USUARIO,
-    GET_USUARIOS
+    GET_USUARIOS,
+    GET_USUARIO
 } from '../../actions/actionsTypes'
 
 const initialState = {
@@ -10,6 +11,7 @@ const initialState = {
     _id: '',
     permissao: '',
     usuarios: [],
+    getUsuario: {},
     logado: false,
 }
 
@@ -34,6 +36,13 @@ switch (action.type) {
        return {                
            ...state, usuarios
        }
+    
+    case GET_USUARIO:
+        let getUsuario = {}
+        getUsuario = action.payload.usuario
+        return {                
+            ...state, getUsuario
+        }
    
    default:
        return state

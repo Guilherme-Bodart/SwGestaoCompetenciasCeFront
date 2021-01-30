@@ -50,13 +50,12 @@ export const getProjetos = () => {
             })
             .catch( error => {
                 if( error.response ){
-                    var erro_msg = error.response.data.error; // => the response payload 
-                    alert(erro_msg)
+                    var erro_msg = error.response.data.error;
                 }
-                /*dispatch(alertin({open: true,
+                dispatch(alertin({open: true,
                     alertTitle: 'Erro',
                     severity: 'error',
-                    texto: 'Falha no envio, '+erro_msg}))*/
+                    texto: 'Falha no envio, '+erro_msg}))
             })
     }
 }
@@ -85,6 +84,37 @@ export const getProjeto = (id_projeto) => {
             })
     }
 }
+
+export const atualizarProjeto = (projeto,id_projeto) => {
+    return async (dispatch, getState) => {
+        const token = 'Bearer ' + getState().usuario.token
+
+        await axios.put("https://leds-skills.herokuapp.com/projects/"+id_projeto, null, 
+                                                    { params: 
+                                                        {   
+                                                            token,
+                                                            nome: projeto.nome,
+                                                            equipe: projeto.equipe,
+                                                            descricao: projeto.descricao
+                                                        } 
+                                                    })
+            .then(response => {   
+                const projeto = response.data
+                dispatch(alertin({open: true,
+                    alertTitle: 'Salvo',
+                    severity: 'success',
+                    texto: 'Projeto salvo com sucesso'}))
+                
+            })
+            .catch( error => {
+                dispatch(alertin({open: true,
+                    alertTitle: 'Erro',
+                    severity: 'error',
+                    texto: 'Falha em acessar o projeto, tente novamente mais tarde'}))
+            })
+    }
+}
+
 
 export const getSaveProjeto = projeto => {
     return {

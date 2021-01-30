@@ -19,22 +19,19 @@ import { FaArrowLeft } from 'react-icons/fa';
 import { BsThreeDotsVertical } from "react-icons/bs";
 
 
-const initialState = {
-    nome: '',
-    descricao: '',
-    membros : [],
-    equipe: [],
-    qtdEquipe: 0
-}
-
 class CriarProjeto extends Component {
     constructor(props) {
         super(props)
-        this.state = initialState
+        this.state = {
+            nome: this.props.projeto.projeto_detalhado.nome,
+            descricao: this.props.projeto.projeto_detalhado.descricao,
+            membros: [],
+            equipe: this.props.projeto.projeto_detalhado.equipe,
+        }
     }
 
     handleSubmit(event){
-        event.preventDefault()    
+        event.preventDefault()
       }
     
     onChangeNome = (event) => {
@@ -43,10 +40,8 @@ class CriarProjeto extends Component {
         })
     }
 
-    onChangeEquipe = (event, index) => {
-        var equipe = []
-        var equipeA = this.state.equipe
-        equipeA.map((membro, pos) => index != pos ? equipe.push(membro) : equipe)
+    onChangeEquipe = (event) => {
+        var equipe = this.state.equipe
         equipe.push(event.target.value)
         this.setState({ 
             equipe
@@ -62,10 +57,8 @@ class CriarProjeto extends Component {
     adicionaMembro = () => {
         var membros = this.state.membros
         membros.push(1)
-        this.setState({
-            membros,
-            qtdEquipe: this.state.qtdEquipe + 1
-
+        this.setState({ 
+            membros
         })
     }
     removeMembro = () => {
@@ -73,11 +66,8 @@ class CriarProjeto extends Component {
         var equipe = this.state.equipe
         membros.pop()
         equipe.pop()
-        var qtdEquipe = this.state.qtdEquipe > 0 ? this.state.qtdEquipe - 1 : 0
         this.setState({ 
-            membros,
-            equipe,
-            qtdEquipe
+            membros
         })
     }
 
@@ -88,22 +78,26 @@ class CriarProjeto extends Component {
 
     render(props){
         const usuarios = this.props.usuario.usuarios.map( user => (user.permissao == 1) ? <option value={user._id}>{user.pessoa.nome}</option> : '' );
+        const membros = this.state.membros.map( m => <Form.Control onChange={value => this.onChangeEquipe(value)} required as="select" >
+                                                        
+                                                        <option value="0">Selecione...</option>
+                                                        {usuarios}
+                                                        
+                                                    </Form.Control>
+        );
 
-        const membros = this.state.membros.map((m, index) => {
-                            var ind = index + 1
-                            return(
-                            <Form.Control onChange={value => this.onChangeEquipe(value, ind)} required as="select" >
-                                <option value="0">Selecione...</option>
-                                {usuarios}
-                            </Form.Control>)
-                            })
+        const equipeM = this.props.projeto.projeto_detalhado.equipe.map(membro => <Form.Control required as="select" >
+                                                     <option value={membro._id}>{membro.pessoa.nome}</option>
+                                                     {usuarios})
+                                                    </Form.Control>
+        );
 
         return(
             
             <Container fluid>
                 <Alerta open= {true} alertTitle= {this.props.alerta.alertTitle} severity= {this.props.alerta.severity} texto= {this.props.alerta.texto}/>
                 <Row>
-                <p className="App-text-logo" style={{marginLeft:"1em", marginTop:"0.5em"}}>Criar Projeto</p>
+                <p className="App-text-logo" style={{marginLeft:"1em", marginTop:"0.5em"}}>Editar Projeto</p>
                 <Button className="ml-auto" variant="outline-secondary" 
                 style={{marginRight:"1em", marginTop:"1em", height:"3em", width:"3em" }}
                 onClick={()=>{
@@ -116,19 +110,14 @@ class CriarProjeto extends Component {
                     <Form.Row>
                         <Form.Group as={Col} controlId="formGridEmail">
                         <Form.Label>Nome</Form.Label>
-                        <Form.Control required onChange={value => this.onChangeNome(value)} placeholder="Nome do Projeto" />
+                        <Form.Control required onChange={value => this.onChangeNome(value)} value={this.state.nome}/>
                         </Form.Group>
                     </Form.Row>
 
                     <Form.Row>
                         <Form.Group as={Col} controlId="formGridState">
                         <Form.Label>Equipe</Form.Label>
-                        <Form.Control required
-                        onChange={value => this.onChangeEquipe(value, 0)} 
-                            as="select">
-                            <option value="0" >Selecione...</option>
-                            {usuarios}
-                        </Form.Control>
+                        {equipeM}
                         {membros}
                         </Form.Group>
                     </Form.Row>
@@ -139,15 +128,15 @@ class CriarProjeto extends Component {
 
                     <Form.Group controlId="formGridAddress1">
                         <Form.Label>Descrição</Form.Label>
-                        <Form.Control as="textarea" onChange={value => this.onChangeDescricao(value)} required placeholder="Sobre" />
+                        <Form.Control as="textarea" onChange={value => this.onChangeDescricao(value)} required placeholder="Sobre" value={this.state.descricao} />
                     </Form.Group>
 
                     
 
-                    <Button variant="primary" onClick= { async ()  =>{
+                    <Button variant="primary" type="submit" onClick= { async ()  =>{
                         await this.props.criarProjeto({nome:this.state.nome, equipe:this.state.equipe, descricao:this.state.descricao})
                         }}>
-                        Criar Projeto
+                        Editar Projeto
                     </Button>
                     </Form>
             </Container>

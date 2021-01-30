@@ -1,6 +1,8 @@
 import axios from 'axios'
-import { GET_CATEGORIA, GET_SUBCATEGORIA, LOGOUT_CATEGORIA } from '../actionsTypes'
+import { GET_CATEGORIA, GET_SUBCATEGORIA, LOGOUT_CATEGORIA, GET_DETALHARSUBCATEGORIA } from '../actionsTypes'
 import { alertin } from '../alertas/alerta'
+
+import { pageSubCategoria } from '../adminViews/adminView'
 
 export const logoutCategoria = () => {
     return  {
@@ -46,13 +48,12 @@ export const getCategorias = () => {
             })
             .catch( error => {
                 if( error.response ){
-                    var erro_msg = error.response.data.error; // => the response payload 
-                    alert(erro_msg)
+                    var erro_msg = error.response.data.error; 
                 }
-                /*dispatch(alertin({open: true,
+                dispatch(alertin({open: true,
                     alertTitle: 'Erro',
                     severity: 'error',
-                    texto: 'Falha no envio, '+erro_msg}))*/
+                    texto: 'Falha no envio, '+erro_msg}))
             })
     }
 }
@@ -105,13 +106,12 @@ export const getSubCategorias = () => {
             })
             .catch( error => {
                 if( error.response ){
-                    var erro_msg = error.response.data.error; // => the response payload 
-                    alert(erro_msg)
+                    var erro_msg = error.response.data.error; 
                 }
-                /*dispatch(alertin({open: true,
+                dispatch(alertin({open: true,
                     alertTitle: 'Erro',
                     severity: 'error',
-                    texto: 'Falha no envio, '+erro_msg}))*/
+                    texto: 'Falha no envio, '+erro_msg}))
             })
     }
 }
@@ -121,5 +121,65 @@ export const getSaveSubCategorias = subcategoria => {
     return {
         type: GET_SUBCATEGORIA,
         payload: subcategoria
+    }
+}
+
+export const getSubCategoria = (id_subcategoria) => {
+    return async (dispatch, getState) => {
+
+        const token = 'Bearer ' + getState().usuario.token
+        await axios.get("https://leds-skills.herokuapp.com/subcategory/"+id_subcategoria, { params: { token } })
+            .then(response => {                
+                const subcategoria = response.data
+                dispatch(getSaveSubCategoria(subcategoria))
+            })
+            .catch( error => {
+                if( error.response ){
+                    var erro_msg = error.response.data.error;
+                }
+                dispatch(alertin({open: true,
+                    alertTitle: 'Erro',
+                    severity: 'error',
+                    texto: 'Falha no envio, '+erro_msg}))
+            })
+    }
+}
+
+export const getSaveSubCategoria = subcategoria => {
+    return {
+        type: GET_DETALHARSUBCATEGORIA,
+        payload: subcategoria
+    }
+}
+
+export const editarSubCategoria = (subcategoria) => {
+
+    return async (dispatch, getState ) =>  {
+
+        const token = 'Bearer ' + getState().usuario.token
+        await axios.put("https://leds-skills.herokuapp.com/subcategory/"+subcategoria.id, null, 
+                { params: {
+                    token,
+                    nome: subcategoria.nome,
+                    categoria: subcategoria.categoria
+                    },
+                }
+            ).then(response => {
+                
+                dispatch(alertin({open: true,
+                    alertTitle: 'Editado',
+                    severity: 'success',
+                    texto: 'A subcategoria foi editada com sucesso'}));
+                
+                dispatch(pageSubCategoria());
+
+            })
+            .catch( error => {
+                dispatch(alertin({open: true,
+                    alertTitle: 'Erro',
+                    severity: 'error',
+                    texto: 'Erro na edição da subcategoria '}))
+            })
+        
     }
 }

@@ -7,8 +7,10 @@ import Table from 'react-bootstrap/Table'
 import Dropdown from 'react-bootstrap/Dropdown'
 import DropdownButton from 'react-bootstrap/DropdownButton'
 
+import Alerta from "../../components/Alerta/Alerta"
 
-import { getUsuarios } from '../../store/actions/usuarios/usuario'
+import { pageEditarUsuario } from '../../store/actions/adminViews/adminView'
+import { getUsuarios, getUsuario } from '../../store/actions/usuarios/usuario'
 
 
 import '../../styles/principal.css'
@@ -28,12 +30,18 @@ class Usuario extends Component {
     }
 
     render(props){
-
             const usuarios = this.props.usuario.usuarios.map((user, index) => 
                 <tr>
                     <td>{index+1}</td>
                     <DropdownButton variant="dark" id="dropdown-basic-button" title="..." style={{marginLeft:"1em", marginTop:"1em"}}>
-                        <Dropdown.Item href="#">Editar</Dropdown.Item>
+                        <Dropdown.Item onClick={async ()=>{
+    
+                                        await this.props.getUsuario(user._id)
+                                        if(this.props.usuario.getUsuario!={}){
+                                            this.props.pageEditarUsuario()
+                                        }
+                                    }
+                                    }>Editar</Dropdown.Item>
                         <Dropdown.Item href="#">Desativar</Dropdown.Item>
                     </DropdownButton>
                     <td>{user.pessoa.nome}</td>
@@ -47,6 +55,7 @@ class Usuario extends Component {
         return(
             
             <Container fluid>
+                <Alerta open= {true} alertTitle= {this.props.alerta.alertTitle} severity= {this.props.alerta.severity} texto= {this.props.alerta.texto}/>
                 <Row>
                 <p className="App-text-logo" style={{marginLeft:"1em", marginTop:"0.5em"}}>Usuários</p>
                 </Row>
@@ -72,16 +81,19 @@ class Usuario extends Component {
     }
 }
 
-const mapStateToProps = ({ adminView, usuario }) => {
+const mapStateToProps = ({ adminView, usuario,alerta }) => {
     return {
         adminView,
-        usuario
+        usuario,
+        alerta
     }
   }
   
   const mapDispatchToProps = dispatch => {
     return {
+        pageEditarUsuario: () => dispatch(pageEditarUsuario()),       
         getUsuarios: () => dispatch(getUsuarios()),       
+        getUsuario: (id_usuario) => dispatch(getUsuario(id_usuario)),       
     }
   }
   export default connect(mapStateToProps, mapDispatchToProps)(Usuario)
