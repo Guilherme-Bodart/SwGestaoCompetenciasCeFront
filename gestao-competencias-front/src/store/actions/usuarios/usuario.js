@@ -141,10 +141,12 @@ export const getSaveDetalharUsuario = usuario => {
 
 export const editarUsuario = usuario => {
 
-    return async (dispatch) =>  {
+    return async (dispatch, getState) => {
 
+        const token = 'Bearer ' + getState().usuario.token
         await axios.put("https://leds-skills.herokuapp.com/users/"+usuario.id, null, 
                 { params: {
+                    token,
                     nome: usuario.nome,
                     email: usuario.email,
                     cpf: usuario.cpf,
