@@ -2,7 +2,9 @@ import axios from 'axios'
 import { GET_PROJETO, GET_DETALHARPROJETO, LOGOUT_PROJETO } from '../actionsTypes'
 import { alertin } from '../alertas/alerta'
 
-import { pageDetalhesProjeto } from '../adminViews/adminView'
+import { pageProjeto } from '../adminViews/adminView'
+
+import swal from 'sweetalert';
 
 export const logoutProjeto = () => {
     return  {
@@ -24,19 +26,21 @@ export const criarProjeto = (projeto) => {
                     },
                 }
             ).then(response => {
-                dispatch(alertin({open: true,
-                    alertTitle: 'Criado',
-                    severity: 'success',
-                    texto: 'O projeto foi cadastrado com sucesso'}))
-
+                swal({
+                    title: "Cadastrado",
+                    text: 'O projeto foi cadastrado com sucesso',
+                    icon: "success",
+                  }).then((value) => {
+                    dispatch(pageProjeto());
+                  });
             })
             .catch( error => {
-                dispatch(alertin({open: true,
-                    alertTitle: 'Erro',
-                    severity: 'error',
-                    texto: 'Erro na criação do projeto '}))
+                swal({
+                    title: "Error",
+                    text: 'Erro na criação do projeto',
+                    icon: "error",
+                  });
             })
-        
     }
 }
 
@@ -52,10 +56,11 @@ export const getProjetos = () => {
                 if( error.response ){
                     var erro_msg = error.response.data.error;
                 }
-                dispatch(alertin({open: true,
-                    alertTitle: 'Erro',
-                    severity: 'error',
-                    texto: 'Falha no envio, '+erro_msg}))
+                swal({
+                    title: "Error",
+                    text: 'Falha no envio, '+erro_msg,
+                    icon: "error",
+                  });
             })
     }
 }
@@ -77,10 +82,11 @@ export const getProjeto = (id_projeto) => {
                 dispatch(getSaveProjeto(projeto))
             })
             .catch( error => {
-                dispatch(alertin({open: true,
-                    alertTitle: 'Erro',
-                    severity: 'error',
-                    texto: 'Falha em acessar o projeto, tente novamente mais tarde'}))
+                swal({
+                    title: "Error",
+                    text: 'Falha em acessar o projeto, tente novamente mais tarde',
+                    icon: "error",
+                  });
             })
     }
 }
@@ -100,17 +106,20 @@ export const atualizarProjeto = (projeto,id_projeto) => {
                                                     })
             .then(response => {   
                 const projeto = response.data
-                dispatch(alertin({open: true,
-                    alertTitle: 'Salvo',
-                    severity: 'success',
-                    texto: 'Projeto salvo com sucesso'}))
-                
+                swal({
+                    title: "Atualizado",
+                    text: 'O projeto foi atualizado com sucesso',
+                    icon: "success",
+                  }).then((value) => {
+                    dispatch(pageProjeto());
+                  });                
             })
             .catch( error => {
-                dispatch(alertin({open: true,
-                    alertTitle: 'Erro',
-                    severity: 'error',
-                    texto: 'Falha em acessar o projeto, tente novamente mais tarde'}))
+                swal({
+                    title: "Error",
+                    text: 'Falha em acessar o projeto, tente novamente mais tarde',
+                    icon: "error",
+                  });
             })
     }
 }

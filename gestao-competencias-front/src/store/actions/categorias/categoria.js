@@ -1,8 +1,9 @@
 import axios from 'axios'
 import { GET_CATEGORIA, GET_SUBCATEGORIA, LOGOUT_CATEGORIA, GET_DETALHARSUBCATEGORIA } from '../actionsTypes'
-import { alertin } from '../alertas/alerta'
 
-import { pageSubCategoria } from '../adminViews/adminView'
+import { pageSubCategoria, pageCadastrarSubCategoria } from '../adminViews/adminView'
+
+import swal from 'sweetalert';
 
 export const logoutCategoria = () => {
     return  {
@@ -21,18 +22,20 @@ export const criarCategoria = (nome) => {
                     },
                 }
             ).then(response => {
-                
-                dispatch(alertin({open: true,
-                    alertTitle: 'Criado',
-                    severity: 'success',
-                    texto: 'A categoria foi cadastrada com sucesso'}))
-
+                swal({
+                    title: "Cadastrado",
+                    text: 'A categoria foi cadastrada com sucesso',
+                    icon: "success",
+                  }).then((value) => {
+                    dispatch(pageCadastrarSubCategoria());
+                  });
             })
             .catch( error => {
-                dispatch(alertin({open: true,
-                    alertTitle: 'Erro',
-                    severity: 'error',
-                    texto: 'Erro na criação da categoria '}))
+                swal({
+                    title: "Error",
+                    text: 'Erro na criação da categoria',
+                    icon: "error",
+                  });
             })
         
     }
@@ -50,10 +53,11 @@ export const getCategorias = () => {
                 if( error.response ){
                     var erro_msg = error.response.data.error; 
                 }
-                dispatch(alertin({open: true,
-                    alertTitle: 'Erro',
-                    severity: 'error',
-                    texto: 'Falha no envio, '+erro_msg}))
+                swal({
+                    title: "Error",
+                    text: 'Falha no envio, '+erro_msg,
+                    icon: "error",
+                  });
             })
     }
 }
@@ -78,20 +82,21 @@ export const criarSubCategoria = (subcategoria) => {
                     },
                 }
             ).then(response => {
-                
-                dispatch(alertin({open: true,
-                    alertTitle: 'Criado',
-                    severity: 'success',
-                    texto: 'A subcategoria foi cadastrada com sucesso'}))
-
+                swal({
+                    title: "Cadastrado",
+                    text: 'A subcategoria foi cadastrada com sucesso',
+                    icon: "success",
+                  }).then((value) => {
+                    dispatch(pageSubCategoria());
+                  });
             })
             .catch( error => {
-                dispatch(alertin({open: true,
-                    alertTitle: 'Erro',
-                    severity: 'error',
-                    texto: 'Erro na criação da subcategoria '}))
+                swal({
+                    title: "Error",
+                    text: 'Erro na criação da subcategoria',
+                    icon: "error",
+                  });
             })
-        
     }
 }
 
@@ -108,10 +113,11 @@ export const getSubCategorias = () => {
                 if( error.response ){
                     var erro_msg = error.response.data.error; 
                 }
-                dispatch(alertin({open: true,
-                    alertTitle: 'Erro',
-                    severity: 'error',
-                    texto: 'Falha no envio, '+erro_msg}))
+                swal({
+                    title: "Error",
+                    text: 'Falha no envio, '+erro_msg,
+                    icon: "error",
+                  });
             })
     }
 }
@@ -137,10 +143,11 @@ export const getSubCategoria = (id_subcategoria) => {
                 if( error.response ){
                     var erro_msg = error.response.data.error;
                 }
-                dispatch(alertin({open: true,
-                    alertTitle: 'Erro',
-                    severity: 'error',
-                    texto: 'Falha no envio, '+erro_msg}))
+                swal({
+                    title: "Error",
+                    text: 'Falha no envio, '+erro_msg,
+                    icon: "error",
+                  });
             })
     }
 }
@@ -165,20 +172,20 @@ export const editarSubCategoria = (subcategoria) => {
                     },
                 }
             ).then(response => {
-                
-                dispatch(alertin({open: true,
-                    alertTitle: 'Editado',
-                    severity: 'success',
-                    texto: 'A subcategoria foi editada com sucesso'}));
-                
-                dispatch(pageSubCategoria());
-
+                swal({
+                    title: "Editado",
+                    text: 'A subcategoria foi editada com sucesso',
+                    icon: "success",
+                  }).then((value) => {
+                    dispatch(pageSubCategoria());
+                  });
             })
             .catch( error => {
-                dispatch(alertin({open: true,
-                    alertTitle: 'Erro',
-                    severity: 'error',
-                    texto: 'Erro na edição da subcategoria '}))
+                swal({
+                    title: "Error",
+                    text: 'Erro na edição da subcategoria',
+                    icon: "error",
+                  });
             })
         
     }

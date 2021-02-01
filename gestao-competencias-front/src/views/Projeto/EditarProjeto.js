@@ -206,9 +206,10 @@ class CriarProjeto extends Component {
 
                     <Button variant="primary" type="submit" 
                     onClick= { async ()  =>{
+                        if(this.state.nome != "" && this.state.descricao != ""){
                         await this.props.atualizarProjeto({nome:this.state.nome, equipe:this.state.membros, descricao:this.state.descricao}, this.state.id_projeto)
                         await this.preencheEquipe()
-                    }}>
+                    }}}>
                         Salvar Projeto
                     </Button>
                     </Form>

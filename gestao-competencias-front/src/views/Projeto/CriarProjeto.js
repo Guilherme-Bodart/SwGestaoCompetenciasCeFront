@@ -139,12 +139,13 @@ class CriarProjeto extends Component {
 
                     <Form.Group controlId="formGridAddress1">
                         <Form.Label>Descrição</Form.Label>
-                        <Form.Control as="textarea" onChange={value => this.onChangeDescricao(value)} required placeholder="Sobre" />
+                        <Form.Control as="textarea" onChange={value => this.onChangeDescricao(value)} placeholder="Sobre" required/>
                     </Form.Group>
 
                     
 
                     <Button variant="primary" onClick= { async ()  =>{
+             
                         await this.props.criarProjeto({nome:this.state.nome, equipe:this.state.equipe, descricao:this.state.descricao})
                         }}>
                         Criar Projeto

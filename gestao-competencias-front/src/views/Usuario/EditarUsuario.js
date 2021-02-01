@@ -170,11 +170,14 @@ class EditarUsuario extends Component {
 
                     <Col>
                         <Button variant="primary" type="submit" onClick= { async ()  =>{
-            
+                                     var idx = this.state.email.indexOf('@');
+                                     if(this.state.nome != '' && this.state.dataNascimento != '' && this.state.email != '' && idx != -1 
+                                     && this.state.senha != '' && this.state.cpf != ''){
                                         await this.props.editarUsuario({id: this.props.usuario.getUsuario._id, nome:this.state.nome, email:this.state.email, 
                                             dataNascimento:this.state.dataNascimento, 
                                             telefone:this.state.telefone, endereco:this.state.endereco, 
                                             cpf:this.state.cpf, permissao:this.state.permissao})
+                                        }
                         
                                 }}>
                             Salvar Usuário

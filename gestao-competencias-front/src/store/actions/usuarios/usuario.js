@@ -2,10 +2,12 @@ import { LOGIN_USUARIO, LOGOUT_USUARIO, GET_USUARIOS, GET_USUARIO } from '../act
 
 import axios from 'axios'
 
-import { alertin, alertout } from '../alertas/alerta'
+import { alertout } from '../alertas/alerta'
 import { pageLogin } from '../pages/page'
 
 import { pageUsuario } from '../adminViews/adminView'
+
+import swal from 'sweetalert';
 
 export const logout = () => {
     return  {
@@ -31,10 +33,15 @@ export const autenticarUsuario = usuario => {
                 if( error.response ){
                     var erro_msg = error.response.data.error; // => the response payload 
                 }
-                dispatch(alertin({open: true,
+                swal({
+                    title: "Error",
+                    text: 'Falha no login, '+erro_msg,
+                    icon: "error",
+                  });
+                /*dispatch(alertin({open: true,
                     alertTitle: 'Error',
                     severity: 'error',
-                    texto: 'Falha no login, '+erro_msg}))
+                    texto: 'Falha no login, '+erro_msg}))*/
 
             })
     }
@@ -59,10 +66,12 @@ export const getUsuarios = () => {
             .catch( error => {
                 if( error.response ){
                     var erro_msg = error.response.data.error;
-                }dispatch(alertin({open: true,
-                    alertTitle: 'Erro',
-                    severity: 'error',
-                    texto: 'Falha no envio, '+erro_msg}))
+                }
+                swal({
+                    title: "Error",
+                    text: 'Falha no envio, '+erro_msg,
+                    icon: "error",
+                  });
             })
     }
 }
@@ -94,20 +103,23 @@ export const criarUsuario = usuario => {
                 }
             )
             .then(response => {
-                dispatch(alertin({open: true,
-                    alertTitle: 'Cadastrado',
-                    severity: 'success',
-                    texto: 'Usuário cadastrado com sucesso'}))
-                dispatch(pageLogin());
+                 swal({
+                    title: "Cadastrado",
+                    text: 'Usuário cadastrado com sucesso',
+                    icon: "success",
+                  }).then((value) => {
+                    dispatch(pageLogin());
+                  });
             })
             .catch( error => {
                 if( error.response ){
                     var erro_msg = error.response.data.error; // => the response payload 
                 }
-                dispatch(alertin({open: true,
-                    alertTitle: 'Erro',
-                    severity: 'error',
-                    texto: 'Falha no cadastro, '+erro_msg}))
+                swal({
+                    title: "Error",
+                    text: 'Falha no cadastro, '+erro_msg,
+                    icon: "error",
+                  });
             })
     }
 }
@@ -124,10 +136,11 @@ export const getUsuario = (id_usuario) => {
                 if( error.response ){
                     var erro_msg = error.response.data.error;
                 }
-                dispatch(alertin({open: true,
-                    alertTitle: 'Erro',
-                    severity: 'error',
-                    texto: 'Falha no envio, '+erro_msg}))
+                swal({
+                    title: "Error",
+                    text: 'Falha no envio, '+erro_msg,
+                    icon: "error",
+                  });
             })
     }
 }
@@ -158,20 +171,23 @@ export const editarUsuario = usuario => {
                 }
             )
             .then(response => {
-                dispatch(alertin({open: true,
-                    alertTitle: 'Editado',
-                    severity: 'success',
-                    texto: 'Usuário editado com sucesso'}))
-                dispatch(pageUsuario());
+                swal({
+                    title: "Editado",
+                    text: 'Usuário editado com sucesso',
+                    icon: "success",
+                  }).then((value) => {
+                    dispatch(pageUsuario());
+                  });
             })
             .catch( error => {
                 if( error.response ){
                     var erro_msg = error.response.data.error; // => the response payload 
                 }
-                dispatch(alertin({open: true,
-                    alertTitle: 'Erro',
-                    severity: 'error',
-                    texto: 'Falha na edição, '+erro_msg}))
+                swal({
+                    title: "Error",
+                    text: 'Falha na edição, '+erro_msg,
+                    icon: "error",
+                  })
             })
     }
 }
@@ -187,19 +203,21 @@ export const enviarEmailReset = email => {
                 }
             )
             .then(response => {
-                dispatch(alertin({open: true,
-                    alertTitle: 'Enviado',
-                    severity: 'success',
-                    texto: 'O e-mail de recuperação de senha foi enviado com sucesso'}))
+                swal({
+                    title: "Enviado",
+                    text: 'O e-mail de recuperação de senha foi enviado com sucesso',
+                    icon: "success",
+                  })
             })
             .catch( error => {
                 if( error.response ){
                     var erro_msg = error.response.data.error; // => the response payload 
                 }
-                dispatch(alertin({open: true,
-                    alertTitle: 'Erro',
-                    severity: 'error',
-                    texto: 'Falha no envio, '+erro_msg}))
+                swal({
+                    title: "Error",
+                    text: 'Falha no envio, '+erro_msg,
+                    icon: "error",
+                  })
             })
     }
 }
@@ -218,23 +236,24 @@ export const recuperarSenha = usuario => {
                 }
             )
             .then(response => {
-                
-                dispatch(alertin({open: true,
-                    alertTitle: 'Alterada',
-                    severity: 'success',
-                    texto: 'Sua senha foi alterada com sucesso'}))
 
-                dispatch(pageLogin());
-                
+                swal({
+                    title: "Alterada",
+                    text: 'Sua senha foi alterada com sucesso',
+                    icon: "success",
+                }).then((value) => {
+                    dispatch(pageLogin());
+                });          
             })
             .catch( error => {
                 if( error.response ){
                     var erro_msg = error.response.data.error; // => the response payload 
                 }
-                dispatch(alertin({open: true,
-                    alertTitle: 'Erro',
-                    severity: 'error',
-                    texto: 'Falha ao resetar a senha, '+erro_msg}))
+                swal({
+                    title: "Error",
+                    text: 'Falha ao resetar a senha, '+erro_msg,
+                    icon: "error",
+                  })
             })
     }
 }
