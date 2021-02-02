@@ -1,8 +1,6 @@
 import React , { Component} from 'react';
 import { connect } from 'react-redux';
 
-import Row from 'react-bootstrap/Row'
-import Image from 'react-bootstrap/Image'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 import Button from 'react-bootstrap/Button'
@@ -33,7 +31,7 @@ class NavbarP extends Component {
     var nome2 = lista[1] ? lista[1] : ""
     return (
         <Navbar bg="light" variant="light" >
-          <Navbar.Brand href="/admin" onClick={()=>{this.props.pageDashboard()}} style={{marginTop:"0.5em", color:"#666", fontWeight:"500", fontSize:"1.9em", alignItems:"center"}} >
+          <Navbar.Brand href="#" onClick={()=>{this.props.dashboard()}} style={{marginTop:"0.5em", color:"#666", fontWeight:"500", fontSize:"1.9em", alignItems:"center"}} >
             {nome1} {nome2}
           </Navbar.Brand>
           

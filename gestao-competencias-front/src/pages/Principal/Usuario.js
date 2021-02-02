@@ -49,15 +49,18 @@ class Admin extends Component {
         })
         return <Redirect to = "/admin"/>
       }
-      var listaMenuItem = [ {view:this.props.pageProjeto, icon:'FaMedapps', nome: 'Projetos'}]
+      var listaMenuItem = [ {view:this.props.pageDashboard, icon:'AiOutlineDashboard', nome: 'Dashboard'},
+                            {view:this.props.pageProjeto, icon:'FaMedapps', nome: 'Projetos'},
+                            ]
       
-      renderizar =  this.props.adminView.page === "projeto" ? <Projeto/> : <Projeto/>
+      renderizar =  this.props.adminView.page === "projeto" ? <Projeto/> : 
+                    this.props.adminView.page === "dashboard" ? <Dashboard/> : <Dashboard/> 
       return(
         <div style={{ backgroundColor:'rgba(220,220,220,0.7)',}} >
           <Row>
           <Sidebar listaMenuItem={listaMenuItem} />
           <div style={{height:"100vh", width:"80vw"}}>
-            <NavbarP/>
+            <NavbarP dashboard = {this.props.pageDashboard}/>
             {renderizar}
           </div>
           </Row>
