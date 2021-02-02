@@ -122,6 +122,27 @@ export const getSubCategorias = () => {
     }
 }
 
+export const getSubCategoriasExp = (id_categoria) => {
+    return async (dispatch, getState) => {
+        const token = 'Bearer ' + getState().usuario.token
+
+        await axios.get("https://leds-skills.herokuapp.com/category/"+id_categoria+"/subcategory", { params: { token } })
+            .then(response => {                
+                const subcategorias = response.data
+                dispatch(getSaveSubCategorias(subcategorias))
+            })
+            .catch( error => {
+                if( error.response ){
+                    var erro_msg = error.response.data.error; 
+                }
+                swal({
+                    title: "Error",
+                    text: 'Falha no envio, '+erro_msg,
+                    icon: "error",
+                  });
+            })
+    }
+}
 
 export const getSaveSubCategorias = subcategoria => {
     return {

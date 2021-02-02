@@ -8,19 +8,16 @@ import NavbarP from "../../components/Navbar/NavbarP"
 import Sidebar from "../../components/Sidebar/Sidebar"
 import swal from 'sweetalert';
 
-import SubCategoria from "../../views/Categoria/SubCategoria";
-import CriarSubCategoria from "../../views/Categoria/CriarSubCategoria";
-import CriarCategoria from "../../views/Categoria/CriarCategoria";
-import CriarProjeto from "../../views/Projeto/CriarProjeto";
-import Projeto from "../../views/Projeto/Projeto";
-import DetalhesProjeto from "../../views/Projeto/DetalhesProjeto";
-import EditarProjeto from "../../views/Projeto/EditarProjeto";
-import EditarSubCategoria from "../../views/Categoria/EditarSubCategoria";
-import EditarUsuario from "../../views/Usuario/EditarUsuario";
-import Usuario from "../../views/Usuario/Usuario";
-import Dashboard from "../../views/Dashboard/Dashboard";
 
-import { pageSubCategoria, pageProjeto, pageUsuario, pageDashboard } from '../../store/actions/adminViews/adminView'
+import Projeto from "../../viewsUser/Projeto/Projeto";
+import DetalhesProjeto from "../../viewsUser/Projeto/DetalhesProjeto";
+import Atividade from "../../viewsUser/Atividade/Atividade";
+import DetalhesAtividade from "../../viewsUser/Atividade/DetalhesAtividade";
+import CadastrarAtividade from "../../viewsUser/Atividade/CadastrarAtividade";
+import EditarAtividade from "../../viewsUser/Atividade/EditarAtividade";
+import Dashboard from "../../viewsUser/Dashboard/Dashboard";
+
+import { pageSubCategoria, pageProjeto, pageUsuario, pageDashboard, pageAtividade } from '../../store/actions/userViews/userView'
 
 import '../../styles/principal.css'
 
@@ -30,7 +27,7 @@ const initialState = {
   page: "dashboard"
 }
 
-class Admin extends Component {
+class Usuario extends Component {
     constructor(props) {
         super(props)
         this.state = initialState
@@ -51,10 +48,16 @@ class Admin extends Component {
       }
       var listaMenuItem = [ {view:this.props.pageDashboard, icon:'AiOutlineDashboard', nome: 'Dashboard'},
                             {view:this.props.pageProjeto, icon:'FaMedapps', nome: 'Projetos'},
+                            {view:this.props.pageAtividade, icon:'FaTasks', nome: 'Atividades'},
                             ]
       
-      renderizar =  this.props.adminView.page === "projeto" ? <Projeto/> : 
-                    this.props.adminView.page === "dashboard" ? <Dashboard/> : <Dashboard/> 
+      renderizar =  this.props.userView.page === "projeto" ? <Projeto/> : 
+                    this.props.userView.page === "detalhesProjeto" ? <DetalhesProjeto/> :
+                    this.props.userView.page === "atividade" ? <Atividade/> : 
+                    this.props.userView.page === "cadastroAtividade" ? <CadastrarAtividade/> :
+                    this.props.userView.page === "editarAtividade" ? <EditarAtividade/> :
+                    this.props.userView.page === "detalhesAtividade" ? <DetalhesAtividade/> :
+                    this.props.userView.page === "dashboard" ? <Dashboard/> : <Dashboard/> 
       return(
         <div style={{ backgroundColor:'rgba(220,220,220,0.7)',}} >
           <Row>
@@ -71,22 +74,23 @@ class Admin extends Component {
     }
 }
 
-const mapStateToProps = ({ usuario, alerta, page, adminView }) => {
+const mapStateToProps = ({ usuario, alerta, page, userView }) => {
     return {
         usuario,
         alerta,
         page,
-        adminView
+        userView
     }
   }
   
   const mapDispatchToProps = dispatch => {
     return {
       pageProjeto: () => dispatch(pageProjeto()),
+      pageAtividade: () => dispatch(pageAtividade()),
       pageSubCategoria: () => dispatch(pageSubCategoria()),
       pageUsuario: () => dispatch(pageUsuario()),
       pageDashboard: () => dispatch(pageDashboard()),
       
     }
   }
-  export default connect(mapStateToProps, mapDispatchToProps)(Admin)
+  export default connect(mapStateToProps, mapDispatchToProps)(Usuario)

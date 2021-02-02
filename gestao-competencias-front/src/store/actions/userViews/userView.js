@@ -1,7 +1,9 @@
 import { PAGE_CADASTRO_CATEGORIA, PAGE_CADASTRO_PROJETO, 
     PAGE_CADASTRO_SUBCATEGORIA, PAGE_SUBCATEGORIA, PAGE_PROJETO, 
     PAGE_DETALHES_PROJETO, PAGE_USUARIO, PAGE_DASHBOARD, 
-    PAGE_EDITAR_PROJETO, LOGOUT_ADMINVIEW, PAGE_EDITAR_SUBCATEGORIA, PAGE_EDITAR_USUARIO
+    PAGE_EDITAR_PROJETO, LOGOUT_ADMINVIEW, PAGE_EDITAR_SUBCATEGORIA, PAGE_EDITAR_USUARIO,
+    PAGE_CADASTRO_ATIVIDADE, PAGE_DETALHES_ATIVIDADE, PAGE_ATIVIDADE,
+    PAGE_EDITAR_ATIVIDADE
 } from '../actionsTypes'
 
 export const logoutAdminview = () => {
@@ -55,6 +57,30 @@ export const pageEditarProjeto = () => {
 export const pageProjeto = () => {
     return {
         type: PAGE_PROJETO
+    }
+}
+
+export const pageCadastrarAtividade = () => {
+    return {
+        type: PAGE_CADASTRO_ATIVIDADE
+    }
+}
+
+export const pageDetalhesAtividade = () => {
+    return {
+        type: PAGE_DETALHES_ATIVIDADE
+    }
+}
+
+export const pageEditarAtividade = () => {
+    return {
+        type: PAGE_EDITAR_ATIVIDADE
+    }
+}
+
+export const pageAtividade = () => {
+    return {
+        type: PAGE_ATIVIDADE
     }
 }
 

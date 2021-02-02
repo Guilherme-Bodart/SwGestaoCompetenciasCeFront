@@ -65,6 +65,27 @@ export const getProjetos = () => {
     }
 }
 
+export const getAlunoProjetos = () => {
+    return async (dispatch, getState) => {
+        const token = 'Bearer ' + getState().usuario.token
+        await axios.get("https://leds-skills.herokuapp.com/users/"+getState().usuario._id+"/projects", { params: { token } })
+            .then(response => {                
+                const projetos = response.data
+                dispatch(getSaveProjetos(projetos))
+            })
+            .catch( error => {
+                if( error.response ){
+                    var erro_msg = error.response.data.error;
+                }
+                swal({
+                    title: "Error",
+                    text: 'Falha no envio, '+erro_msg,
+                    icon: "error",
+                  });
+            })
+    }
+}
+
 export const getSaveProjetos = projetos => {
     return {
         type: GET_PROJETO,
