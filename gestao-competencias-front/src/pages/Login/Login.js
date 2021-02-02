@@ -71,8 +71,11 @@ class Login extends Component {
     if(this.props.page.page === "enviarEmail"){
       return <Redirect to ="/enviarEmail"/>
     }
-    if(this.state.logado){
+    if(this.state.logado && this.props.usuario.permissao==2){
       return <Redirect to ="/admin"/>
+    }
+    if(this.state.logado && this.props.usuario.permissao==1){
+      return <Redirect to ="/user"/>
     }
 
     return (

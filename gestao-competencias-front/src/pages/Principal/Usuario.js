@@ -41,30 +41,17 @@ class Admin extends Component {
       if(!this.props.usuario.logado){
         return <Redirect to ="/"/>
       }
-      if(this.props.usuario.permissao==1){
+      if(this.props.usuario.permissao==2){
         swal({
           title: "Acesso Negado",
-          text: 'Você não tem permissão, contate seu gestor',
+          text: 'Você é um professor, apenas alunos podem entrar aqui',
           icon: "error",
         })
-        return <Redirect to = "/user"/>
+        return <Redirect to = "/admin"/>
       }
-      var listaMenuItem = [ {view:this.props.pageProjeto, icon:'FaMedapps', nome: 'Projeto'},
-                            {view:this.props.pageDashboard, icon:'AiOutlineDashboard', nome: 'Dashboard'},
-                            {view:this.props.pageSubCategoria, icon:'FaSitemap', nome: 'Subcategoria'},
-                            {view:this.props.pageUsuario,  icon:'FaUsers', nome: 'Usuario'}]
+      var listaMenuItem = [ {view:this.props.pageProjeto, icon:'FaMedapps', nome: 'Projetos'}]
       
-      renderizar =  this.props.adminView.page === "dashboard" ? <Dashboard/> :
-                    this.props.adminView.page === "projeto" ? <Projeto/> : 
-                    this.props.adminView.page === "cadastroProjeto" ? <CriarProjeto/> :
-                    this.props.adminView.page === "subcategoria" ? <SubCategoria/> :
-                    this.props.adminView.page === "cadastroSubcategoria" ? <CriarSubCategoria/> :
-                    this.props.adminView.page === "cadastroCategoria" ? <CriarCategoria/> :
-                    this.props.adminView.page === "detalhesProjeto" ? <DetalhesProjeto/> :
-                    this.props.adminView.page === "editarProjeto" ? <EditarProjeto/> :
-                    this.props.adminView.page === "editarSubCategoria" ? <EditarSubCategoria/> :
-                    this.props.adminView.page === "editarUsuario" ? <EditarUsuario/> :
-                    this.props.adminView.page === "usuario" ? <Usuario/> : <Dashboard/>
+      renderizar =  this.props.adminView.page === "projeto" ? <Projeto/> : <Projeto/>
       return(
         <div style={{ backgroundColor:'rgba(220,220,220,0.7)',}} >
           <Row>

@@ -28,11 +28,13 @@ class NavbarP extends Component {
 
 
   render(props) {
-
+    var lista = this.props.usuario.nome.split(" ")
+    var nome1 = lista[0] ? lista[0] : ""
+    var nome2 = lista[1] ? lista[1] : ""
     return (
         <Navbar bg="light" variant="light" >
           <Navbar.Brand href="/admin" onClick={()=>{this.props.pageDashboard()}} style={{marginTop:"0.5em", color:"#666", fontWeight:"500", fontSize:"1.9em", alignItems:"center"}} >
-            {this.props.usuario.nome}
+            {nome1} {nome2}
           </Navbar.Brand>
           
           <Nav className="ml-auto">

@@ -20,9 +20,6 @@ import { AiOutlineDashboard } from 'react-icons/ai';
 
 import { styled } from '@material-ui/core';
 
-import { pageCadastrarCategoria, pageCadastrarSubCategoria, pageSubCategoria, 
-  pageCadastrarProjeto, pageProjeto, pageUsuario, pageDashboard } from '../../store/actions/adminViews/adminView'
-
 const initialState = {
 }
 
@@ -33,45 +30,51 @@ class NavbarP extends Component {
     this.state = initialState
   }
   
-  render(props) {
+  iconMenuItem(icon) {
     var styleIcon = {fontSize:"2.6em", color:"white"}
+    switch (icon) {
+      case 'FaMedapps':
+        return <FaMedapps style={styleIcon}/>
+
+      case 'AiOutlineDashboard':      
+        return <AiOutlineDashboard style={styleIcon}/>;
+
+      case 'FaSitemap':    
+        return <FaSitemap style={styleIcon}/>;
+
+      case 'FaUsers':
+        return <FaUsers style={styleIcon}/>;
+                
+      default:
+        break;
+    }
+  }
+  render(props) {
+    
     var styleMenuItem = {fontSize:"1.21em", color:"white", marginLeft:"0.4em", fontWeight:"500", marginTop:"0.7em"}
+    
+    var menuItem = this.props.listaMenuItem.map( item => 
+      {
+        var iconMenu = this.iconMenuItem(item.icon) 
+        return(
+          <MenuItem onClick={()=>{
+                      item.view()
+                    }}
+                icon={iconMenu} style={styleMenuItem}>
+                {item.nome}
+                </MenuItem>)
+      }
+    )
+
+
+
     return (
         <div className="sidebar-background" style={{height:"100%", width:"20vw", opacity:"0.8", backgroundImage:"url(" + sidebar + ")",}}>
             <Sidelogo/>
             <div style={{height:"100vh", width:"20vw", opacity:"0.5"}}>
             <ProSidebar width="20vw" collapsed>
               <Menu >
-              <MenuItem onClick={()=>{
-                            this.props.pageDashboard()
-                          }}
-                  icon={<AiOutlineDashboard style={styleIcon} />} style={styleMenuItem}>
-                  Dashboard
-                </MenuItem>
-                <MenuItem onClick={()=>{
-                            this.props.pageUsuario()
-                          }}
-                  icon={<FaUsers style={styleIcon} />} style={styleMenuItem}>
-                  Usuários
-                </MenuItem>
-                <MenuItem onClick={()=>{
-                            this.props.pageProjeto()
-                          }}
-                  icon={<FaMedapps style={styleIcon} />} style={styleMenuItem}>
-                  Projetos
-                </MenuItem>
-                <MenuItem onClick={()=>{
-                            this.props.pageSubCategoria()
-                          }}
-                  icon={<FaSitemap style={styleIcon} />} style={styleMenuItem}>
-                  SubCategorias
-                </MenuItem>
-                <MenuItem onClick={()=>{
-                            alert("Em construção")
-                          }} icon={<FaChartBar style={styleIcon} />} style={styleMenuItem}>
-                  
-                  Relatórios
-                </MenuItem>
+                {menuItem}
               </Menu>
             </ProSidebar>
 
@@ -89,13 +92,6 @@ const mapStateToProps = ({ usuario }) => {
 const mapDispatchToProps = dispatch => {
   return {
     alertout: () => dispatch(alertout()),
-    pageCadastrarCategoria: () => dispatch(pageCadastrarCategoria()),
-    pageCadastrarProjeto: () => dispatch(pageCadastrarProjeto()),
-    pageCadastrarSubCategoria: () => dispatch(pageCadastrarSubCategoria()),
-    pageProjeto: () => dispatch(pageProjeto()),
-    pageSubCategoria: () => dispatch(pageSubCategoria()),
-    pageUsuario: () => dispatch(pageUsuario()),
-    pageDashboard: () => dispatch(pageDashboard()),
     
   }
 }

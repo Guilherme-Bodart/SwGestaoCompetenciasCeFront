@@ -11,6 +11,7 @@ import Login from './pages/Login/Login';
 import Recuperar from './pages/Recuperar/Recuperar';
 import EnviarEmail from './pages/Recuperar/EnviarEmail';
 import Admin from './pages/Principal/Admin';
+import Usuario from './pages/Principal/Usuario';
 import CriarConta from './pages/CriarConta/CriarConta';
 import { pageLogin, pageCadastrar, pageRecuperar } from './store/actions/pages/page'
 
@@ -20,6 +21,9 @@ class App extends Component{
         <Switch>
           <Route exact path="/admin">
             <Admin />
+          </Route>
+          <Route exact path="/user">
+            <Usuario />
           </Route>
           <Route exact path="/">
             <Login />
