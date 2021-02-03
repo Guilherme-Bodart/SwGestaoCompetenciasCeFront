@@ -82,7 +82,7 @@ case PAGE_ATIVIDADE:
     }
 
 case PAGE_EDITAR_ATIVIDADE:
-    page = 'editaratividade'
+    page = 'editarAtividade'
     return {
         ...state, page
     }

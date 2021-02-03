@@ -4,33 +4,95 @@ import Button from "react-bootstrap/Button"
 import Row from 'react-bootstrap/Row'
 import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
-import Col from 'react-bootstrap/Col'
+import Col from 'react-bootstrap/Col' 
 import DropdownButton from 'react-bootstrap/DropdownButton'
 
-import { pageAtividade } from '../../store/actions/userViews/userView'
-import Alerta from "../../components/Alerta/Alerta"
+import { pageCadastrarCategoria, pageCadastrarSubCategoria, pageSubCategoria, 
+    pageCadastrarAtividade, pageAtividade } from '../../store/actions/userViews/userView'
+
+import { getCategorias, getSubCategoriasExp } from '../../store/actions/categorias/categoria'
+import { getUsuarios } from '../../store/actions/usuarios/usuario'
 import { editarAtividade } from '../../store/actions/atividades/atividade'
 
 import '../../styles/principal.css'
 import { FaArrowLeft } from 'react-icons/fa';
 import { BsThreeDotsVertical } from "react-icons/bs";
 
+
 const initialState = {
     titulo: '',
+    descricao: '',
+    dataInicial : '',
+    dataFinal: '',
+    categoria: 0,
+    subcategoria: 0,
+    subcategorias: ''
 }
 
 class EditarAtividade extends Component {
-
     constructor(props) {
         super(props)
         this.state = initialState
         this.state.titulo = this.props.atividade.atividade_detalhado.titulo
+        this.state.descricao = this.props.atividade.atividade_detalhado.descricao
+        this.state.dataInicial = this.props.atividade.atividade_detalhado.dataInicial.substr(0, 10)
+        this.state.dataFinal = this.props.atividade.atividade_detalhado.dataFinal.substr(0, 10)
+        this.state.categoria = this.props.atividade.atividade_detalhado.categoria._id
+        this.state.subcategoria = this.props.atividade.atividade_detalhado.subcategoria._id
     }
 
-    onChangeNome = (event) => {
+    onChangeProjeto = (event) => {
         this.setState({
-            nome: event.target.value
+            projeto: event.target.value
         })
+    }
+    
+    onChangeTitulo = (event) => {
+        this.setState({
+            titulo: event.target.value
+        })
+    }
+
+    onChangeDescricao = (event) => {
+        this.setState({
+            descricao: event.target.value
+        })
+    }
+
+    onChangeCategoria = (event) => {
+
+        this.setState({
+            categoria: event.target.value
+        })
+
+        this.props.getSubCategoriasExp(event.target.value)
+        this.setState({
+            subcategorias: this.props.categoria.subcategorias.map(subcategoria => <option value={subcategoria._id}>{subcategoria.nome}</option>)
+        })
+    }
+
+    onChangeSubcategoria = (event) => {
+        this.setState({
+            subcategoria: event.target.value
+        })
+    }
+
+    onChangeDataInicio = (event) => {
+        this.setState({
+            dataInicial: event.target.value
+        })
+    }
+
+    onChangeDataFim = (event) => {
+        this.setState({
+            dataFinal: event.target.value
+        })
+    }
+
+    async componentDidMount(){
+        await this.props.getUsuarios()
+        await this.props.getCategorias()
+        await this.props.getSubCategoriasExp(this.state.categoria)
     }
 
     handleSubmit(event){
@@ -39,24 +101,37 @@ class EditarAtividade extends Component {
 
     render(props){
 
-        const tipo_atividade = this.state.tipo_atividades.map((u, index) => {
-            if(index+1 === this.state.permissao){
-                return <option value={index+1} selected>
-                    {u}
+        const categorias = this.props.categoria.categorias.map( categoria => {
+            if(categoria._id == this.props.atividade.atividade_detalhado.categoria._id){
+                return <option value={categoria._id} selected>
+                    {categoria.nome}
                 </option>
             }else{
-                return <option value={index+1} >
-                    {u}
+                return <option value={categoria._id} >
+                    {categoria.nome}
                 </option>
             }
         });
 
+        const subcategorias = this.props.categoria.subcategorias.map( subcategoria => {
+            if(subcategoria._id == this.props.atividade.atividade_detalhado.subcategoria._id){
+                return <option value={subcategoria._id} selected>
+                    {subcategoria.nome}
+                </option>
+            }else{
+                return <option value={subcategoria._id} >
+                    {subcategoria.nome}
+                </option>
+            }
+        });
+
+        this.state.subcategorias = subcategorias
+
         return(
             
             <Container fluid>
-                <Alerta open= {true} alertTitle= {this.props.alerta.alertTitle} severity= {this.props.alerta.severity} texto= {this.props.alerta.texto}/>
                 <Row>
-                <p className="App-text-logo" style={{marginLeft:"1em", marginTop:"0.5em"}}>Editar Usuário</p>
+                <p className="App-text-logo" style={{marginLeft:"1em", marginTop:"0.5em"}}>Editar Atividade</p>
                 <Button className="ml-auto" variant="outline-secondary" 
                 style={{marginRight:"1em", marginTop:"1em", height:"3em", width:"3em" }}
                 onClick={()=>{
@@ -65,94 +140,91 @@ class EditarAtividade extends Component {
                     <FaArrowLeft/>
                 </Button>
                 </Row>
-                <Form className="App-form" onSubmit={this.handleSubmit}>
+                <Form onSubmit={this.handleSubmit}>
+                    <Col>
+
                     <Form.Row>
-                        <Col>
-                            <Form.Group as={Col} controlId="formGridEmail">
-                            <Form.Label>Nome</Form.Label>
-                            <Form.Control value={this.state.nome} onChange={value => this.onChangeNome(value)} required placeholder="Nome do Usuário" />
-                            </Form.Group>
-                        </Col>
-                        <Col>
-                            <Form.Group as={Col} controlId="formGridEmail">
-                            <Form.Label>Data de nascimento</Form.Label>
-                            <Form.Control value={this.state.dataNascimento} type="date" onChange = {value => this.onChangeDataNascimento(value)} required />
-                            </Form.Group>
-                        </Col>
-                    </Form.Row>
-                    <Form.Row>
-                        <Col>
-                            <Form.Group as={Col} controlId="formGridEmail">
-                            <Form.Label>Email</Form.Label>
-                            <Form.Control value={this.state.email} type="email" onChange={value => this.onChangeEmail(value)} required placeholder="E-mail" />
-                            </Form.Group>
-                        </Col>
-                        <Col>
-                            <Form.Group as={Col} controlId="formGridEmail">
-                            <Form.Label>Telefone</Form.Label>
-                            <Form.Control value={this.state.telefone} onChange={value => this.onChangeTelefone(value)} placeholder="Telefone" />
-                            </Form.Group>
-                        </Col>
-                    </Form.Row>
-                    <Form.Row>
-                        <Col>
-                            <Form.Group as={Col} controlId="formGridEmail">
-                            <Form.Label>CPF</Form.Label>
-                            <Form.Control value={this.state.cpf} onChange={value => this.onChangeCPF(value)} required placeholder="CPF" />
-                            </Form.Group>
-                        </Col>
-                        <Col>
-                            <Form.Group as={Col} controlId="formGridEmail">
-                            <Form.Label>Tipo</Form.Label>
-                            <Form.Control required onChange={value => this.onChangeTipo(value)} as="select">
-                                {tipo_atividade}
-                            </Form.Control>
-                            </Form.Group>
-                        </Col>
-                    </Form.Row>
-                    <Form.Row>
-                        <Col>
-                            <Form.Group as={Col} controlId="formGridEmail">
-                            <Form.Label>Endereço</Form.Label>
-                            <Form.Control value={this.state.endereco} onChange={value => this.onChangeEndereco(value)} placeholder="Endereço" />
-                            </Form.Group>
-                        </Col>
+                        <Form.Group as={Col} >
+                        <Form.Label>Título</Form.Label>
+                        <Form.Control value={this.state.titulo} required onChange={value => this.onChangeTitulo(value)} placeholder="Título da Atividade" />
+                        </Form.Group>
                     </Form.Row>
 
-                    <Col>
-                        <Button variant="primary" type="submit" onClick= { async ()  =>{
-                                     var idx = this.state.email.indexOf('@');
-                                     if(this.state.nome != '' && this.state.dataNascimento != '' && this.state.email != '' && idx != -1 
-                                     && this.state.senha != '' && this.state.cpf != ''){
-                                        await this.props.editarAtividade({id: this.props.atividade.getAtividade._id, nome:this.state.nome, email:this.state.email, 
-                                            dataNascimento:this.state.dataNascimento, 
-                                            telefone:this.state.telefone, endereco:this.state.endereco, 
-                                            cpf:this.state.cpf, permissao:this.state.permissao})
-                                        }
-                        
-                                }}>
-                            Salvar Usuário
-                        </Button>
+                    <Form.Group >
+                        <Form.Label>Descrição</Form.Label>
+                        <Form.Control value={this.state.titulo} as="textarea" onChange={value => this.onChangeDescricao(value)} placeholder="Atividade" required/>
+                    </Form.Group>
+ 
+                    <Form.Row>  
+                        <Form.Group as={Col}>
+                        <Form.Label>Categoria</Form.Label>
+                        <Form.Control required onChange={value => this.onChangeCategoria(value)} as="select" defaultValue="0">
+                            <option value="0">Selecione...</option>
+                            {categorias}
+                        </Form.Control>
+                        </Form.Group>
+                    </Form.Row>
+
+                    <Form.Row>  
+                        <Form.Group as={Col}>
+                        <Form.Label>SubCategoria</Form.Label>
+                        <Form.Control required onChange={value => this.onChangeSubcategoria(value)} as="select" defaultValue="0">
+                            <option value="0">Selecione...</option>
+                            {this.state.subcategorias}
+                        </Form.Control>
+                        </Form.Group>
+                    </Form.Row>
                     </Col>
-                </Form>
+                    <Form.Row>
+                        <Col>
+                            <Form.Group as={Col}>
+                            <Form.Label>Data Início</Form.Label>
+                            <Form.Control value={this.state.dataInicial} type="date" onChange={value => this.onChangeDataInicio(value)} required />
+                            </Form.Group>
+                        </Col>
+                        <Col>
+                            <Form.Group as={Col}>
+                            <Form.Label>Data Fim</Form.Label>
+                            <Form.Control value={this.state.dataFinal} type="date" onChange = {value => this.onChangeDataFim(value)} required />
+                            </Form.Group>
+                        </Col>
+                    </Form.Row>
+                    <Col>
+                    <Button variant="primary" onClick= { async ()  =>{
+             
+                        await this.props.editarAtividade({id:this.props.atividade.atividade_detalhado._id, titulo:this.state.titulo, descricao:this.state.descricao, 
+                             categoria: this.state.categoria, subcategoria: this.state.subcategoria, dataInicial: this.state.dataInicial, dataFinal: this.state.dataFinal })
+                        }}>
+                        Salvar Atividade
+                    </Button>
+                    </Col>
+                    </Form>
             </Container>
           
         )
     }
 }
 
-const mapStateToProps = ({ userView, alerta, atividade }) => {
+const mapStateToProps = ({ userView, usuario, atividade, categoria, projeto }) => {
     return {
         userView,
-        alerta,
-        atividade
+        usuario, 
+        atividade,
+        categoria
     }
   }
   
   const mapDispatchToProps = dispatch => {
     return {
+        pageCadastrarCategoria: () => dispatch(pageCadastrarCategoria()),
+        pageCadastrarAtividade: () => dispatch(pageCadastrarAtividade()),
+        pageCadastrarSubCategoria: () => dispatch(pageCadastrarSubCategoria()),
         pageAtividade: () => dispatch(pageAtividade()),
-        editarAtividade: atividade => dispatch(editarAtividade(atividade))
+        pageSubCategoria: () => dispatch(pageSubCategoria()),
+        getSubCategoriasExp: (id_categoria) => dispatch(getSubCategoriasExp(id_categoria)),
+        getUsuarios: () => dispatch(getUsuarios()),
+        getCategorias: () => dispatch(getCategorias()),
+        editarAtividade: atividade => dispatch(editarAtividade(atividade)),
     }
   }
   export default connect(mapStateToProps, mapDispatchToProps)(EditarAtividade)

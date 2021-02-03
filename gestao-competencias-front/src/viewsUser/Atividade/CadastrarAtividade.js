@@ -163,13 +163,13 @@ class CadastrarAtividade extends Component {
                         <Col>
                             <Form.Group as={Col}>
                             <Form.Label>Data Início</Form.Label>
-                            <Form.Control value={this.state.nome} type="date" onChange={value => this.onChangeDataInicio(value)} required />
+                            <Form.Control type="date" onChange={value => this.onChangeDataInicio(value)} required />
                             </Form.Group>
                         </Col>
                         <Col>
                             <Form.Group as={Col}>
                             <Form.Label>Data Fim</Form.Label>
-                            <Form.Control value={this.state.dataNascimento} type="date" onChange = {value => this.onChangeDataFim(value)} required />
+                            <Form.Control type="date" onChange = {value => this.onChangeDataFim(value)} required />
                             </Form.Group>
                         </Col>
                     </Form.Row>

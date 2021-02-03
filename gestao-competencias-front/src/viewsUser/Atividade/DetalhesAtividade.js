@@ -4,19 +4,20 @@ import Button from "react-bootstrap/Button"
 import Row from 'react-bootstrap/Row'
 import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
-import Col from 'react-bootstrap/Col'
-import Table from 'react-bootstrap/Table'
+import Col from 'react-bootstrap/Col' 
+import DropdownButton from 'react-bootstrap/DropdownButton'
 
-import { pageCadastrarCategoria, pageCadastrarSubCategoria, pageSubCategoria, 
-    pageCadastrarProjeto, pageProjeto, pageDetalhesProjeto } from '../../store/actions/userViews/userView'
+import { pageAtividade } from '../../store/actions/userViews/userView'
 
+import { getAtividade } from '../../store/actions/atividades/atividade'
+
+import Alerta from "../../components/Alerta/Alerta"
 import '../../styles/principal.css'
 import { FaArrowLeft } from 'react-icons/fa';
 import { BsThreeDotsVertical } from "react-icons/bs";
 
 
 const initialState = {
-
 }
 
 class DetalhesAtividade extends Component {
@@ -31,89 +32,68 @@ class DetalhesAtividade extends Component {
 
     render(props){
 
-        const equipe = this.props.projeto.projeto_detalhado.equipe.map((usuario, index) => 
-     
-            <tr>
-                <td>{index+1}</td>
-                <td>{usuario.pessoa.nome}</td>
-                <td>{usuario.email}</td>
-            </tr>
-        );
-
         return(
             
             <Container fluid>
                 <Row>
-                <p className="App-text-logo" style={{marginLeft:"1em", marginTop:"0.5em"}}>Detalhes Projeto</p>
+                <p className="App-text-logo" style={{marginLeft:"1em", marginTop:"0.5em"}}>Detalhes Atividade</p>
                 <Button className="ml-auto" variant="outline-secondary" 
                 style={{marginRight:"1em", marginTop:"1em", height:"3em", width:"3em" }}
                 onClick={()=>{
-                    this.props.pageProjeto()
+                    this.props.pageAtividade()
                 }}>
                     <FaArrowLeft/>
                 </Button>
                 </Row>
                 <Form onSubmit={this.handleSubmit}>
-                    <Form.Row>
-                        <Form.Group as={Col} controlId="formGridEmail">
-                        <Form.Label>Nome</Form.Label>
-                        <Form.Control readOnly value={this.props.projeto.projeto_detalhado.nome} />
+                    <Col>
+                    <Form.Row>  
+                        <Form.Group as={Col}>
+                        <Form.Label>Projeto</Form.Label>
+                        <Form.Control disabled value={this.props.atividade.atividade_detalhado.item_usuario_projeto.projeto.nome} />
                         </Form.Group>
                     </Form.Row>
 
-                    <Form.Group controlId="formGridAddress1">
+                    <Form.Row>
+                        <Form.Group as={Col} >
+                        <Form.Label>Título</Form.Label>
+                        <Form.Control disabled  value={this.props.atividade.atividade_detalhado.titulo} />
+                        </Form.Group>
+                    </Form.Row>
+
+                    <Form.Group >
                         <Form.Label>Descrição</Form.Label>
-                        <Form.Control as="textarea" readOnly value={this.props.projeto.projeto_detalhado.descricao} />
+                        <Form.Control as="textarea" value={this.props.atividade.atividade_detalhado.descricao} disabled/>
                     </Form.Group>
-
-                    <Form.Row>
-                        <Form.Group as={Col} controlId="formGridEmail">
-                        <Form.Label>Data Cadastro</Form.Label>
-                        <Form.Control readOnly value={this.props.projeto.projeto_detalhado.dataCriacao.substr(0, 10).split('-').reverse().join('/')} />
+ 
+                    <Form.Row>  
+                        <Form.Group as={Col}>
+                        <Form.Label>Categoria</Form.Label>
+                        <Form.Control disabled  value={this.props.atividade.atividade_detalhado.categoria.nome} />
                         </Form.Group>
                     </Form.Row>
 
-                    <Form.Row>
-                        <Form.Group as={Col} controlId="formGridState">
-                        <Form.Label>Equipe</Form.Label>
-                        <Table responsive style={{backgroundColor:"#ccc", textAlign: "center"}}>
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Nome</th>
-                                    <th>E-mail</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                               {equipe}
-                            </tbody>
-                        </Table>
+                    <Form.Row>  
+                        <Form.Group as={Col}>
+                        <Form.Label>SubCategoria</Form.Label>
+                        <Form.Control disabled value={this.props.atividade.atividade_detalhado.subcategoria.nome}  />
                         </Form.Group>
                     </Form.Row>
-
+                    </Col>
                     <Form.Row>
-                        <Form.Group as={Col} controlId="formGridState">
-                        <Form.Label>Atividades</Form.Label>
-                        <Table responsive style={{backgroundColor:"#ccc", textAlign: "center"}}>
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Atividade</th>
-                                    <th>Descrição</th>
-                                    <th>Categoria</th>
-                                    <th>SubCategoria</th>
-                                    <th>Responsável</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td colSpan="7">Em produção</td>
-                                </tr>
-                            </tbody>
-                        </Table>
-                        </Form.Group>
+                        <Col>
+                            <Form.Group as={Col}>
+                            <Form.Label>Data Início</Form.Label>
+                            <Form.Control value={this.props.atividade.atividade_detalhado.dataInicial.substr(0, 10).split('-').reverse().join('/')} disabled />
+                            </Form.Group>
+                        </Col>
+                        <Col>
+                            <Form.Group as={Col}>
+                            <Form.Label>Data Fim</Form.Label>
+                            <Form.Control value={this.props.atividade.atividade_detalhado.dataFinal.substr(0, 10).split('-').reverse().join('/')} disabled />
+                            </Form.Group>
+                        </Col>
                     </Form.Row>
-
                     </Form>
             </Container>
           
@@ -121,21 +101,17 @@ class DetalhesAtividade extends Component {
     }
 }
 
-const mapStateToProps = ({ adminView, projeto  }) => {
+const mapStateToProps = ({ userView, usuario, atividade, categoria, projeto }) => {
     return {
-        adminView,
-        projeto
+        userView,
+        usuario, 
+        atividade
     }
   }
   
   const mapDispatchToProps = dispatch => {
     return {
-        pageCadastrarCategoria: () => dispatch(pageCadastrarCategoria()),
-        pageCadastrarProjeto: () => dispatch(pageCadastrarProjeto()),
-        pageCadastrarSubCategoria: () => dispatch(pageCadastrarSubCategoria()),
-        pageProjeto: () => dispatch(pageProjeto()),
-        pageSubCategoria: () => dispatch(pageSubCategoria()),
-        pageDetalhesProjeto: () => dispatch(pageDetalhesProjeto()),
+        pageAtividade: () => dispatch(pageAtividade()),
     }
   }
   export default connect(mapStateToProps, mapDispatchToProps)(DetalhesAtividade)

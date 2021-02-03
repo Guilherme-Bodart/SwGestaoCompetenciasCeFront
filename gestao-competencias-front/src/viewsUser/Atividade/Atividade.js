@@ -12,7 +12,7 @@ import { FaPlus } from 'react-icons/fa';
 
 import { pageCadastrarAtividade, pageAtividade, pageDetalhesAtividade, pageEditarAtividade } from '../../store/actions/userViews/userView'
 
-import { getAlunoAtividades, getAtividade } from '../../store/actions/atividades/atividade'
+import { getAlunoAtividades, getAtividade, deletarAtividade } from '../../store/actions/atividades/atividade'
 
 const initialState = {
   }
@@ -33,7 +33,7 @@ class Atividade extends Component {
                 <td>{index+1}</td>
                 <DropdownButton variant="dark" id="dropdown-basic-button" title="..." style={{marginLeft:"1em", marginTop:"1em"}}>
                     <Dropdown.Item  onClick={async ()=>{
-                                        await this.props.getAtividade(atividade.atividade._id)
+                                        await this.props.getAtividade(atividade._id)
                                         if(this.props.atividade.atividade_detalhado!={}){
                                             this.props.pageDetalhesAtividade()
                                         }
@@ -41,14 +41,17 @@ class Atividade extends Component {
                     }>  Detalhes
                     </Dropdown.Item>
                     <Dropdown.Item  onClick={async ()=>{
-                                        await this.props.getProjeto(atividade._id)
+                                        await this.props.getAtividade(atividade._id)
                                         if(this.props.atividade.atividade_detalhado!={}){
-                                            this.props.pageEditarProjeto()
+                                            this.props.pageEditarAtividade()
                                         }
                                     }
                     }>  Editar
                     </Dropdown.Item>
-                <Dropdown.Item href="#">Excluir</Dropdown.Item>
+                <Dropdown.Item onClick={async ()=>{
+                                        await this.props.deletarAtividade(atividade.titulo, atividade._id)
+                                      
+                                    }}>Excluir</Dropdown.Item>
                 </DropdownButton>
                 <td>{atividade.titulo}</td>
                 <td>{atividade.categoria.nome}</td>
@@ -110,6 +113,7 @@ const mapStateToProps = ({ adminView, atividade }) => {
         pageEditarAtividade: () => dispatch(pageEditarAtividade()),
         getAlunoAtividades: () => dispatch(getAlunoAtividades()),
         getAtividade: (id_atividade) => dispatch(getAtividade(id_atividade)),
+        deletarAtividade: (titulo, id_atividade) => dispatch(deletarAtividade(titulo, id_atividade)),
     }
   }
   export default connect(mapStateToProps, mapDispatchToProps)(Atividade)

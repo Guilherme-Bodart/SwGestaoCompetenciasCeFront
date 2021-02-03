@@ -40,6 +40,20 @@ class DetalhesProjeto extends Component {
             </tr>
         );
 
+        const atividades = this.props.projeto.projeto_detalhado.atividades.map((atividade, index) => 
+     
+            <tr>
+                <td>{index+1}</td>
+                <td>{atividade.titulo}</td>
+                <td>{atividade.descricao}</td>
+                <td>{atividade.categoria.nome}</td>
+                <td>{atividade.subcategoria.nome}</td>
+                <td>{atividade.dataInicial.substr(0, 10).split('-').reverse().join('/')}</td>
+                <td>{atividade.dataFinal.substr(0, 10).split('-').reverse().join('/')}</td>
+                <td>{atividade.usuario.pessoa.nome}</td>
+            </tr>
+        );
+
         return(
             
             <Container fluid>
@@ -98,17 +112,17 @@ class DetalhesProjeto extends Component {
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Atividade</th>
+                                    <th>Título</th>
                                     <th>Descrição</th>
                                     <th>Categoria</th>
                                     <th>SubCategoria</th>
+                                    <th>Início</th>
+                                    <th>Fim</th>
                                     <th>Responsável</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td colSpan="7">Em produção</td>
-                                </tr>
+                                {atividades}
                             </tbody>
                         </Table>
                         </Form.Group>

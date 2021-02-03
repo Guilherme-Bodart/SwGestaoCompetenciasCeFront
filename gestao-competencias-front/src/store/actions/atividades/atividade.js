@@ -1,8 +1,9 @@
 import axios from 'axios'
-import { GET_ATIVIDADE, GET_DETALHARATIVIDADE, LOGOUT_ATIVIDADE } from '../actionsTypes'
-import { alertin } from '../alertas/alerta'
 
-import { pageAtividade } from '../userViews/userView'
+import { GET_ATIVIDADE, GET_DETALHARATIVIDADE, LOGOUT_ATIVIDADE } from '../actionsTypes'
+
+
+import { pageAtividade, pageCadastrarAtividade } from '../userViews/userView'
 
 import swal from 'sweetalert';
 
@@ -87,22 +88,27 @@ export const getSaveAtividade = atividade => {
     }
 }
 
-export const editarAtividade = (atividade,id_atividade) => {
+export const editarAtividade = (atividade) => {
     return async (dispatch, getState) => {
         const token = 'Bearer ' + getState().usuario.token
 
-        await axios.put("https://leds-skills.herokuapp.com/tasks/"+id_atividade, null, 
+        await axios.put("https://leds-skills.herokuapp.com/tasks/"+atividade.id, null, 
                                                     { params: 
                                                         {   
                                                             token,
                                                             titulo: atividade.titulo,
+                                                            descricao: atividade.descricao,
+                                                            categoria: atividade.categoria,
+                                                            subcategoria: atividade.subcategoria,
+                                                            dataInicial: atividade.dataInicial,
+                                                            dataFinal: atividade.dataFinal
                                                         } 
                                                     })
             .then(response => {   
                 const atividade = response.data
                 swal({
-                    title: "Atualizado",
-                    text: 'A atividade foi atualizado com sucesso',
+                    title: "Atualizada",
+                    text: 'A atividade foi atualizada com sucesso',
                     icon: "success",
                   }).then((value) => {
                     dispatch(pageAtividade());
@@ -151,5 +157,40 @@ export const cadastrarAtividade = (atividade) => {
                     icon: "error",
                   });
             })
+    }
+}
+
+export const deletarAtividade = (titulo, id_atividade) => {
+
+    return async (dispatch, getState) => {
+        swal({
+            title: "Deseja excluir a atividade?",
+            text: "Caso confirme a exclução da atividade: "+titulo+", a mesma será retirada do projeto vinculado",
+            icon: "warning",
+            buttons: true,
+        }).then(async (willDelete) => {
+            if (willDelete) {
+                const token = 'Bearer ' + getState().usuario.token
+
+                await axios.delete("https://leds-skills.herokuapp.com/tasks/"+id_atividade, { params: { token } })
+                    .then(response => { 
+                        swal({
+                            title: "Excluída",
+                            text: 'Atividade excluída com sucesso',
+                            icon: "success",
+                        }).then((value) => {
+                            dispatch(pageCadastrarAtividade());
+                            dispatch(pageAtividade());
+                        });
+                    })
+                    .catch( error => {
+                        swal({
+                            title: "Error",
+                            text: 'Falha ao deletar a atividade, tente novamente mais tarde',
+                            icon: "error",
+                        });
+                    })
+            }
+        });
     }
 }
