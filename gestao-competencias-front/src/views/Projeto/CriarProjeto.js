@@ -103,7 +103,7 @@ class CriarProjeto extends Component {
             <Container fluid>
                 <Alerta open= {true} alertTitle= {this.props.alerta.alertTitle} severity= {this.props.alerta.severity} texto= {this.props.alerta.texto}/>
                 <Row>
-                <p className="App-text-logo" style={{marginLeft:"1em", marginTop:"0.5em"}}>Criar Projeto</p>
+                <p className="App-text-logo" style={{marginLeft:"1em", marginTop:"0.5em"}}>Projetos &gt; Cadastrar</p>
                 <Button className="ml-auto" variant="outline-secondary" 
                 style={{marginRight:"1em", marginTop:"1em", height:"3em", width:"3em" }}
                 onClick={()=>{
@@ -148,7 +148,7 @@ class CriarProjeto extends Component {
              
                         await this.props.criarProjeto({nome:this.state.nome, equipe:this.state.equipe, descricao:this.state.descricao})
                         }}>
-                        Criar Projeto
+                        Cadastrar Projeto
                     </Button>
                     </Form>
             </Container>

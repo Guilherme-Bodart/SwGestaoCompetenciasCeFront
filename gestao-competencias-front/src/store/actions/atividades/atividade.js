@@ -117,7 +117,7 @@ export const editarAtividade = (atividade) => {
             .catch( error => {
                 swal({
                     title: "Error",
-                    text: 'Falha em acessar a atividade, tente novamente mais tarde',
+                    text: 'Falha ao acessar a atividade, tente novamente mais tarde',
                     icon: "error",
                   });
             })
@@ -153,7 +153,7 @@ export const cadastrarAtividade = (atividade) => {
             .catch( error => {
                 swal({
                     title: "Error",
-                    text: 'Erro na criação do atividade',
+                    text: 'Erro no cadastro da atividade',
                     icon: "error",
                   });
             })
@@ -176,7 +176,7 @@ export const deletarAtividade = (titulo, id_atividade) => {
                     .then(response => { 
                         swal({
                             title: "Excluída",
-                            text: 'Atividade excluída com sucesso',
+                            text: 'Atividade foi excluída com sucesso',
                             icon: "success",
                         }).then((value) => {
                             dispatch(pageCadastrarAtividade());

@@ -49,10 +49,10 @@ class Admin extends Component {
         })
         return <Redirect to = "/user"/>
       }
-      var listaMenuItem = [ {view:this.props.pageProjeto, icon:'FaMedapps', nome: 'Projeto'},
-                            {view:this.props.pageDashboard, icon:'AiOutlineDashboard', nome: 'Dashboard'},
-                            {view:this.props.pageSubCategoria, icon:'FaSitemap', nome: 'Subcategoria'},
-                            {view:this.props.pageUsuario,  icon:'FaUsers', nome: 'Usuario'}]
+      var listaMenuItem = [ {view:this.props.pageDashboard, icon:'AiOutlineDashboard', nome: 'Dashboard'},
+                            {view:this.props.pageUsuario,  icon:'FaUsers', nome: 'Usuários'},
+                            {view:this.props.pageProjeto, icon:'FaMedapps', nome: 'Projetos'},
+                            {view:this.props.pageSubCategoria, icon:'FaSitemap', nome: 'Subcategorias'}]
       
       renderizar =  this.props.adminView.page === "dashboard" ? <Dashboard/> :
                     this.props.adminView.page === "projeto" ? <Projeto/> : 

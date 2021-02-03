@@ -43,7 +43,7 @@ class CriarCategoria extends Component {
             <Container fluid>
                 <Alerta open= {true} alertTitle= {this.props.alerta.alertTitle} severity= {this.props.alerta.severity} texto= {this.props.alerta.texto}/>
                 <Row>
-                <p className="App-text-logo" style={{marginLeft:"1em", marginTop:"0.5em"}}>Criar Categoria</p>
+                <p className="App-text-logo" style={{marginLeft:"1em", marginTop:"0.5em"}}>Categorias &gt; Cadastrar</p>
                 <Button className="ml-auto" variant="outline-secondary" 
                 style={{marginRight:"1em", marginTop:"1em", height:"3em", width:"3em" }}
                 onClick={()=>{
@@ -64,7 +64,7 @@ class CriarCategoria extends Component {
                      onClick={()=>{
                         this.props.criarCategoria(this.state.categoria)
                     }}>
-                        Criar Categoria
+                        Cadastrar Categoria
                     </Button>
                     </Form>
             </Container>

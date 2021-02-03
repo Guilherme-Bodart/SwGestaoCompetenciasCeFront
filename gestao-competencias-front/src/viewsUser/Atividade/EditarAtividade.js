@@ -35,8 +35,8 @@ class EditarAtividade extends Component {
         this.state = initialState
         this.state.titulo = this.props.atividade.atividade_detalhado.titulo
         this.state.descricao = this.props.atividade.atividade_detalhado.descricao
-        this.state.dataInicial = this.props.atividade.atividade_detalhado.dataInicial.substr(0, 10)
-        this.state.dataFinal = this.props.atividade.atividade_detalhado.dataFinal.substr(0, 10)
+        this.state.dataInicial = this.props.atividade.atividade_detalhado.dataInicial.substr(0, 16)
+        this.state.dataFinal = this.props.atividade.atividade_detalhado.dataFinal.substr(0, 16)
         this.state.categoria = this.props.atividade.atividade_detalhado.categoria._id
         this.state.subcategoria = this.props.atividade.atividade_detalhado.subcategoria._id
     }
@@ -131,7 +131,7 @@ class EditarAtividade extends Component {
             
             <Container fluid>
                 <Row>
-                <p className="App-text-logo" style={{marginLeft:"1em", marginTop:"0.5em"}}>Editar Atividade</p>
+                <p className="App-text-logo" style={{marginLeft:"1em", marginTop:"0.5em"}}>Atividades &gt; Editar</p>
                 <Button className="ml-auto" variant="outline-secondary" 
                 style={{marginRight:"1em", marginTop:"1em", height:"3em", width:"3em" }}
                 onClick={()=>{
@@ -179,13 +179,13 @@ class EditarAtividade extends Component {
                         <Col>
                             <Form.Group as={Col}>
                             <Form.Label>Data Início</Form.Label>
-                            <Form.Control value={this.state.dataInicial} type="date" onChange={value => this.onChangeDataInicio(value)} required />
+                            <Form.Control value={this.state.dataInicial} type="datetime-local" onChange={value => this.onChangeDataInicio(value)} required />
                             </Form.Group>
                         </Col>
                         <Col>
                             <Form.Group as={Col}>
                             <Form.Label>Data Fim</Form.Label>
-                            <Form.Control value={this.state.dataFinal} type="date" onChange = {value => this.onChangeDataFim(value)} required />
+                            <Form.Control value={this.state.dataFinal} type="datetime-local" onChange = {value => this.onChangeDataFim(value)} required />
                             </Form.Group>
                         </Col>
                     </Form.Row>

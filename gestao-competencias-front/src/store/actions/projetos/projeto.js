@@ -37,7 +37,7 @@ export const criarProjeto = (projeto) => {
             .catch( error => {
                 swal({
                     title: "Error",
-                    text: 'Erro na criação do projeto',
+                    text: 'Erro no cadastro do projeto',
                     icon: "error",
                   });
             })
@@ -105,7 +105,7 @@ export const getProjeto = (id_projeto) => {
             .catch( error => {
                 swal({
                     title: "Error",
-                    text: 'Falha em acessar o projeto, tente novamente mais tarde',
+                    text: 'Falha ao acessar o projeto, tente novamente mais tarde',
                     icon: "error",
                   });
             })

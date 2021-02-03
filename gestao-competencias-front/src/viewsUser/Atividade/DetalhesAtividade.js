@@ -16,6 +16,13 @@ import '../../styles/principal.css'
 import { FaArrowLeft } from 'react-icons/fa';
 import { BsThreeDotsVertical } from "react-icons/bs";
 
+function converte_data(data, tem_hora = 0){
+    if(tem_hora){
+        return data.substr(0, 10).split('-').reverse().join('/')+' '+data.substr(11, 5);
+    }else{
+        return data.substr(0, 10).split('-').reverse().join('/');
+    }
+}
 
 const initialState = {
 }
@@ -36,7 +43,7 @@ class DetalhesAtividade extends Component {
             
             <Container fluid>
                 <Row>
-                <p className="App-text-logo" style={{marginLeft:"1em", marginTop:"0.5em"}}>Detalhes Atividade</p>
+                <p className="App-text-logo" style={{marginLeft:"1em", marginTop:"0.5em"}}>Atividades &gt; Detalhes</p>
                 <Button className="ml-auto" variant="outline-secondary" 
                 style={{marginRight:"1em", marginTop:"1em", height:"3em", width:"3em" }}
                 onClick={()=>{
@@ -84,13 +91,13 @@ class DetalhesAtividade extends Component {
                         <Col>
                             <Form.Group as={Col}>
                             <Form.Label>Data Início</Form.Label>
-                            <Form.Control value={this.props.atividade.atividade_detalhado.dataInicial.substr(0, 10).split('-').reverse().join('/')} disabled />
+                            <Form.Control value={converte_data(this.props.atividade.atividade_detalhado.dataInicial, 1)} disabled />
                             </Form.Group>
                         </Col>
                         <Col>
                             <Form.Group as={Col}>
                             <Form.Label>Data Fim</Form.Label>
-                            <Form.Control value={this.props.atividade.atividade_detalhado.dataFinal.substr(0, 10).split('-').reverse().join('/')} disabled />
+                            <Form.Control value={converte_data(this.props.atividade.atividade_detalhado.dataFinal, 1)} disabled />
                             </Form.Group>
                         </Col>
                     </Form.Row>

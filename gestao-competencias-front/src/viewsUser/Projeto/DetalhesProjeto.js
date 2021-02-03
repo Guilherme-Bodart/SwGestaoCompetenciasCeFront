@@ -14,6 +14,13 @@ import '../../styles/principal.css'
 import { FaArrowLeft } from 'react-icons/fa';
 import { BsThreeDotsVertical } from "react-icons/bs";
 
+function converte_data(data, tem_hora = 0){
+    if(tem_hora){
+        return data.substr(0, 10).split('-').reverse().join('/')+' '+data.substr(11, 5);
+    }else{
+        return data.substr(0, 10).split('-').reverse().join('/');
+    }
+}
 
 const initialState = {
 
@@ -48,8 +55,8 @@ class DetalhesProjeto extends Component {
                 <td>{atividade.descricao}</td>
                 <td>{atividade.categoria.nome}</td>
                 <td>{atividade.subcategoria.nome}</td>
-                <td>{atividade.dataInicial.substr(0, 10).split('-').reverse().join('/')}</td>
-                <td>{atividade.dataFinal.substr(0, 10).split('-').reverse().join('/')}</td>
+                <td>{converte_data(atividade.dataInicial, 1)}</td>
+                <td>{converte_data(atividade.dataInicial, 1)}</td>
                 <td>{atividade.usuario.pessoa.nome}</td>
             </tr>
         );
@@ -58,7 +65,7 @@ class DetalhesProjeto extends Component {
             
             <Container fluid>
                 <Row>
-                <p className="App-text-logo" style={{marginLeft:"1em", marginTop:"0.5em"}}>Detalhes Projeto</p>
+                <p className="App-text-logo" style={{marginLeft:"1em", marginTop:"0.5em"}}>Projetos &gt; Detalhes</p>
                 <Button className="ml-auto" variant="outline-secondary" 
                 style={{marginRight:"1em", marginTop:"1em", height:"3em", width:"3em" }}
                 onClick={()=>{
@@ -122,7 +129,7 @@ class DetalhesProjeto extends Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                {atividades}
+                            {this.props.projeto.projeto_detalhado.atividades.length > 0 ? atividades : <tr><td colSpan="8">Sem atividades</td></tr>}
                             </tbody>
                         </Table>
                         </Form.Group>

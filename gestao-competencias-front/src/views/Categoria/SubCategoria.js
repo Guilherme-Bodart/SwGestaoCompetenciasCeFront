@@ -17,6 +17,13 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 
 import Alerta from "../../components/Alerta/Alerta"
 
+function converte_data(data, tem_hora = 0){
+    if(tem_hora){
+        return data.substr(0, 10).split('-').reverse().join('/')+' '+data.substr(11, 5);
+    }else{
+        return data.substr(0, 10).split('-').reverse().join('/');
+    }
+}
 
 const initialState = {
 
@@ -51,7 +58,7 @@ class SubCategoria extends Component {
             </DropdownButton>
             <td>{subcategoria.nome}</td>
             <td>{subcategoria.categoria.nome}</td>
-            <td>{subcategoria.dataCriacao.substr(0, 10).split('-').reverse().join('/')}</td>
+            <td>{converte_data(subcategoria.dataCriacao)}</td>
             <td>{subcategoria.usuario.pessoa.nome}</td>
         </tr>
         );
@@ -62,7 +69,7 @@ class SubCategoria extends Component {
             <Container fluid>
                 <Alerta open= {true} alertTitle= {this.props.alerta.alertTitle} severity= {this.props.alerta.severity} texto= {this.props.alerta.texto}/>
                 <Row>
-                <p className="App-text-logo" style={{marginLeft:"1em", marginTop:"0.5em"}}>SubCategorias</p>
+                <p className="App-text-logo" style={{marginLeft:"1em", marginTop:"0.5em"}}>Subcategorias</p>
                 <Button className="ml-auto" variant="outline-secondary" 
                 style={{marginRight:"1em", marginTop:"1em", height:"3em", width:"3em" }}
                     onClick={()=>{

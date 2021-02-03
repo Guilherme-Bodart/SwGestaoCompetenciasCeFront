@@ -23,7 +23,7 @@ export const criarCategoria = (nome) => {
                 }
             ).then(response => {
                 swal({
-                    title: "Cadastrado",
+                    title: "Cadastrada",
                     text: 'A categoria foi cadastrada com sucesso',
                     icon: "success",
                   }).then((value) => {
@@ -83,7 +83,7 @@ export const criarSubCategoria = (subcategoria) => {
                 }
             ).then(response => {
                 swal({
-                    title: "Cadastrado",
+                    title: "Cadastrada",
                     text: 'A subcategoria foi cadastrada com sucesso',
                     icon: "success",
                   }).then((value) => {
@@ -194,8 +194,8 @@ export const editarSubCategoria = (subcategoria) => {
                 }
             ).then(response => {
                 swal({
-                    title: "Editado",
-                    text: 'A subcategoria foi editada com sucesso',
+                    title: "Atualizada",
+                    text: 'A subcategoria foi atualizada com sucesso',
                     icon: "success",
                   }).then((value) => {
                     dispatch(pageSubCategoria());

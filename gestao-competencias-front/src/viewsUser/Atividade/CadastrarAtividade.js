@@ -106,7 +106,7 @@ class CadastrarAtividade extends Component {
             
             <Container fluid>
                 <Row>
-                <p className="App-text-logo" style={{marginLeft:"1em", marginTop:"0.5em"}}>Criar Atividade</p>
+                <p className="App-text-logo" style={{marginLeft:"1em", marginTop:"0.5em"}}>Atividades &gt; Cadastrar</p>
                 <Button className="ml-auto" variant="outline-secondary" 
                 style={{marginRight:"1em", marginTop:"1em", height:"3em", width:"3em" }}
                 onClick={()=>{
@@ -163,13 +163,13 @@ class CadastrarAtividade extends Component {
                         <Col>
                             <Form.Group as={Col}>
                             <Form.Label>Data Início</Form.Label>
-                            <Form.Control type="date" onChange={value => this.onChangeDataInicio(value)} required />
+                            <Form.Control type="datetime-local" onChange={value => this.onChangeDataInicio(value)} required />
                             </Form.Group>
                         </Col>
                         <Col>
                             <Form.Group as={Col}>
                             <Form.Label>Data Fim</Form.Label>
-                            <Form.Control type="date" onChange = {value => this.onChangeDataFim(value)} required />
+                            <Form.Control type="datetime-local" onChange = {value => this.onChangeDataFim(value)} required />
                             </Form.Group>
                         </Col>
                     </Form.Row>
@@ -180,7 +180,7 @@ class CadastrarAtividade extends Component {
                             projeto: this.state.projeto, categoria: this.state.categoria, 
                             subcategoria: this.state.subcategoria, dataInicial: this.state.dataInicial, dataFinal: this.state.dataFinal })
                         }}>
-                        Criar Atividade
+                        Cadastrar Atividade
                     </Button>
                     </Col>
                     </Form>

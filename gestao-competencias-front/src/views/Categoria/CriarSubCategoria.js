@@ -60,7 +60,7 @@ class CriarSubCategoria extends Component {
             <Container fluid>
                 <Alerta open= {true} alertTitle= {this.props.alerta.alertTitle} severity= {this.props.alerta.severity} texto= {this.props.alerta.texto}/>
                 <Row>
-                <p className="App-text-logo" style={{marginLeft:"1em", marginTop:"0.5em"}}>Criar SubCategoria</p>
+                <p className="App-text-logo" style={{marginLeft:"1em", marginTop:"0.5em"}}>Subcategorias &gt; Cadastrar</p>
                 <Button className="ml-auto" variant="outline-secondary" 
                 style={{marginRight:"1em", marginTop:"1em", height:"3em", width:"3em" }}
                 onClick={()=>{
@@ -90,7 +90,7 @@ class CriarSubCategoria extends Component {
                             onClick={()=>{
                                 this.props.pageCadastrarCategoria()
                             }}>
-                            Criar Categoria
+                            Cadastrar Categoria
                         </Button>
                     </Form.Row>
 
@@ -100,7 +100,7 @@ class CriarSubCategoria extends Component {
                                     await this.props.criarSubCategoria({nome:this.state.subcategoria, categoria:this.state.categoria})
                                 }
                             }}>
-                        Criar SubCategoria
+                        Cadastrar SubCategoria
                     </Button>
                     </Form>
             </Container>

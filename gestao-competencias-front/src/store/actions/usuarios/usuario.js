@@ -172,8 +172,8 @@ export const editarUsuario = usuario => {
             )
             .then(response => {
                 swal({
-                    title: "Editado",
-                    text: 'Usuário editado com sucesso',
+                    title: "Atualizado",
+                    text: 'Usuário atualizado com sucesso',
                     icon: "success",
                   }).then((value) => {
                     dispatch(pageUsuario());
@@ -238,7 +238,7 @@ export const recuperarSenha = usuario => {
             .then(response => {
 
                 swal({
-                    title: "Alterada",
+                    title: "Senha Alterada",
                     text: 'Sua senha foi alterada com sucesso',
                     icon: "success",
                 }).then((value) => {

@@ -14,6 +14,14 @@ import { pageCadastrarAtividade, pageAtividade, pageDetalhesAtividade, pageEdita
 
 import { getAlunoAtividades, getAtividade, deletarAtividade } from '../../store/actions/atividades/atividade'
 
+function converte_data(data, tem_hora = 0){
+    if(tem_hora){
+        return data.substr(0, 10).split('-').reverse().join('/')+' '+data.substr(11, 5);
+    }else{
+        return data.substr(0, 10).split('-').reverse().join('/');
+    }
+}
+
 const initialState = {
   }
 
@@ -56,8 +64,8 @@ class Atividade extends Component {
                 <td>{atividade.titulo}</td>
                 <td>{atividade.categoria.nome}</td>
                 <td>{atividade.subcategoria.nome}</td>
-                <td>{atividade.dataInicial.substr(0, 10).split('-').reverse().join('/')}</td>
-                <td>{atividade.dataFinal.substr(0, 10).split('-').reverse().join('/')}</td>
+                <td>{converte_data(atividade.dataInicial, 1)}</td>
+                <td>{converte_data(atividade.dataFinal, 1)}</td>
                 <td>{atividade.descricao}</td>
             </tr>
         );

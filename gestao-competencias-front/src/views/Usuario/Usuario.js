@@ -12,8 +12,15 @@ import Alerta from "../../components/Alerta/Alerta"
 import { pageEditarUsuario } from '../../store/actions/adminViews/adminView'
 import { getUsuarios, getUsuario } from '../../store/actions/usuarios/usuario'
 
-
 import '../../styles/principal.css'
+
+function converte_data(data, tem_hora = 0){
+    if(tem_hora){
+        return data.substr(0, 10).split('-').reverse().join('/')+' '+data.substr(11, 5);
+    }else{
+        return data.substr(0, 10).split('-').reverse().join('/');
+    }
+}
 
 const initialState = {
 
@@ -47,7 +54,7 @@ class Usuario extends Component {
                     <td>{user.pessoa.nome}</td>
                     <td>{user.pessoa.cpf}</td>
                     <td>{user.email}</td>
-                    <td>{user.pessoa.dataNascimento.substr(0, 10).split('-').reverse().join('/')}</td>
+                    <td>{converte_data(user.pessoa.dataNascimento)}</td>
                     <td>{user.permissao == 1 ? 'Aluno' : 'Admin'}</td>
                 </tr>
                 );
