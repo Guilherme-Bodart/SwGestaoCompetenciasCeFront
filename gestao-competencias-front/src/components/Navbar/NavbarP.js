@@ -31,8 +31,8 @@ class NavbarP extends Component {
     var nome2 = lista[1] ? lista[1] : ""
     return (
         <Navbar bg="light" variant="light" >
-          <Navbar.Brand href="#" onClick={()=>{this.props.dashboard()}} style={{marginTop:"0.5em", color:"#666", fontWeight:"500", fontSize:"1.9em", alignItems:"center"}} >
-            {nome1} {nome2}
+          <Navbar.Brand href="#" onClick={()=>{this.props.dashboard()}} style={{ color:"#666", alignItems:"center", height:"3.6em"}} >
+            <p style={{marginTop:"0.64em", fontSize:"1.1em", fontWeight:"500"}}> {nome1} {nome2}</p>
           </Navbar.Brand>
           
           <Nav className="ml-auto">
