@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { GET_CATEGORIA, GET_SUBCATEGORIA, LOGOUT_CATEGORIA, GET_DETALHARSUBCATEGORIA } from '../actionsTypes'
 
-import { pageSubCategoria, pageCadastrarSubCategoria } from '../adminViews/adminView'
+import { pageSubCategoria, pageCadastrarSubCategoria, pageEditarSubCategoria } from '../adminViews/adminView'
 
 import swal from 'sweetalert';
 
@@ -209,5 +209,39 @@ export const editarSubCategoria = (subcategoria) => {
                   });
             })
         
+    }
+}
+
+export const desativarSubCategoria = (nome, id_subcategoria) => {
+    return async (dispatch, getState) => {
+        swal({
+            title: "Deseja desativar a subcategoria?",
+            text: "Caso desative a subcategoria: "+nome+", a mesma não poderá ser escolhida no cadastro das atividades",
+            icon: "warning",
+            buttons: true,
+        }).then(async (willDelete) => {
+            if (willDelete) {
+                const token = 'Bearer ' + getState().usuario.token
+
+                await axios.delete("https://leds-skills.herokuapp.com/subcategory/"+id_subcategoria, { params: { token } })
+                    .then(response => { 
+                        swal({
+                            title: "Desativada",
+                            text: 'Subcategoria foi desativada com sucesso',
+                            icon: "success",
+                        }).then((value) => {
+                            dispatch(pageEditarSubCategoria());
+                            dispatch(pageSubCategoria());
+                        });
+                    })
+                    .catch( error => {
+                        swal({
+                            title: "Error",
+                            text: 'Falha em desativar a subcategoria, tente novamente mais tarde',
+                            icon: "error",
+                        });
+                    })
+            }
+        });
     }
 }

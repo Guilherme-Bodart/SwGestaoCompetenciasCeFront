@@ -96,6 +96,10 @@ class CriarConta extends Component {
     if(this.props.page.page === "login"){
       return <Redirect to ="/"/>
     }
+
+    let data_atual = new Date();
+
+    const data_max = (data_atual.getFullYear()-17)+'-01-01';
     
   return (
     <div className="App">
@@ -121,6 +125,7 @@ class CriarConta extends Component {
               <Form.Label className="App-form-labelC">Data de nascimento</Form.Label>
                   <Form.Control type="date"  
                   className="App-form-control"
+                  max={data_max}
                   onChange = {value => this.onChangeDataNascimento(value)} required/>
                   <Form.Text className="text-muted">
                   </Form.Text>

@@ -2,7 +2,7 @@ import axios from 'axios'
 import { GET_PROJETO, GET_DETALHARPROJETO, LOGOUT_PROJETO } from '../actionsTypes'
 import { alertin } from '../alertas/alerta'
 
-import { pageProjeto } from '../adminViews/adminView'
+import { pageProjeto, pageEditarProjeto } from '../adminViews/adminView'
 
 import swal from 'sweetalert';
 
@@ -150,5 +150,39 @@ export const getSaveProjeto = projeto => {
     return {
         type: GET_DETALHARPROJETO,
         payload: projeto
+    }
+}
+
+export const desativarProjeto = (nome, id_projeto) => {
+    return async (dispatch, getState) => {
+        swal({
+            title: "Deseja desativar o projeto?",
+            text: "Caso desative o projeto: "+nome+", os usuários vinculados a ele não teram mais acesso",
+            icon: "warning",
+            buttons: true,
+        }).then(async (willDelete) => {
+            if (willDelete) {
+                const token = 'Bearer ' + getState().usuario.token
+
+                await axios.delete("https://leds-skills.herokuapp.com/projects/"+id_projeto, { params: { token } })
+                    .then(response => { 
+                        swal({
+                            title: "Desativado",
+                            text: 'Projeto foi desativado com sucesso',
+                            icon: "success",
+                        }).then((value) => {
+                            dispatch(pageEditarProjeto());
+                            dispatch(pageProjeto());
+                        });
+                    })
+                    .catch( error => {
+                        swal({
+                            title: "Error",
+                            text: 'Falha em desativar o projeto, tente novamente mais tarde',
+                            icon: "error",
+                        });
+                    })
+            }
+        });
     }
 }

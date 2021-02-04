@@ -5,7 +5,7 @@ import axios from 'axios'
 import { alertout } from '../alertas/alerta'
 import { pageLogin } from '../pages/page'
 
-import { pageUsuario } from '../adminViews/adminView'
+import { pageEditarUsuario, pageUsuario } from '../adminViews/adminView'
 
 import swal from 'sweetalert';
 
@@ -255,5 +255,39 @@ export const recuperarSenha = usuario => {
                     icon: "error",
                   })
             })
+    }
+}
+
+export const desativarUsuario = (nome, id_user) => {
+    return async (dispatch, getState) => {
+        swal({
+            title: "Deseja desativar o usuário?",
+            text: "Caso confirme desativar o usuário: "+nome+", o mesmo será retirado dos projetos vinculados",
+            icon: "warning",
+            buttons: true,
+        }).then(async (willDelete) => {
+            if (willDelete) {
+                const token = 'Bearer ' + getState().usuario.token
+
+                await axios.delete("https://leds-skills.herokuapp.com/users/"+id_user, { params: { token } })
+                    .then(response => { 
+                        swal({
+                            title: "Desativado",
+                            text: 'Usuário foi desativado com sucesso',
+                            icon: "success",
+                        }).then((value) => {
+                            dispatch(pageEditarUsuario());
+                            dispatch(pageUsuario());
+                        });
+                    })
+                    .catch( error => {
+                        swal({
+                            title: "Error",
+                            text: 'Falha em desativar o usuário, tente novamente mais tarde',
+                            icon: "error",
+                        });
+                    })
+            }
+        });
     }
 }

@@ -13,7 +13,7 @@ import { FaPlus } from 'react-icons/fa';
 import { pageCadastrarCategoria, pageCadastrarSubCategoria, pageSubCategoria, 
     pageCadastrarProjeto, pageProjeto, pageDetalhesProjeto, pageEditarProjeto } from '../../store/actions/adminViews/adminView'
 
-import { getProjetos, getProjeto } from '../../store/actions/projetos/projeto'
+import { getProjetos, getProjeto, desativarProjeto } from '../../store/actions/projetos/projeto'
 
 function converte_data(data, tem_hora = 0){
     if(tem_hora){
@@ -60,7 +60,13 @@ class Projeto extends Component {
                                     }
                     }>  Editar
                     </Dropdown.Item>
-                    <Dropdown.Item href="#">Desativar</Dropdown.Item>
+                    <Dropdown.Item onClick={async ()=>{
+                                        await this.props.getProjeto(projeto._id)
+                                        if(this.props.projeto.projeto_detalhado!={}){
+                                            this.props.desativarProjeto(projeto.nome, projeto._id)
+                                        }
+                                    }
+                    }>Desativar</Dropdown.Item>
                 </DropdownButton>
                 <td>{projeto.nome}</td>
                 <td>{projeto.descricao}</td>
@@ -121,6 +127,7 @@ const mapStateToProps = ({ adminView, projeto }) => {
         pageEditarProjeto: () => dispatch(pageEditarProjeto()),
         getProjetos: () => dispatch(getProjetos()),
         getProjeto: (id_projeto) => dispatch(getProjeto(id_projeto)),
+        desativarProjeto: (nome, id_projeto) => dispatch(desativarProjeto(nome, id_projeto)),
     }
   }
   export default connect(mapStateToProps, mapDispatchToProps)(Projeto)

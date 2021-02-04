@@ -100,6 +100,10 @@ class EditarUsuario extends Component {
             }
         });
 
+        let data_atual = new Date();
+
+        const data_max = (data_atual.getFullYear()-17)+'-01-01';
+
         return(
             
             <Container fluid>
@@ -125,7 +129,7 @@ class EditarUsuario extends Component {
                         <Col>
                             <Form.Group as={Col} controlId="formGridEmail">
                             <Form.Label>Data de nascimento</Form.Label>
-                            <Form.Control value={this.state.dataNascimento} type="date" onChange = {value => this.onChangeDataNascimento(value)} required />
+                            <Form.Control value={this.state.dataNascimento} max={data_max} type="date" onChange = {value => this.onChangeDataNascimento(value)} required />
                             </Form.Group>
                         </Col>
                     </Form.Row>
@@ -170,6 +174,7 @@ class EditarUsuario extends Component {
 
                     <Col>
                         <Button variant="primary" type="submit" onClick= { async ()  =>{
+
                                      var idx = this.state.email.indexOf('@');
                                      if(this.state.nome != '' && this.state.dataNascimento != '' && this.state.email != '' && idx != -1 
                                      && this.state.senha != '' && this.state.cpf != ''){
@@ -178,7 +183,7 @@ class EditarUsuario extends Component {
                                             telefone:this.state.telefone, endereco:this.state.endereco, 
                                             cpf:this.state.cpf, permissao:this.state.permissao})
                                         }
-                        
+                                    
                                 }}>
                             Salvar Usuário
                         </Button>

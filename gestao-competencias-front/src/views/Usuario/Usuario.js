@@ -10,7 +10,7 @@ import DropdownButton from 'react-bootstrap/DropdownButton'
 import Alerta from "../../components/Alerta/Alerta"
 
 import { pageEditarUsuario } from '../../store/actions/adminViews/adminView'
-import { getUsuarios, getUsuario } from '../../store/actions/usuarios/usuario'
+import { getUsuarios, getUsuario, desativarUsuario } from '../../store/actions/usuarios/usuario'
 
 import '../../styles/principal.css'
 
@@ -49,7 +49,14 @@ class Usuario extends Component {
                                         }
                                     }
                                     }>Editar</Dropdown.Item>
-                        <Dropdown.Item href="#">Desativar</Dropdown.Item>
+                        <Dropdown.Item onClick={async ()=>{
+    
+                            await this.props.getUsuario(user._id)
+                            if(this.props.usuario.getUsuario!={}){
+                                this.props.desativarUsuario(user.pessoa.nome, user._id)
+                            }
+                        }
+                        }>Desativar</Dropdown.Item>
                     </DropdownButton>
                     <td>{user.pessoa.nome}</td>
                     <td>{user.pessoa.cpf}</td>
@@ -100,7 +107,8 @@ const mapStateToProps = ({ adminView, usuario,alerta }) => {
     return {
         pageEditarUsuario: () => dispatch(pageEditarUsuario()),       
         getUsuarios: () => dispatch(getUsuarios()),       
-        getUsuario: (id_usuario) => dispatch(getUsuario(id_usuario)),       
+        getUsuario: (id_usuario) => dispatch(getUsuario(id_usuario)),  
+        desativarUsuario: (nome, id_usuario) => dispatch(desativarUsuario(nome, id_usuario)),      
     }
   }
   export default connect(mapStateToProps, mapDispatchToProps)(Usuario)

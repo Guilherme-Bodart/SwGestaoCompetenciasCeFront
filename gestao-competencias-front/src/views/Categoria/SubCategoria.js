@@ -9,7 +9,7 @@ import DropdownButton from 'react-bootstrap/DropdownButton'
 
 import { pageCadastrarCategoria, pageCadastrarSubCategoria, pageSubCategoria, 
     pageCadastrarProjeto, pageProjeto, pageEditarSubCategoria } from '../../store/actions/adminViews/adminView'
-import { getSubCategorias, getSubCategoria } from '../../store/actions/categorias/categoria'
+import { getSubCategorias, getSubCategoria, desativarSubCategoria } from '../../store/actions/categorias/categoria'
 
 import '../../styles/principal.css'
 import { FaPlus } from 'react-icons/fa';
@@ -54,7 +54,13 @@ class SubCategoria extends Component {
                                         }
                                     }
                                     }>Editar</Dropdown.Item>
-                <Dropdown.Item href="#">Desativar</Dropdown.Item>
+                <Dropdown.Item onClick={async ()=>{
+                                        await this.props.getSubCategoria(subcategoria._id)
+                                        if(this.props.categoria.getSubcategoria!={}){
+                                            this.props.desativarSubCategoria(subcategoria.nome, subcategoria._id)
+                                        }
+                                    }
+                                    }>Desativar</Dropdown.Item>
             </DropdownButton>
             <td>{subcategoria.nome}</td>
             <td>{subcategoria.categoria.nome}</td>
@@ -116,7 +122,8 @@ return {
     pageProjeto: () => dispatch(pageProjeto()),
     pageSubCategoria: () => dispatch(pageSubCategoria()),
     getSubCategorias: () => dispatch(getSubCategorias()),       
-    getSubCategoria: (subcategoria) => dispatch(getSubCategoria(subcategoria)),       
+    getSubCategoria: (subcategoria) => dispatch(getSubCategoria(subcategoria)),   
+    desativarSubCategoria: (subcategoria, id_subcategoria) => dispatch(desativarSubCategoria(subcategoria, id_subcategoria)),      
     
 }
 }
