@@ -28,8 +28,7 @@ const initialState = {
     dataFinal: '',
     categoria: 0,
     subcategoria: 0,
-    projeto: 0,
-    subcategorias: ''
+    projeto: 0
 }
 
 class CadastrarAtividade extends Component {
@@ -62,10 +61,9 @@ class CadastrarAtividade extends Component {
             categoria: event.target.value
         })
 
-        this.props.getSubCategoriasExp(event.target.value)
-        this.setState({
-            subcategorias: this.props.categoria.subcategorias.map(subcategoria => <option value={subcategoria._id}>{subcategoria.nome}</option>)
-        })
+        if(event.target.value != 0){
+            this.props.getSubCategoriasExp(event.target.value)
+        }
     }
 
     onChangeSubcategoria = (event) => {
@@ -101,6 +99,8 @@ class CadastrarAtividade extends Component {
         const categorias = this.props.categoria.categorias.map( categoria => <option value={categoria._id}>{categoria.nome}</option>);
 
         const projetos = this.props.projeto.projetos.map( projeto => <option value={projeto.projeto._id}>{projeto.projeto.nome}</option>);
+
+        const subcategorias = this.props.categoria.subcategorias.map(subcategoria => <option value={subcategoria._id}>{subcategoria.nome}</option>)
 
         return(
             
@@ -142,7 +142,7 @@ class CadastrarAtividade extends Component {
                     <Form.Row>  
                         <Form.Group as={Col}>
                         <Form.Label>Categoria</Form.Label>
-                        <Form.Control required onChange={value => this.onChangeCategoria(value)} as="select" defaultValue="0">
+                        <Form.Control required onChange={value => this.onChangeCategoria(value)} as="select">
                             <option value="0">Selecione...</option>
                             {categorias}
                         </Form.Control>
@@ -152,9 +152,9 @@ class CadastrarAtividade extends Component {
                     <Form.Row>  
                         <Form.Group as={Col}>
                         <Form.Label>SubCategoria</Form.Label>
-                        <Form.Control required onChange={value => this.onChangeSubcategoria(value)} as="select" defaultValue="0">
+                        <Form.Control required onChange={value => this.onChangeSubcategoria(value)} as="select" >
                             <option value="0">Selecione...</option>
-                            {this.state.subcategorias}
+                            {subcategorias}
                         </Form.Control>
                         </Form.Group>
                     </Form.Row>

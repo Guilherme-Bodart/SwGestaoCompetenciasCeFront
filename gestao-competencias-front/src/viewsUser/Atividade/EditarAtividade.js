@@ -25,8 +25,7 @@ const initialState = {
     dataInicial : '',
     dataFinal: '',
     categoria: 0,
-    subcategoria: 0,
-    subcategorias: ''
+    subcategoria: 0
 }
 
 class EditarAtividade extends Component {
@@ -65,10 +64,9 @@ class EditarAtividade extends Component {
             categoria: event.target.value
         })
 
-        this.props.getSubCategoriasExp(event.target.value)
-        this.setState({
-            subcategorias: this.props.categoria.subcategorias.map(subcategoria => <option value={subcategoria._id}>{subcategoria.nome}</option>)
-        })
+        if(event.target.value != 0){
+            this.props.getSubCategoriasExp(event.target.value)
+        }
     }
 
     onChangeSubcategoria = (event) => {
@@ -100,10 +98,10 @@ class EditarAtividade extends Component {
     }
 
     render(props){
-
+        
         const categorias = this.props.categoria.categorias.map( categoria => {
             if(categoria._id == this.props.atividade.atividade_detalhado.categoria._id){
-                return <option value={categoria._id} selected>
+                return <option selected value={categoria._id} >
                     {categoria.nome}
                 </option>
             }else{
@@ -124,8 +122,6 @@ class EditarAtividade extends Component {
                 </option>
             }
         });
-
-        this.state.subcategorias = subcategorias
 
         return(
             
@@ -158,7 +154,7 @@ class EditarAtividade extends Component {
                     <Form.Row>  
                         <Form.Group as={Col}>
                         <Form.Label>Categoria</Form.Label>
-                        <Form.Control required onChange={value => this.onChangeCategoria(value)} as="select" defaultValue="0">
+                        <Form.Control required onChange={value => this.onChangeCategoria(value)} as="select">
                             <option value="0">Selecione...</option>
                             {categorias}
                         </Form.Control>
@@ -168,9 +164,9 @@ class EditarAtividade extends Component {
                     <Form.Row>  
                         <Form.Group as={Col}>
                         <Form.Label>SubCategoria</Form.Label>
-                        <Form.Control required onChange={value => this.onChangeSubcategoria(value)} as="select" defaultValue="0">
+                        <Form.Control required onChange={value => this.onChangeSubcategoria(value)} as="select">
                             <option value="0">Selecione...</option>
-                            {this.state.subcategorias}
+                            {subcategorias}
                         </Form.Control>
                         </Form.Group>
                     </Form.Row>
