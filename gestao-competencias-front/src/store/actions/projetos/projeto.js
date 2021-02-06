@@ -27,7 +27,7 @@ export const criarProjeto = (projeto) => {
                 }
             ).then(response => {
                 swal({
-                    title: "Cadastrado",
+                    title: "Sucesso",
                     text: 'O projeto foi cadastrado com sucesso',
                     icon: "success",
                   }).then((value) => {
@@ -128,7 +128,7 @@ export const atualizarProjeto = (projeto,id_projeto) => {
             .then(response => {   
                 const projeto = response.data
                 swal({
-                    title: "Atualizado",
+                    title: "Sucesso",
                     text: 'O projeto foi atualizado com sucesso',
                     icon: "success",
                   }).then((value) => {
@@ -167,7 +167,7 @@ export const desativarProjeto = (nome, id_projeto) => {
                 await axios.delete("https://leds-skills.herokuapp.com/projects/"+id_projeto, { params: { token } })
                     .then(response => { 
                         swal({
-                            title: "Desativado",
+                            title: "Sucesso",
                             text: 'Projeto foi desativado com sucesso',
                             icon: "success",
                         }).then((value) => {

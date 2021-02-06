@@ -33,7 +33,7 @@ class Projeto extends Component {
     render(props){
 
         const projetos = this.props.projeto.projetos.map((projeto, index) => 
-     
+
             <tr>
                 <td>{index+1}</td>
                 <DropdownButton variant="dark" id="dropdown-basic-button" title="..." style={{marginLeft:"1em", marginTop:"1em"}}>
@@ -54,13 +54,23 @@ class Projeto extends Component {
                                     }
                     }>  Editar
                     </Dropdown.Item>
-                    <Dropdown.Item onClick={async ()=>{
-                                        await this.props.getProjeto(projeto._id)
-                                        if(this.props.projeto.projeto_detalhado!={}){
-                                            this.props.desativarProjeto(projeto.nome, projeto._id)
-                                        }
-                                    }
-                    }>Desativar</Dropdown.Item>
+                        {projeto.equipe.length > 0 ?
+                            <Dropdown.Item disabled onClick={async ()=>{
+                                                await this.props.getProjeto(projeto._id)
+                                                if(this.props.projeto.projeto_detalhado!={}){
+                                                    this.props.desativarProjeto(projeto.nome, projeto._id)
+                                                }
+                                            }
+                            }>Desativar</Dropdown.Item>
+                        :
+                        <Dropdown.Item onClick={async ()=>{
+                            await this.props.getProjeto(projeto._id)
+                                if(this.props.projeto.projeto_detalhado!={}){
+                                    this.props.desativarProjeto(projeto.nome, projeto._id)
+                                }
+                            }
+                        }>Desativar</Dropdown.Item>
+                    }
                 </DropdownButton>
                 <td>{projeto.nome}</td>
                 <td>{projeto.descricao}</td>

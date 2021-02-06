@@ -107,7 +107,7 @@ export const editarAtividade = (atividade) => {
             .then(response => {   
                 const atividade = response.data
                 swal({
-                    title: "Atualizada",
+                    title: "Sucesso",
                     text: 'A atividade foi atualizada com sucesso',
                     icon: "success",
                   }).then((value) => {
@@ -143,7 +143,7 @@ export const cadastrarAtividade = (atividade) => {
                 }
             ).then(response => {
                 swal({
-                    title: "Cadastrada",
+                    title: "Sucesso",
                     text: 'A atividade foi cadastrada com sucesso',
                     icon: "success",
                   }).then((value) => {
@@ -175,7 +175,7 @@ export const deletarAtividade = (titulo, id_atividade) => {
                 await axios.delete("https://leds-skills.herokuapp.com/tasks/"+id_atividade, { params: { token } })
                     .then(response => { 
                         swal({
-                            title: "Excluída",
+                            title: "Sucesso",
                             text: 'Atividade foi excluída com sucesso',
                             icon: "success",
                         }).then((value) => {

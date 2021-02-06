@@ -23,7 +23,7 @@ export const criarCategoria = (nome) => {
                 }
             ).then(response => {
                 swal({
-                    title: "Cadastrada",
+                    title: "Sucesso",
                     text: 'A categoria foi cadastrada com sucesso',
                     icon: "success",
                   }).then((value) => {
@@ -111,7 +111,7 @@ export const criarSubCategoria = (subcategoria) => {
                 }
             ).then(response => {
                 swal({
-                    title: "Cadastrada",
+                    title: "Sucesso",
                     text: 'A subcategoria foi cadastrada com sucesso',
                     icon: "success",
                   }).then((value) => {
@@ -222,7 +222,7 @@ export const editarSubCategoria = (subcategoria) => {
                 }
             ).then(response => {
                 swal({
-                    title: "Atualizada",
+                    title: "Sucesso",
                     text: 'A subcategoria foi atualizada com sucesso',
                     icon: "success",
                   }).then((value) => {
@@ -253,7 +253,7 @@ export const editarCategoria = (categoria) => {
                 }
             ).then(response => {
                 swal({
-                    title: "Atualizada",
+                    title: "Sucesso",
                     text: 'A categoria foi atualizada com sucesso',
                     icon: "success",
                   }).then((value) => {
@@ -285,7 +285,7 @@ export const desativarSubCategoria = (nome, id_subcategoria) => {
                 await axios.delete("https://leds-skills.herokuapp.com/subcategory/"+id_subcategoria, { params: { token } })
                     .then(response => { 
                         swal({
-                            title: "Desativada",
+                            title: "Sucesso",
                             text: 'Subcategoria foi desativada com sucesso',
                             icon: "success",
                         }).then((value) => {
@@ -319,7 +319,7 @@ export const desativarCategoria = (nome, id_categoria) => {
                 await axios.delete("https://leds-skills.herokuapp.com/category/"+id_categoria, { params: { token } })
                     .then(response => { 
                         swal({
-                            title: "Desativada",
+                            title: "Sucesso",
                             text: 'Categoria foi desativada com sucesso',
                             icon: "success",
                         }).then((value) => {

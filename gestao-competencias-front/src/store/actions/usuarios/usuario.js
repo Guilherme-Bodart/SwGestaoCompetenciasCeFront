@@ -104,7 +104,7 @@ export const criarUsuario = usuario => {
             )
             .then(response => {
                  swal({
-                    title: "Cadastrado",
+                    title: "Sucesso",
                     text: 'Usuário cadastrado com sucesso',
                     icon: "success",
                   }).then((value) => {
@@ -172,7 +172,7 @@ export const editarUsuario = usuario => {
             )
             .then(response => {
                 swal({
-                    title: "Atualizado",
+                    title: "Sucesso",
                     text: 'Usuário atualizado com sucesso',
                     icon: "success",
                   }).then((value) => {
@@ -204,7 +204,7 @@ export const enviarEmailReset = email => {
             )
             .then(response => {
                 swal({
-                    title: "Enviado",
+                    title: "Sucesso",
                     text: 'O e-mail de recuperação de senha foi enviado com sucesso',
                     icon: "success",
                   })
@@ -238,7 +238,7 @@ export const recuperarSenha = usuario => {
             .then(response => {
 
                 swal({
-                    title: "Senha Alterada",
+                    title: "Sucesso",
                     text: 'Sua senha foi alterada com sucesso',
                     icon: "success",
                 }).then((value) => {
@@ -272,7 +272,7 @@ export const desativarUsuario = (nome, id_user) => {
                 await axios.delete("https://leds-skills.herokuapp.com/users/"+id_user, { params: { token } })
                     .then(response => { 
                         swal({
-                            title: "Desativado",
+                            title: "Sucesso",
                             text: 'Usuário foi desativado com sucesso',
                             icon: "success",
                         }).then((value) => {
