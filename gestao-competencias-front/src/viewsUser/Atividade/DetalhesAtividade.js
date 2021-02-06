@@ -16,13 +16,7 @@ import '../../styles/principal.css'
 import { FaArrowLeft } from 'react-icons/fa';
 import { BsThreeDotsVertical } from "react-icons/bs";
 
-function converte_data(data, tem_hora = 0){
-    if(tem_hora){
-        return data.substr(0, 10).split('-').reverse().join('/')+' '+data.substr(11, 5);
-    }else{
-        return data.substr(0, 10).split('-').reverse().join('/');
-    }
-}
+import {converte_data} from '../../functions/function'
 
 const initialState = {
 }

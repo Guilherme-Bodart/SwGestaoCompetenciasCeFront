@@ -2,7 +2,7 @@ import { PAGE_CADASTRO_CATEGORIA,PAGE_CADASTRO_PROJETO,
         PAGE_CADASTRO_SUBCATEGORIA, PAGE_SUBCATEGORIA, 
         PAGE_PROJETO, PAGE_DETALHES_PROJETO, PAGE_USUARIO,
         PAGE_DASHBOARD, PAGE_EDITAR_PROJETO, LOGOUT_ADMINVIEW, PAGE_EDITAR_SUBCATEGORIA,
-        PAGE_EDITAR_USUARIO, PAGE_DETALHAR_USUARIO
+        PAGE_EDITAR_USUARIO, PAGE_DETALHAR_USUARIO, PAGE_EDITAR_CATEGORIA, PAGE_CATEGORIA
 } from '../../actions/actionsTypes'
 
 const initialState = {
@@ -73,10 +73,22 @@ switch (action.type) {
         }
     
     case PAGE_DETALHAR_USUARIO:
-            page = 'detalhesUsuario'
-            return {
-                ...state, page
-            }
+        page = 'detalhesUsuario'
+        return {
+            ...state, page
+        }
+    
+    case PAGE_EDITAR_CATEGORIA:
+        page = 'editarCategoria'
+        return {
+            ...state, page
+        }
+
+    case PAGE_CATEGORIA:
+        page = 'categoria'
+        return {
+            ...state, page
+        }
     
 
     case PAGE_DASHBOARD:

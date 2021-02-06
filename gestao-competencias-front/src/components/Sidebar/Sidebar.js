@@ -15,7 +15,7 @@ import { alertout } from '../../store/actions/alertas/alerta'
 import { ProSidebar, Menu, MenuItem } from 'react-pro-sidebar';
 import 'react-pro-sidebar/dist/css/styles.css';
 
-import { FaMedapps, FaUsers, FaSitemap, FaChartBar, FaTasks } from 'react-icons/fa';
+import { FaMedapps, FaUsers, FaSitemap, FaGripHorizontal, FaTasks } from 'react-icons/fa';
 import { AiOutlineDashboard } from 'react-icons/ai';
 
 import { styled } from '@material-ui/core';
@@ -44,6 +44,9 @@ class NavbarP extends Component {
 
       case 'FaUsers':
         return <FaUsers style={styleIcon}/>;
+
+      case 'FaGripHorizontal':
+        return <FaGripHorizontal style={styleIcon}/>;
       
       case 'FaTasks':
         return <FaTasks style={styleIcon}/>;

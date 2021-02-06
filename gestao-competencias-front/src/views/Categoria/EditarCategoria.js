@@ -7,64 +7,69 @@ import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col'
 import DropdownButton from 'react-bootstrap/DropdownButton'
 
+import { pageCadastrarCategoria, pageCadastrarSubCategoria, pageSubCategoria, 
+    pageCadastrarProjeto, pageProjeto, pageCategoria } from '../../store/actions/adminViews/adminView'
+
+import { editarCategoria } from '../../store/actions/categorias/categoria'
+
 import '../../styles/principal.css'
 import { FaArrowLeft } from 'react-icons/fa';
 import { BsThreeDotsVertical } from "react-icons/bs";
 
-import Alerta from "../../components/Alerta/Alerta"
-import { criarCategoria } from '../../store/actions/categorias/categoria'
-import { pageCadastrarSubCategoria, pageCategoria } from '../../store/actions/adminViews/adminView'
-
-
 const initialState = {
-  }
 
-class CriarCategoria extends Component {
+    categoria: '',
+
+}
+
+class EditarCategoria extends Component {
+
     constructor(props) {
         super(props)
         this.state = initialState
+        this.state.categoria = this.props.categoria.getCategoria.nome
     }
 
     onChangeCategoria = (event) => {
         this.setState({
-          categoria: event.target.value
-       })
-      }
+            categoria: event.target.value
+        })
+    }
 
     handleSubmit(event){
         event.preventDefault()    
     }
 
     render(props){
-    //   if(!this.props.usuario.logado){
-    //     return <Redirect to ="/"/>
-    //   }
-        return(            
+
+        return(
+            
             <Container fluid>
-                <Alerta open= {true} alertTitle= {this.props.alerta.alertTitle} severity= {this.props.alerta.severity} texto= {this.props.alerta.texto}/>
                 <Row>
-                <p className="App-text-logo" style={{marginLeft:"1em", marginTop:"0.5em"}}>Categorias &gt; Cadastrar</p>
+                <p className="App-text-logo" style={{marginLeft:"1em", marginTop:"0.5em"}}>Categorias &gt; Editar</p>
                 <Button className="ml-auto" variant="outline-secondary" 
                 style={{marginRight:"1em", marginTop:"1em", height:"3em", width:"3em" }}
                 onClick={()=>{
                     this.props.pageCategoria()
                 }}>
                     <FaArrowLeft/>
-                </Button> 
+                </Button>
                 </Row>
-                <Form onSubmit={this.handleSubmit}>
+                <Form className="App-form" onSubmit={this.handleSubmit}>
                     <Form.Row>
                         <Form.Group as={Col} controlId="formGridEmail">
                         <Form.Label>Nome</Form.Label>
-                        <Form.Control required onChange = {value => this.onChangeCategoria(value)} placeholder="Nome da categoria" />
+                        <Form.Control value={this.state.categoria} onChange={value => this.onChangeCategoria(value)} required />
                         </Form.Group>
                     </Form.Row>
 
-                    <Button variant="primary" type="submit"
-                     onClick={()=>{
-                        this.props.criarCategoria(this.state.categoria)
-                    }}>
-                        Cadastrar Categoria
+                    <Button variant="primary" type="submit" onClick= { async ()  =>{
+              
+                                if(this.state.subcategoria != '' && this.state.categoria != 0){
+                                    await this.props.editarCategoria({id: this.props.categoria.getCategoria._id, nome:this.state.categoria})
+                                }
+                            }}>
+                        Salvar Categoria
                     </Button>
                     </Form>
             </Container>
@@ -73,18 +78,21 @@ class CriarCategoria extends Component {
     }
 }
 
-const mapStateToProps = ({ adminView, alerta }) => {
+const mapStateToProps = ({ adminView, alerta, categoria }) => {
     return {
         adminView,
-        alerta
+        alerta,
+        categoria
     }
   }
   
   const mapDispatchToProps = dispatch => {
     return {
         pageCategoria: () => dispatch(pageCategoria()),
-        criarCategoria: categoria => dispatch(criarCategoria(categoria)),
         pageCadastrarSubCategoria: () => dispatch(pageCadastrarSubCategoria()),
+        pageProjeto: () => dispatch(pageProjeto()),
+        pageSubCategoria: () => dispatch(pageSubCategoria()),
+        editarCategoria: categoria => dispatch(editarCategoria(categoria))
     }
   }
-  export default connect(mapStateToProps, mapDispatchToProps)(CriarCategoria)
+  export default connect(mapStateToProps, mapDispatchToProps)(EditarCategoria)

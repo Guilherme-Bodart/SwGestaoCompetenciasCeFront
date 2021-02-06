@@ -14,13 +14,7 @@ import { pageCadastrarCategoria, pageCadastrarSubCategoria, pageSubCategoria,
 
 import { getAlunoProjetos, getProjeto } from '../../store/actions/projetos/projeto'
 
-function converte_data(data, tem_hora = 0){
-    if(tem_hora){
-        return data.substr(0, 10).split('-').reverse().join('/')+' '+data.substr(11, 5);
-    }else{
-        return data.substr(0, 10).split('-').reverse().join('/');
-    }
-}
+import {converte_data} from '../../functions/function'
 
 const initialState = {
   }
@@ -46,7 +40,7 @@ class Projeto extends Component {
                                             this.props.pageDetalhesProjeto()
                                         }
                                     }
-                    }>  Detalhes
+                    }>  Detalhar
                     </Dropdown.Item>
                 </DropdownButton>
                 <td>{projeto.projeto.nome}</td>

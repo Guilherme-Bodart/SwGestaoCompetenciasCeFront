@@ -8,14 +8,12 @@ import Dropdown from 'react-bootstrap/Dropdown'
 import DropdownButton from 'react-bootstrap/DropdownButton'
 
 import { pageCadastrarCategoria, pageCadastrarSubCategoria, pageSubCategoria, 
-    pageCadastrarProjeto, pageProjeto, pageEditarSubCategoria } from '../../store/actions/adminViews/adminView'
-import { getSubCategorias, getSubCategoria, desativarSubCategoria } from '../../store/actions/categorias/categoria'
+    pageCadastrarProjeto, pageProjeto, pageEditarCategoria } from '../../store/actions/adminViews/adminView'
+import { getCategorias, getCategoria, desativarCategoria } from '../../store/actions/categorias/categoria'
 
 import '../../styles/principal.css'
 import { FaPlus } from 'react-icons/fa';
 import { BsThreeDotsVertical } from "react-icons/bs";
-
-import Alerta from "../../components/Alerta/Alerta"
 
 import {converte_data} from '../../functions/function'
 
@@ -23,43 +21,45 @@ const initialState = {
 
 }
 
-class SubCategoria extends Component {
+class Categoria extends Component {
     constructor(props) {
         super(props)
         this.state = initialState
     }
 
     async componentDidMount(){
-        await this.props.getSubCategorias()
+        await this.props.getCategorias()
     }
     
 
     render(props){
-
-        const subcategorias = this.props.categoria.subcategorias.map((subcategoria, index) => 
+        const categorias = this.props.categoria.categorias.map((categoria, index) => 
 
         <tr>
             <td>{index+1}</td>
             <DropdownButton variant="dark" id="dropdown-basic-button" title="..." style={{marginLeft:"1em", marginTop:"1em"}}>
                 <Dropdown.Item onClick={async ()=>{
-                                        await this.props.getSubCategoria(subcategoria._id)
-                                        if(this.props.categoria.getSubcategoria!={}){
-                                            this.props.pageEditarSubCategoria()
+                                        await this.props.getCategoria(categoria._id)
+                                        if(this.props.categoria.getCategoria!={}){
+                                            this.props.pageEditarCategoria()
                                         }
                                     }
                                     }>Editar</Dropdown.Item>
                 <Dropdown.Item onClick={async ()=>{
-                                        await this.props.getSubCategoria(subcategoria._id)
-                                        if(this.props.categoria.getSubcategoria!={}){
-                                            this.props.desativarSubCategoria(subcategoria.nome, subcategoria._id)
+                                        await this.props.getCategoria(categoria._id)
+                                        if(this.props.categoria.getCategoria!={}){
+                                            this.props.desativarCategoria(categoria.nome, categoria._id)
                                         }
                                     }
                                     }>Desativar</Dropdown.Item>
             </DropdownButton>
-            <td>{subcategoria.nome}</td>
-            <td>{subcategoria.categoria.nome}</td>
-            <td>{converte_data(subcategoria.dataCriacao)}</td>
-            <td>{subcategoria.usuario.pessoa.nome}</td>
+            <td>{categoria.nome}</td>
+            <td>{categoria.subcategorias.map((subcategoria) => 
+                <p>{subcategoria.nome}<br/></p>
+            )}
+            </td>
+            <td>{converte_data(categoria.dataCriacao)}</td>
+            <td>{categoria.usuario.pessoa.nome}</td>
         </tr>
         );
 
@@ -67,13 +67,12 @@ class SubCategoria extends Component {
             
             
             <Container fluid>
-                <Alerta open= {true} alertTitle= {this.props.alerta.alertTitle} severity= {this.props.alerta.severity} texto= {this.props.alerta.texto}/>
                 <Row>
-                <p className="App-text-logo" style={{marginLeft:"1em", marginTop:"0.5em"}}>Subcategorias</p>
+                <p className="App-text-logo" style={{marginLeft:"1em", marginTop:"0.5em"}}>Categorias</p>
                 <Button className="ml-auto" variant="outline-secondary" 
                 style={{marginRight:"1em", marginTop:"1em", height:"3em", width:"3em" }}
                     onClick={()=>{
-                    this.props.pageCadastrarSubCategoria()
+                    this.props.pageCadastrarCategoria()
                 }}>
                     <FaPlus/>
                 </Button>
@@ -84,13 +83,13 @@ class SubCategoria extends Component {
                             <th>#</th>
                             <th>Ações</th>
                             <th>Nome</th>
-                            <th>Categoria</th>
+                            <th>Subcategorias</th>
                             <th>Data Cadastro</th>
                             <th>Responsável pelo cadastro</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {subcategorias}
+                        {categorias}
                     </tbody>
                 </Table>
             </Container>
@@ -112,13 +111,13 @@ return {
     pageCadastrarCategoria: () => dispatch(pageCadastrarCategoria()),
     pageCadastrarProjeto: () => dispatch(pageCadastrarProjeto()),
     pageCadastrarSubCategoria: () => dispatch(pageCadastrarSubCategoria()),
-    pageEditarSubCategoria: () => dispatch(pageEditarSubCategoria()),
+    pageEditarCategoria: () => dispatch(pageEditarCategoria()),
     pageProjeto: () => dispatch(pageProjeto()),
     pageSubCategoria: () => dispatch(pageSubCategoria()),
-    getSubCategorias: () => dispatch(getSubCategorias()),       
-    getSubCategoria: (subcategoria) => dispatch(getSubCategoria(subcategoria)),   
-    desativarSubCategoria: (subcategoria, id_subcategoria) => dispatch(desativarSubCategoria(subcategoria, id_subcategoria)),      
+    getCategorias: () => dispatch(getCategorias()),       
+    getCategoria: (categoria) => dispatch(getCategoria(categoria)),   
+    desativarCategoria: (categoria, id_categoria) => dispatch(desativarCategoria(categoria, id_categoria)),      
     
 }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(SubCategoria)
+export default connect(mapStateToProps, mapDispatchToProps)(Categoria)

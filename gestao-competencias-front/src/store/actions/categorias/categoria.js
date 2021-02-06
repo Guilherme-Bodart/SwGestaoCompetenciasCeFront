@@ -1,7 +1,7 @@
 import axios from 'axios'
-import { GET_CATEGORIA, GET_SUBCATEGORIA, LOGOUT_CATEGORIA, GET_DETALHARSUBCATEGORIA } from '../actionsTypes'
+import { GET_CATEGORIA, GET_SUBCATEGORIA, LOGOUT_CATEGORIA, GET_DETALHARSUBCATEGORIA, GET_DETALHARCATEGORIA } from '../actionsTypes'
 
-import { pageSubCategoria, pageCadastrarSubCategoria, pageEditarSubCategoria } from '../adminViews/adminView'
+import { pageSubCategoria, pageCadastrarSubCategoria, pageEditarSubCategoria, pageCategoria, pageEditarCategoria } from '../adminViews/adminView'
 
 import swal from 'sweetalert';
 
@@ -27,7 +27,7 @@ export const criarCategoria = (nome) => {
                     text: 'A categoria foi cadastrada com sucesso',
                     icon: "success",
                   }).then((value) => {
-                    dispatch(pageCadastrarSubCategoria());
+                    dispatch(pageCategoria());
                   });
             })
             .catch( error => {
@@ -65,6 +65,34 @@ export const getCategorias = () => {
 export const getSaveCategorias = categoria => {
     return {
         type: GET_CATEGORIA,
+        payload: categoria
+    }
+}
+
+export const getCategoria = (id_categoria) => {
+    return async (dispatch, getState) => {
+        const token = 'Bearer ' + getState().usuario.token
+        await axios.get("https://leds-skills.herokuapp.com/category/"+id_categoria, { params: { token } })
+            .then(response => {                
+                const categoria = response.data
+                dispatch(getSaveCategoria(categoria))
+            })
+            .catch( error => {
+                if( error.response ){
+                    var erro_msg = error.response.data.error; 
+                }
+                swal({
+                    title: "Error",
+                    text: 'Falha no envio, '+erro_msg,
+                    icon: "error",
+                  });
+            })
+    }
+}
+
+export const getSaveCategoria = categoria => {
+    return {
+        type: GET_DETALHARCATEGORIA,
         payload: categoria
     }
 }
@@ -212,6 +240,37 @@ export const editarSubCategoria = (subcategoria) => {
     }
 }
 
+export const editarCategoria = (categoria) => {
+
+    return async (dispatch, getState ) =>  {
+
+        const token = 'Bearer ' + getState().usuario.token
+        await axios.put("https://leds-skills.herokuapp.com/category/"+categoria.id, null, 
+                { params: {
+                    token,
+                    nome: categoria.nome
+                    },
+                }
+            ).then(response => {
+                swal({
+                    title: "Atualizada",
+                    text: 'A categoria foi atualizada com sucesso',
+                    icon: "success",
+                  }).then((value) => {
+                    dispatch(pageCategoria());
+                  });
+            })
+            .catch( error => {
+                swal({
+                    title: "Error",
+                    text: 'Erro na edição da categoria',
+                    icon: "error",
+                  });
+            })
+        
+    }
+}
+
 export const desativarSubCategoria = (nome, id_subcategoria) => {
     return async (dispatch, getState) => {
         swal({
@@ -238,6 +297,40 @@ export const desativarSubCategoria = (nome, id_subcategoria) => {
                         swal({
                             title: "Error",
                             text: 'Falha em desativar a subcategoria, tente novamente mais tarde',
+                            icon: "error",
+                        });
+                    })
+            }
+        });
+    }
+}
+
+export const desativarCategoria = (nome, id_categoria) => {
+    return async (dispatch, getState) => {
+        swal({
+            title: "Deseja desativar a categoria?",
+            text: "Caso desative a categoria: "+nome+", a mesma não poderá ser escolhida no cadastro das subcategorias",
+            icon: "warning",
+            buttons: true,
+        }).then(async (willDelete) => {
+            if (willDelete) {
+                const token = 'Bearer ' + getState().usuario.token
+
+                await axios.delete("https://leds-skills.herokuapp.com/category/"+id_categoria, { params: { token } })
+                    .then(response => { 
+                        swal({
+                            title: "Desativada",
+                            text: 'Categoria foi desativada com sucesso',
+                            icon: "success",
+                        }).then((value) => {
+                            dispatch(pageEditarCategoria());
+                            dispatch(pageCategoria());
+                        });
+                    })
+                    .catch( error => {
+                        swal({
+                            title: "Error",
+                            text: 'Falha em desativar a categoria, tente novamente mais tarde',
                             icon: "error",
                         });
                     })

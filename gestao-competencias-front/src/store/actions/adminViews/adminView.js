@@ -2,12 +2,24 @@ import { PAGE_CADASTRO_CATEGORIA, PAGE_CADASTRO_PROJETO,
     PAGE_CADASTRO_SUBCATEGORIA, PAGE_SUBCATEGORIA, PAGE_PROJETO, 
     PAGE_DETALHES_PROJETO, PAGE_USUARIO, PAGE_DASHBOARD, 
     PAGE_EDITAR_PROJETO, LOGOUT_ADMINVIEW, PAGE_EDITAR_SUBCATEGORIA, PAGE_EDITAR_USUARIO,
-    PAGE_DETALHAR_USUARIO
+    PAGE_DETALHAR_USUARIO, PAGE_CATEGORIA, PAGE_EDITAR_CATEGORIA
 } from '../actionsTypes'
 
 export const logoutAdminview = () => {
     return  {
         type: LOGOUT_ADMINVIEW
+    }
+}
+
+export const pageCategoria = () => {
+    return {
+        type: PAGE_CATEGORIA
+    }
+}
+
+export const pageEditarCategoria = () => {
+    return {
+        type: PAGE_EDITAR_CATEGORIA
     }
 }
 

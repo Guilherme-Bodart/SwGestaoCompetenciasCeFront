@@ -14,13 +14,7 @@ import { getUsuarios, getUsuario, desativarUsuario } from '../../store/actions/u
 
 import '../../styles/principal.css'
 
-function converte_data(data, tem_hora = 0){
-    if(tem_hora){
-        return data.substr(0, 10).split('-').reverse().join('/')+' '+data.substr(11, 5);
-    }else{
-        return data.substr(0, 10).split('-').reverse().join('/');
-    }
-}
+import {converte_data} from '../../functions/function'
 
 const initialState = {
 
@@ -48,7 +42,7 @@ class Usuario extends Component {
                                 this.props.pageDetalharUsuario()
                             }
                         }
-                        }>Detalhes</Dropdown.Item>
+                        }>Detalhar</Dropdown.Item>
                         <Dropdown.Item onClick={async ()=>{
     
                                         await this.props.getUsuario(user._id)

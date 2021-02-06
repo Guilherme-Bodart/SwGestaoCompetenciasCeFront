@@ -9,6 +9,7 @@ import Sidebar from "../../components/Sidebar/Sidebar"
 import swal from 'sweetalert';
 
 import SubCategoria from "../../views/Categoria/SubCategoria";
+import Categoria from "../../views/Categoria/Categoria";
 import CriarSubCategoria from "../../views/Categoria/CriarSubCategoria";
 import CriarCategoria from "../../views/Categoria/CriarCategoria";
 import CriarProjeto from "../../views/Projeto/CriarProjeto";
@@ -16,12 +17,12 @@ import Projeto from "../../views/Projeto/Projeto";
 import DetalhesProjeto from "../../views/Projeto/DetalhesProjeto";
 import EditarProjeto from "../../views/Projeto/EditarProjeto";
 import EditarSubCategoria from "../../views/Categoria/EditarSubCategoria";
+import EditarCategoria from "../../views/Categoria/EditarCategoria";
 import EditarUsuario from "../../views/Usuario/EditarUsuario";
 import DetalhesUsuario from "../../views/Usuario/DetalhesUsuario";
 import Usuario from "../../views/Usuario/Usuario";
 import Dashboard from "../../views/Dashboard/Dashboard";
-
-import { pageSubCategoria, pageProjeto, pageUsuario, pageDashboard } from '../../store/actions/adminViews/adminView'
+import { pageSubCategoria, pageProjeto, pageUsuario, pageDashboard, pageCategoria } from '../../store/actions/adminViews/adminView'
 
 import '../../styles/principal.css'
 
@@ -53,17 +54,20 @@ class Admin extends Component {
       var listaMenuItem = [ {view:this.props.pageDashboard, icon:'AiOutlineDashboard', nome: 'Dashboard'},
                             {view:this.props.pageUsuario,  icon:'FaUsers', nome: 'Usuários'},
                             {view:this.props.pageProjeto, icon:'FaMedapps', nome: 'Projetos'},
+                            {view:this.props.pageCategoria, icon:'FaGripHorizontal', nome: 'Categorias'},
                             {view:this.props.pageSubCategoria, icon:'FaSitemap', nome: 'Subcategorias'}]
       
       renderizar =  this.props.adminView.page === "dashboard" ? <Dashboard/> :
                     this.props.adminView.page === "projeto" ? <Projeto/> : 
                     this.props.adminView.page === "cadastroProjeto" ? <CriarProjeto/> :
                     this.props.adminView.page === "subcategoria" ? <SubCategoria/> :
+                    this.props.adminView.page === "categoria" ? <Categoria/> :
                     this.props.adminView.page === "cadastroSubcategoria" ? <CriarSubCategoria/> :
                     this.props.adminView.page === "cadastroCategoria" ? <CriarCategoria/> :
                     this.props.adminView.page === "detalhesProjeto" ? <DetalhesProjeto/> :
                     this.props.adminView.page === "editarProjeto" ? <EditarProjeto/> :
                     this.props.adminView.page === "editarSubCategoria" ? <EditarSubCategoria/> :
+                    this.props.adminView.page === "editarCategoria" ? <EditarCategoria/> :
                     this.props.adminView.page === "editarUsuario" ? <EditarUsuario/> :
                     this.props.adminView.page === "detalhesUsuario" ? <DetalhesUsuario/> :
                     this.props.adminView.page === "usuario" ? <Usuario/> : <Dashboard/>
@@ -94,6 +98,7 @@ const mapStateToProps = ({ usuario, alerta, page, adminView }) => {
   
   const mapDispatchToProps = dispatch => {
     return {
+      pageCategoria: () => dispatch(pageCategoria()),
       pageProjeto: () => dispatch(pageProjeto()),
       pageSubCategoria: () => dispatch(pageSubCategoria()),
       pageUsuario: () => dispatch(pageUsuario()),

@@ -14,13 +14,7 @@ import { pageCadastrarAtividade, pageAtividade, pageDetalhesAtividade, pageEdita
 
 import { getAlunoAtividades, getAtividade, deletarAtividade } from '../../store/actions/atividades/atividade'
 
-function converte_data(data, tem_hora = 0){
-    if(tem_hora){
-        return data.substr(0, 10).split('-').reverse().join('/')+' '+data.substr(11, 5);
-    }else{
-        return data.substr(0, 10).split('-').reverse().join('/');
-    }
-}
+import {converte_data} from '../../functions/function'
 
 const initialState = {
   }
@@ -46,7 +40,7 @@ class Atividade extends Component {
                                             this.props.pageDetalhesAtividade()
                                         }
                                     }
-                    }>  Detalhes
+                    }>  Detalhar
                     </Dropdown.Item>
                     <Dropdown.Item  onClick={async ()=>{
                                         await this.props.getAtividade(atividade._id)

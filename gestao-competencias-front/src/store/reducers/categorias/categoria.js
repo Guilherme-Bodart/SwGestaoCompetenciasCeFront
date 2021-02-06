@@ -1,11 +1,12 @@
-import { GET_CATEGORIA, GET_SUBCATEGORIA, LOGOUT_CATEGORIA, GET_DETALHARSUBCATEGORIA } from '../../actions/actionsTypes'
+import { GET_CATEGORIA, GET_SUBCATEGORIA, LOGOUT_CATEGORIA, GET_DETALHARSUBCATEGORIA, GET_DETALHARCATEGORIA } from '../../actions/actionsTypes'
 
 const initialState = {
     categorias: [],
     subcategorias: [],
     nomeCategoria: '',
     nomeSubcategoria: '',
-    getSubcategoria: {}
+    getSubcategoria: {},
+    getCategoria: {}
 }
 
 const reducer = (state = initialState, action) => {
@@ -17,6 +18,13 @@ switch (action.type) {
         categorias = action.payload.categorias;
         return {
             ...state, categorias
+        }
+    
+    case GET_DETALHARCATEGORIA:
+        let getCategoria = []
+        getCategoria = action.payload.categoria;
+        return {
+            ...state, getCategoria
         }
 
     case GET_SUBCATEGORIA:
