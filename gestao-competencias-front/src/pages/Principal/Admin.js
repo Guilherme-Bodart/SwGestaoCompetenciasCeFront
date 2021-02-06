@@ -17,6 +17,7 @@ import DetalhesProjeto from "../../views/Projeto/DetalhesProjeto";
 import EditarProjeto from "../../views/Projeto/EditarProjeto";
 import EditarSubCategoria from "../../views/Categoria/EditarSubCategoria";
 import EditarUsuario from "../../views/Usuario/EditarUsuario";
+import DetalhesUsuario from "../../views/Usuario/DetalhesUsuario";
 import Usuario from "../../views/Usuario/Usuario";
 import Dashboard from "../../views/Dashboard/Dashboard";
 
@@ -64,6 +65,7 @@ class Admin extends Component {
                     this.props.adminView.page === "editarProjeto" ? <EditarProjeto/> :
                     this.props.adminView.page === "editarSubCategoria" ? <EditarSubCategoria/> :
                     this.props.adminView.page === "editarUsuario" ? <EditarUsuario/> :
+                    this.props.adminView.page === "detalhesUsuario" ? <DetalhesUsuario/> :
                     this.props.adminView.page === "usuario" ? <Usuario/> : <Dashboard/>
       return(
         <div style={{ backgroundColor:'rgba(220,220,220,0.7)',}} >

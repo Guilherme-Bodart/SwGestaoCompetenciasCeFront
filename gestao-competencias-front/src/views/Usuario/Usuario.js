@@ -9,7 +9,7 @@ import DropdownButton from 'react-bootstrap/DropdownButton'
 
 import Alerta from "../../components/Alerta/Alerta"
 
-import { pageEditarUsuario } from '../../store/actions/adminViews/adminView'
+import { pageEditarUsuario, pageDetalharUsuario } from '../../store/actions/adminViews/adminView'
 import { getUsuarios, getUsuario, desativarUsuario } from '../../store/actions/usuarios/usuario'
 
 import '../../styles/principal.css'
@@ -41,6 +41,14 @@ class Usuario extends Component {
                 <tr>
                     <td>{index+1}</td>
                     <DropdownButton variant="dark" id="dropdown-basic-button" title="..." style={{marginLeft:"1em", marginTop:"1em"}}>
+                        <Dropdown.Item onClick={async ()=>{
+                            
+                            await this.props.getUsuario(user._id)
+                            if(this.props.usuario.getUsuario!={}){
+                                this.props.pageDetalharUsuario()
+                            }
+                        }
+                        }>Detalhes</Dropdown.Item>
                         <Dropdown.Item onClick={async ()=>{
     
                                         await this.props.getUsuario(user._id)
@@ -105,6 +113,7 @@ const mapStateToProps = ({ adminView, usuario,alerta }) => {
   
   const mapDispatchToProps = dispatch => {
     return {
+        pageDetalharUsuario: () => dispatch(pageDetalharUsuario()),       
         pageEditarUsuario: () => dispatch(pageEditarUsuario()),       
         getUsuarios: () => dispatch(getUsuarios()),       
         getUsuario: (id_usuario) => dispatch(getUsuario(id_usuario)),  

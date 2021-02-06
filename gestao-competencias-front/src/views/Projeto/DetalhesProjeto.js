@@ -56,7 +56,7 @@ class DetalhesProjeto extends Component {
                 <td>{atividade.categoria.nome}</td>
                 <td>{atividade.subcategoria.nome}</td>
                 <td>{converte_data(atividade.dataInicial, 1)}</td>
-                <td>{converte_data(atividade.dataInicial, 1)}</td>
+                <td>{converte_data(atividade.dataFinal, 1)}</td>
                 <td>{atividade.usuario.pessoa.nome}</td>
             </tr>
         );
