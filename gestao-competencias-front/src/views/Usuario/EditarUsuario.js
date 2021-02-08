@@ -10,6 +10,8 @@ import DropdownButton from 'react-bootstrap/DropdownButton'
 import { pageUsuario } from '../../store/actions/adminViews/adminView'
 import Alerta from "../../components/Alerta/Alerta"
 import { editarUsuario } from '../../store/actions/usuarios/usuario'
+import { cpfMask } from '../../functions/mask'
+import { valida_cpf } from '../../functions/function'
 
 import '../../styles/principal.css'
 import { FaArrowLeft } from 'react-icons/fa';
@@ -66,7 +68,7 @@ class EditarUsuario extends Component {
 
     onChangeCPF = (event) => {
         this.setState({
-            cpf: event.target.value
+            cpf: cpfMask(event.target.value)
         })
     }
 
@@ -174,16 +176,19 @@ class EditarUsuario extends Component {
 
                     <Col>
                         <Button variant="primary" type="submit" onClick= { async ()  =>{
-
+                                    
                                      var idx = this.state.email.indexOf('@');
-                                     if(this.state.nome != '' && this.state.dataNascimento != '' && this.state.email != '' && idx != -1 
+                                     if(this.state.dataNascimento <= data_max && this.state.nome != '' && this.state.dataNascimento != '' && this.state.email != '' && idx != -1 
                                      && this.state.senha != '' && this.state.cpf != ''){
+                                        if(this.state.cpf.replace('-', '').replaceAll('.', '')){
                                         await this.props.editarUsuario({id: this.props.usuario.getUsuario._id, nome:this.state.nome, email:this.state.email, 
                                             dataNascimento:this.state.dataNascimento, 
                                             telefone:this.state.telefone, endereco:this.state.endereco, 
                                             cpf:this.state.cpf, permissao:this.state.permissao})
+                                        }else{
+                                            alert('CPF inválido')
                                         }
-                                    
+                                    } 
                                 }}>
                             Salvar Usuário
                         </Button>

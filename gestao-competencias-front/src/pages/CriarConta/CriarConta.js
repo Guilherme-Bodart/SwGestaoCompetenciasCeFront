@@ -13,7 +13,7 @@ import { criarUsuario } from '../../store/actions/usuarios/usuario'
 import logo from "../../assets/leds-logo.svg";
 import { alertout } from '../../store/actions/alertas/alerta'
 import { pageLogin } from '../../store/actions/pages/page'
-
+import { cpfMask } from '../../functions/mask'
 
 import '../../styles/login.css';
 
@@ -27,7 +27,6 @@ const initialState = {
   cpf: '',
   endereco: '',
 }
-
 
 class CriarConta extends Component {
 
@@ -74,7 +73,7 @@ class CriarConta extends Component {
 
   onChangeCPF = (event) => {
     this.setState({
-      cpf: event.target.value
+      cpf: cpfMask(event.target.value)
    })
   }
 
@@ -147,7 +146,7 @@ class CriarConta extends Component {
               <Col xs={{ offset: 2 }} sm={{ span: 4, offset: 2 }} md={{ span: 5, offset: 1 }} xl ={{offset: 0}}>
               <Form.Group className="App-form-groupC">
                   <Form.Label className="App-form-labelC">Telefone</Form.Label>
-                  <Form.Control type="text" placeholder="Telefone" 
+                  <Form.Control  type="text" maxLength='14' placeholder="Telefone" 
                   className="App-form-control"
                   onChange = {value => this.onChangeTelefone(value)}/>
                   <Form.Text className="text-muted">
@@ -179,7 +178,7 @@ class CriarConta extends Component {
               <Col xs={{ offset: 2 }} sm={{ span: 4, offset: 0 }} md={{ span: 5, offset: 0 }} xl ={{offset: 0}}>
               <Form.Group className="App-form-groupC">
                   <Form.Label className="App-form-labelC">CPF</Form.Label>
-                  <Form.Control id="cpf" type="text" maxLength='14' placeholder="CPF"
+                  <Form.Control value={this.state.cpf} type="text" maxLength='14' placeholder="CPF"
                   className="App-form-control"
                   onChange = {value => this.onChangeCPF(value)} required/>
               </Form.Group>
@@ -197,12 +196,16 @@ class CriarConta extends Component {
             <Button variant="outline-primary" type="submit" className="App-button-login" 
             onClick = { async () => {
                 var idx = this.state.email.indexOf('@');
-                if(this.state.nome != '' && this.state.dataNascimento != '' && this.state.email != '' && idx != -1 
+                if(this.state.dataNascimento <= data_max && this.state.nome != '' && this.state.dataNascimento != '' && this.state.email != '' && idx != -1 
                 && this.state.senha != '' && this.state.senhaConfirmada != '' && this.state.cpf != ''){
                   if(this.state.senha === this.state.senhaConfirmada){
-                    await this.props.criarUsuario({nome:this.state.nome, email:this.state.email, dataNascimento:this.state.dataNascimento, 
+                    if(this.state.cpf.replace('-', '').replaceAll('.', '')){
+                      await this.props.criarUsuario({nome:this.state.nome, email:this.state.email, dataNascimento:this.state.dataNascimento, 
                                             telefone:this.state.telefone, senha:this.state.senha, endereco:this.state.endereco, 
                                             cpf:this.state.cpf, permissao:1,})
+                    }else{
+                      alert('CPF inválido')
+                    }
                   }
                   else{
                     alert("Senhas não são iguais")
