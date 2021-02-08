@@ -144,11 +144,11 @@ class CriarProjeto extends Component {
             var ind = index 
             return (
                 <Form.Row>
-                <Form.Control required onChange={value => this.adicionaMembro(value, ind)} style={{width:"95%", marginLeft:"0.5%", marginTop:"0.5em"}} as="select" >
+                <Form.Control required onChange={value => this.adicionaMembro(value, ind)} style={{width:"80%", marginLeft:"0.5%", marginTop:"0.5em", marginRight:"0.5em"}} as="select" >
                     <option value="0">Selecione...</option>
                     {usuarios}
                 </Form.Control>
-                <Button className="ml-auto" variant="outline-danger" disabled style={{ marginTop:"0.5em"}}
+                <Button className="mr-auto" variant="outline-danger" disabled style={{ marginTop:"0.5em", width:"3em"}}
                     onClick = { () => {}}>
                     <RiDeleteBin2Line />
                 </Button>
@@ -158,10 +158,10 @@ class CriarProjeto extends Component {
 
         const membros = this.state.equipe.map(membro => 
             <Form.Row>
-                <Form.Control required as="select" style={{width:"95%", marginLeft:"0.5%", marginTop:"0.5em"}}>
+                <Form.Control required as="select" style={{width:"80%", marginLeft:"0.5%", marginTop:"0.5em", marginRight:"0.5em"}}>
                     <option value={membro._id}>{membro.pessoa.nome}</option>
                 </Form.Control>
-                <Button className="ml-auto" variant="outline-danger" style={{ marginTop:"0.5em"}}
+                <Button className="mr-auto" variant="outline-danger" style={{ marginTop:"0.5em", width:"3em"}}
                     onClick = { () => {this.removeMembro(membro._id)}}>
                     <RiDeleteBin2Line />
                 </Button>
@@ -198,12 +198,12 @@ class CriarProjeto extends Component {
                                                     
                         </Form.Group>
                     </Form.Row>
-                    <Button variant="outline-primary" style={{marginBottom:"0.5em", width:"10em", height:"3em"}} 
+                    <Button variant="outline-primary" style={{marginBottom:"0.5em", width:"40%", height:"20%"}} 
                         onClick={()=>{this.adicionaNovoMembro()}}>
                             Adicionar Membro
                     </Button>
 
-                    <Button variant="outline-danger"  style={{marginBottom:"0.5em",width:"10em", height:"3em", marginLeft:"2em"}}
+                    <Button variant="outline-danger"  style={{marginBottom:"0.5em",width:"40%", height:"20%", marginLeft:"5%"}}
                         onClick={()=>{this.removeNovoMembro()}}>
                             Remover Membro                    
                     </Button>

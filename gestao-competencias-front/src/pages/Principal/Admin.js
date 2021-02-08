@@ -82,7 +82,7 @@ class Admin extends Component {
         <div style={{ backgroundColor:'rgba(220,220,220,0.7)',}} >
           <Row>
           <Sidebar listaMenuItem={listaMenuItem} />
-          <div style={{height:"100vh", width:"80vw"}}>
+          <div style={{height:"100%", width:"80%"}}>
             <NavbarP dashboard = {this.props.pageDashboard}/>
             {renderizar}
           </div>

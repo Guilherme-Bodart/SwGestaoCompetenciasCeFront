@@ -41,6 +41,14 @@ class DetalhesProjeto extends Component {
             </tr>
         );
 
+        const entrega = this.props.projeto.projeto_detalhado.entregas.map((entregas, index) => 
+     
+            <tr>
+                <td>{index+1}</td>
+                <td>{converte_data(entregas,1)}</td>
+            </tr>
+        );
+
         const atividades = this.props.projeto.projeto_detalhado.atividades.map((atividade, index) => 
      
             <tr>
@@ -59,7 +67,7 @@ class DetalhesProjeto extends Component {
             
             <Container fluid>
                 <Row>
-                <p className="App-text-logo" style={{marginLeft:"1em", marginTop:"0.5em"}}>Projetos &gt; Detalhes</p>
+                <p className="App-text-logo" style={{marginLeft:"1em", marginTop:"0.5em"}}>Projetos &gt; Detalhar</p>
                 <Button className="ml-auto" variant="outline-secondary" 
                 style={{marginRight:"1em", marginTop:"1em", height:"3em", width:"3em" }}
                 onClick={()=>{
@@ -128,6 +136,23 @@ class DetalhesProjeto extends Component {
                         </Table>
                         </Form.Group>
                     </Form.Row>
+                    <Form.Row>
+                        <Form.Group as={Col} controlId="formGridState">
+                        <Form.Label>Marcos do Projeto</Form.Label>
+                        <Table responsive style={{backgroundColor:"#ccc", textAlign: "center"}}>
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Marco</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {this.props.projeto.projeto_detalhado.entregas.length > 0 ? entrega : <tr><td colSpan="8">Sem atividades</td></tr>}
+                            </tbody>
+                        </Table>
+                        </Form.Group>
+                    </Form.Row>
+
 
                     </Form>
             </Container>

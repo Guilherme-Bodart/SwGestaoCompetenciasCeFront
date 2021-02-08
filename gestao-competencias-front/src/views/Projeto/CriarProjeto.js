@@ -24,7 +24,8 @@ const initialState = {
     descricao: '',
     membros : [],
     equipe: [],
-    qtdEquipe: 0
+    entregas: [],
+    entregaAux: []
 }
 
 class CriarProjeto extends Component {
@@ -53,6 +54,17 @@ class CriarProjeto extends Component {
         })
     }
 
+    onChangeEntregas = (event, index) => {
+        var entregas = []
+        var entregasA = this.state.entregas
+        entregasA.map((entrega, pos) => index != pos ? entregas.push(entrega) : entregas)
+        entregas.push(event.target.value)
+        this.setState({ 
+            entregas
+        })
+    }
+
+
     onChangeDescricao = (event) => {
         this.setState({
             descricao: event.target.value
@@ -64,23 +76,40 @@ class CriarProjeto extends Component {
         membros.push(1)
         this.setState({
             membros,
-            qtdEquipe: this.state.qtdEquipe + 1
 
         })
     }
+    
     removeMembro = () => {
         var membros = this.state.membros
         var equipe = this.state.equipe
         membros.pop()
         equipe.pop()
-        var qtdEquipe = this.state.qtdEquipe > 0 ? this.state.qtdEquipe - 1 : 0
         this.setState({ 
             membros,
             equipe,
-            qtdEquipe
         })
     }
 
+    adicionaEntrega = () => {
+        var entregaAux = this.state.entregaAux
+        entregaAux.push(1)
+        this.setState({
+            entregaAux,
+
+        })
+    }
+
+    removeEntrega = () => {
+        var entregaAux = this.state.entregaAux
+        var equipe = this.state.equipe
+        entregaAux.pop()
+        equipe.pop()
+        this.setState({ 
+            entregaAux,
+            equipe,
+        })
+    }
     async componentDidMount(){
         await this.props.getUsuarios()
     }
@@ -92,26 +121,32 @@ class CriarProjeto extends Component {
         const membros = this.state.membros.map((m, index) => {
                             var ind = index + 1
                             return(
-                            <Form.Control onChange={value => this.onChangeEquipe(value, ind)} required as="select" >
+                            <Form.Control onChange={value => this.onChangeEquipe(value, ind)} required as="select" style={{ marginTop:"0.5em", marginRight:"0.5em"}}>
                                 <option value="0">Selecione...</option>
                                 {usuarios}
                             </Form.Control>)
                             })
 
+        const entregas = this.state.entregaAux.map((m, index) => {
+                            var ind = index + 1
+                            return(
+                                <Form.Control type="datetime-local" style={{marginTop:"0.5em", marginRight:"0.5em"}} onChange={value => this.onChangeEntregas(value, ind)} required />)
+                            })
         return(
             
             <Container fluid>
                 
                 <Row>
-                <p className="App-text-logo" style={{marginLeft:"1em", marginTop:"0.5em"}}>Projetos &gt; Cadastrar</p>
-                <Button className="ml-auto" variant="outline-secondary" 
-                style={{marginRight:"1em", marginTop:"1em", height:"3em", width:"3em" }}
-                onClick={()=>{
-                    this.props.pageProjeto()
-                }}>
-                    <FaArrowLeft/>
-                </Button>
+                    <p className="App-text-logo" style={{marginLeft:"1em", marginTop:"0.5em"}}>Projetos &gt; Cadastrar</p>
+                    <Button className="ml-auto" variant="outline-secondary" 
+                    style={{marginRight:"1em", marginTop:"1em", height:"3em", width:"3em" }}
+                    onClick={()=>{
+                        this.props.pageProjeto()
+                    }}>
+                        <FaArrowLeft/>
+                    </Button>
                 </Row>
+
                 <Form onSubmit={this.handleSubmit}>
                     <Form.Row>
                         <Form.Group as={Col} controlId="formGridEmail">
@@ -132,9 +167,21 @@ class CriarProjeto extends Component {
                         {membros}
                         </Form.Group>
                     </Form.Row>
-                    <Button variant="outline-primary" style={{marginBottom:"0.5em", width:"10em", height:"3em"}} onClick={()=>{this.adicionaMembro()}}>Adicionar Membro</Button>
-                    <Button variant="outline-danger"  style={{marginBottom:"0.5em",width:"10em", height:"3em", marginLeft:"2em"}} onClick={()=>{this.removeMembro()}}>Remover Membro</Button>
-                        
+                    <Button variant="outline-primary" style={{marginBottom:"0.5em", width:"40%", height:"20%"}} onClick={()=>{this.adicionaMembro()}}>Adicionar Membro</Button>
+                    <Button variant="outline-danger"  style={{marginBottom:"0.5em", width:"40%", height:"20%", marginLeft:"2em"}} onClick={()=>{this.removeMembro()}}>Remover Membro</Button>
+
+                    <Form.Row>
+                        <Form.Group as={Col} controlId="formGridState">
+                        <Form.Label>Marco do projeto</Form.Label>
+                        <Form.Control type="datetime-local" onChange={value => this.onChangeEntregas(value, 0)} required style={{marginTop:"0.5em", marginRight:"0.5em"}}/>
+                        {entregas}
+                        </Form.Group>
+                    </Form.Row>
+                    <Button variant="outline-primary" style={{marginBottom:"0.5em", width:"40%", height:"20%"}} 
+                    onClick={()=>{this.adicionaEntrega()}}>Adicionar Entrega</Button>
+                    <Button variant="outline-danger"  style={{marginBottom:"0.5em", width:"40%", height:"20%", marginLeft:"2em"}} 
+                    onClick={()=>{this.removeEntrega()}}>Remover Entrega</Button>
+                         
 
 
                     <Form.Group controlId="formGridAddress1">

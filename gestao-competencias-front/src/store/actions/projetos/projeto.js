@@ -22,7 +22,8 @@ export const criarProjeto = (projeto) => {
                     token,
                     nome: projeto.nome,
                     equipe: projeto.equipe,
-                    descricao: projeto.descricao
+                    descricao: projeto.descricao,
+                    entregas: projeto.entregas
                     },
                 }
             ).then(response => {

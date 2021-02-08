@@ -37,7 +37,7 @@ class DetalhesAtividade extends Component {
             
             <Container fluid>
                 <Row>
-                <p className="App-text-logo" style={{marginLeft:"1em", marginTop:"0.5em"}}>Atividades &gt; Detalhes</p>
+                <p className="App-text-logo" style={{marginLeft:"1em", marginTop:"0.5em"}}>Atividades &gt; Detalhar</p>
                 <Button className="ml-auto" variant="outline-secondary" 
                 style={{marginRight:"1em", marginTop:"1em", height:"3em", width:"3em" }}
                 onClick={()=>{
