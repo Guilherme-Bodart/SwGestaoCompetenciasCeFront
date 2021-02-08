@@ -22,6 +22,8 @@ import EditarUsuario from "../../views/Usuario/EditarUsuario";
 import DetalhesUsuario from "../../views/Usuario/DetalhesUsuario";
 import Usuario from "../../views/Usuario/Usuario";
 import Dashboard from "../../views/Dashboard/Dashboard";
+
+import { getUsuarios } from '../../store/actions/usuarios/usuario'
 import { pageSubCategoria, pageProjeto, pageUsuario, pageDashboard, pageCategoria } from '../../store/actions/adminViews/adminView'
 
 import '../../styles/principal.css'
@@ -36,6 +38,11 @@ class Admin extends Component {
     constructor(props) {
         super(props)
         this.state = initialState
+    }
+
+    async componentDidMount(){
+      await this.props.getUsuarios()
+
     }
 
     render(props){
@@ -103,6 +110,7 @@ const mapStateToProps = ({ usuario, alerta, page, adminView }) => {
       pageSubCategoria: () => dispatch(pageSubCategoria()),
       pageUsuario: () => dispatch(pageUsuario()),
       pageDashboard: () => dispatch(pageDashboard()),
+      getUsuarios: () => dispatch(getUsuarios()),
       
     }
   }

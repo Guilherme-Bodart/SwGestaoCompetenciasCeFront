@@ -19,7 +19,7 @@ class App extends Component{
   render(props){
     return (
         <Switch>
-          <Route exact path="/admin">
+          <Route path="/admin">
             <Admin />
           </Route>
           <Route exact path="/user">
