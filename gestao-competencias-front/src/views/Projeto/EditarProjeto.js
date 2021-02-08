@@ -13,7 +13,6 @@ import { pageCadastrarCategoria, pageCadastrarSubCategoria, pageSubCategoria,
 import { getUsuarios } from '../../store/actions/usuarios/usuario'
 import { atualizarProjeto } from '../../store/actions/projetos/projeto'
 
-import Alerta from "../../components/Alerta/Alerta"
 import '../../styles/principal.css'
 import { FaArrowLeft } from 'react-icons/fa';
 import { RiDeleteBin2Line } from "react-icons/ri";
@@ -28,7 +27,7 @@ class CriarProjeto extends Component {
             equipe: this.props.projeto.projeto_detalhado.equipe,
             id_projeto: this.props.projeto.projeto_detalhado._id,
             membros: [],
-            novoMembros: []
+            novoMembros: [],
         }
     }
 
@@ -75,7 +74,7 @@ class CriarProjeto extends Component {
             else{
                 membros.push(event.target.value)
             }
-        })        
+        })     
         this.setState({ 
             membros
         })
@@ -122,44 +121,56 @@ class CriarProjeto extends Component {
     }
 
     async componentDidMount(){
-        await this.props.getUsuarios()
+
         await this.props.projeto.projeto_detalhado.equipe.map( membro => this.preencheMembros(membro._id))
     }
 
 
     render(props){
-        // var usuariosNaoSelecionados = [] tirar os usuarios já selecionados
-        // this.props.usuario.usuarios.map( user => this.state.membros.map( membro => (membro==user._id ? usuariosNaoSelecionados.push(user.pessoa.nome)))
-        const usuarios = this.props.usuario.usuarios.map( user => (user.permissao == 1 && user._id ) 
-                                                                    ? <option value={user._id}>{user.pessoa.nome}</option> 
-                                                                    : '' 
-        );
-        
+
+        const usuarios = this.props.usuario.usuarios.map( user => {
+                var membros = []
+                this.state.equipe.map(user => {
+                    membros.push(user._id)
+                })
+                return(
+                    (user.permissao == 1 && membros.indexOf(user._id)==-1 ) 
+                        ? <option value={user._id}>{user.pessoa.nome}</option> 
+                        : '' 
+                )
+        });
+
         const membrosNovo = this.state.novoMembros.map((m,index) => {
-                                                    var ind = index 
-                                                    return (
-                                                        <Form.Control required onChange={value => this.adicionaMembro(value, ind)} as="select" >
-                                                            <option value="0">Selecione...</option>
-                                                            {usuarios}
-                                                        </Form.Control>)}
+            var ind = index 
+            return (
+                <Form.Row>
+                <Form.Control required onChange={value => this.adicionaMembro(value, ind)} style={{width:"95%", marginLeft:"0.5%", marginTop:"0.5em"}} as="select" >
+                    <option value="0">Selecione...</option>
+                    {usuarios}
+                </Form.Control>
+                <Button className="ml-auto" variant="outline-danger" disabled style={{ marginTop:"0.5em"}}
+                    onClick = { () => {}}>
+                    <RiDeleteBin2Line />
+                </Button>
+            </Form.Row>
+                )}
         );
 
         const membros = this.state.equipe.map(membro => 
-                                                <Form.Row>
-                                                    <Form.Control required as="select" style={{width:"95%", marginLeft:"0.5%"}}>
-                                                        <option value={membro._id}>{membro.pessoa.nome}</option>
-                                                    </Form.Control>
-                                                    <Button className="ml-auto" variant="outline-danger" 
-                                                        onClick = { () => {this.removeMembro(membro._id)}}>
-                                                        <RiDeleteBin2Line />
-                                                    </Button>
-                                                </Form.Row>
+            <Form.Row>
+                <Form.Control required as="select" style={{width:"95%", marginLeft:"0.5%", marginTop:"0.5em"}}>
+                    <option value={membro._id}>{membro.pessoa.nome}</option>
+                </Form.Control>
+                <Button className="ml-auto" variant="outline-danger" style={{ marginTop:"0.5em"}}
+                    onClick = { () => {this.removeMembro(membro._id)}}>
+                    <RiDeleteBin2Line />
+                </Button>
+            </Form.Row>
         );
         
         return(
             
             <Container fluid>
-                <Alerta open= {true} alertTitle= {this.props.alerta.alertTitle} severity= {this.props.alerta.severity} texto= {this.props.alerta.texto}/>
                 <Row>
                 <p className="App-text-logo" style={{marginLeft:"1em", marginTop:"0.5em"}}>Projetos &gt; Editar</p>
                 <Button className="ml-auto" variant="outline-secondary" 
@@ -219,12 +230,11 @@ class CriarProjeto extends Component {
     }
 }
 
-const mapStateToProps = ({ adminView, usuario, projeto, alerta }) => {
+const mapStateToProps = ({ adminView, usuario, projeto}) => {
     return {
         adminView,
         usuario, 
         projeto,
-        alerta
     }
   }
   
@@ -240,3 +250,4 @@ const mapStateToProps = ({ adminView, usuario, projeto, alerta }) => {
     }
   }
   export default connect(mapStateToProps, mapDispatchToProps)(CriarProjeto)
+
