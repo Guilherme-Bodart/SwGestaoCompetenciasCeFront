@@ -110,13 +110,23 @@ class CriarConta extends Component {
           <Col >
             <Row >
               <Col xs={{ offset: 2 }} sm={{ span: 4, offset: 0 }} md={{ span: 5, offset: 0 }}  xl ={{offset: 0}} >
-              <Form.Group controlId="nome" className="App-form-groupC">
+              <Form.Group controlId="nome">
               <Form.Label className="App-form-labelC">Nome completo</Form.Label>
                   <Form.Control type="text" placeholder="Nome Completo" 
                   className="App-form-control"
                   onChange = {value => this.onChangeNome(value)} required/>
                   <Form.Text className="text-muted">
                   </Form.Text>
+              </Form.Group>
+              </Col>
+            </Row>
+            <Row >
+              <Col xs={{ offset: 2 }} sm={{ span: 4, offset: 0 }} md={{ span: 5, offset: 0 }}  xl ={{offset: 0}} >
+              <Form.Group className="App-form-groupC">
+                  <Form.Label className="App-form-labelC">CPF</Form.Label>
+                  <Form.Control value={this.state.cpf} type="text" maxLength='14' placeholder="CPF"
+                  className="App-form-control"
+                  onChange = {value => this.onChangeCPF(value)} required/>
               </Form.Group>
               </Col>
               <Col xs={{ offset: 2 }} md={{ span: 5, offset: 1 }} sm={{ span: 4, offset: 2 }} xl ={{offset: 0}}>
@@ -128,6 +138,17 @@ class CriarConta extends Component {
                   onChange = {value => this.onChangeDataNascimento(value)} required/>
                   <Form.Text className="text-muted">
                   </Form.Text>
+              </Form.Group>
+              </Col>
+            </Row>
+
+            <Row >
+              <Col xs={{ offset: 2 }} sm={{ span: 4, offset: 2 }} md={{ span: 5, offset: 1 }} xl ={{offset: 0}}>
+              <Form.Group>
+                  <Form.Label className="App-form-labelC">Endereço</Form.Label>
+                  <Form.Control type="text" placeholder="Endereço"
+                  className="App-form-control"
+                  onChange = {value => this.onChangeEndereco(value)}/>
               </Form.Group>
               </Col>
             </Row>
@@ -172,25 +193,6 @@ class CriarConta extends Component {
                   onChange = {value => this.onChangeSenhaConfirmada(value)} required/>
               </Form.Group>
               </Col>             
-            </Row>
-
-            <Row >              
-              <Col xs={{ offset: 2 }} sm={{ span: 4, offset: 0 }} md={{ span: 5, offset: 0 }} xl ={{offset: 0}}>
-              <Form.Group className="App-form-groupC">
-                  <Form.Label className="App-form-labelC">CPF</Form.Label>
-                  <Form.Control value={this.state.cpf} type="text" maxLength='14' placeholder="CPF"
-                  className="App-form-control"
-                  onChange = {value => this.onChangeCPF(value)} required/>
-              </Form.Group>
-              </Col>
-              <Col xs={{ offset: 2 }} sm={{ span: 4, offset: 2 }} md={{ span: 5, offset: 1 }} xl ={{offset: 0}}>
-              <Form.Group className="App-form-groupC">
-                  <Form.Label className="App-form-labelC">Endereço</Form.Label>
-                  <Form.Control type="text" placeholder="Endereço"
-                  className="App-form-control"
-                  onChange = {value => this.onChangeEndereco(value)}/>
-              </Form.Group>
-              </Col>
             </Row>
 
             <Button variant="outline-primary" type="submit" className="App-button-login" 
