@@ -15,7 +15,7 @@ import { getAlunoProjetos } from '../../store/actions/projetos/projeto'
 import { getUsuarios } from '../../store/actions/usuarios/usuario'
 import { cadastrarAtividade } from '../../store/actions/atividades/atividade'
 
-import Alerta from "../../components/Alerta/Alerta"
+
 import '../../styles/principal.css'
 import { FaArrowLeft } from 'react-icons/fa';
 import { BsThreeDotsVertical } from "react-icons/bs";

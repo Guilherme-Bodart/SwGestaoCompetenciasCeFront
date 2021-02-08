@@ -11,7 +11,7 @@ import '../../styles/principal.css'
 import { FaArrowLeft } from 'react-icons/fa';
 import { BsThreeDotsVertical } from "react-icons/bs";
 
-import Alerta from "../../components/Alerta/Alerta"
+
 import { criarCategoria } from '../../store/actions/categorias/categoria'
 import { pageCadastrarSubCategoria, pageCategoria } from '../../store/actions/adminViews/adminView'
 
@@ -41,7 +41,7 @@ class CriarCategoria extends Component {
     //   }
         return(            
             <Container fluid>
-                <Alerta open= {true} alertTitle= {this.props.alerta.alertTitle} severity= {this.props.alerta.severity} texto= {this.props.alerta.texto}/>
+                
                 <Row>
                 <p className="App-text-logo" style={{marginLeft:"1em", marginTop:"0.5em"}}>Categorias &gt; Cadastrar</p>
                 <Button className="ml-auto" variant="outline-secondary" 

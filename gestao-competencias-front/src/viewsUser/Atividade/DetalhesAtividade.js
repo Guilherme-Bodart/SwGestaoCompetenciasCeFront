@@ -11,7 +11,7 @@ import { pageAtividade } from '../../store/actions/userViews/userView'
 
 import { getAtividade } from '../../store/actions/atividades/atividade'
 
-import Alerta from "../../components/Alerta/Alerta"
+
 import '../../styles/principal.css'
 import { FaArrowLeft } from 'react-icons/fa';
 import { BsThreeDotsVertical } from "react-icons/bs";

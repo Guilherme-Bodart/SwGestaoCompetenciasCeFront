@@ -8,7 +8,7 @@ import Col from 'react-bootstrap/Col'
 import DropdownButton from 'react-bootstrap/DropdownButton'
 
 import { pageUsuario } from '../../store/actions/adminViews/adminView'
-import Alerta from "../../components/Alerta/Alerta"
+
 import { editarUsuario } from '../../store/actions/usuarios/usuario'
 import { cpfMask } from '../../functions/mask'
 import { valida_cpf } from '../../functions/function'
@@ -109,7 +109,7 @@ class EditarUsuario extends Component {
         return(
             
             <Container fluid>
-                <Alerta open= {true} alertTitle= {this.props.alerta.alertTitle} severity= {this.props.alerta.severity} texto= {this.props.alerta.texto}/>
+                
                 <Row>
                 <p className="App-text-logo" style={{marginLeft:"1em", marginTop:"0.5em"}}>Usuários &gt; Editar</p>
                 <Button className="ml-auto" variant="outline-secondary" 

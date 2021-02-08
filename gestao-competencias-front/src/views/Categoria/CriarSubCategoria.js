@@ -9,7 +9,7 @@ import DropdownButton from 'react-bootstrap/DropdownButton'
 
 import { pageCadastrarCategoria, pageCadastrarSubCategoria, pageSubCategoria, 
     pageCadastrarProjeto, pageProjeto } from '../../store/actions/adminViews/adminView'
-import Alerta from "../../components/Alerta/Alerta"
+
 import { getCategorias, criarSubCategoria } from '../../store/actions/categorias/categoria'
 
 import '../../styles/principal.css'
@@ -58,7 +58,7 @@ class CriarSubCategoria extends Component {
         return(
             
             <Container fluid>
-                <Alerta open= {true} alertTitle= {this.props.alerta.alertTitle} severity= {this.props.alerta.severity} texto= {this.props.alerta.texto}/>
+                
                 <Row>
                 <p className="App-text-logo" style={{marginLeft:"1em", marginTop:"0.5em"}}>Subcategorias &gt; Cadastrar</p>
                 <Button className="ml-auto" variant="outline-secondary" 

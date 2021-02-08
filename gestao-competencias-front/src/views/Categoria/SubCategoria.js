@@ -15,7 +15,7 @@ import '../../styles/principal.css'
 import { FaPlus } from 'react-icons/fa';
 import { BsThreeDotsVertical } from "react-icons/bs";
 
-import Alerta from "../../components/Alerta/Alerta"
+
 
 import {converte_data} from '../../functions/function'
 
@@ -67,7 +67,7 @@ class SubCategoria extends Component {
             
             
             <Container fluid>
-                <Alerta open= {true} alertTitle= {this.props.alerta.alertTitle} severity= {this.props.alerta.severity} texto= {this.props.alerta.texto}/>
+                
                 <Row>
                 <p className="App-text-logo" style={{marginLeft:"1em", marginTop:"0.5em"}}>Subcategorias</p>
                 <Button className="ml-auto" variant="outline-secondary" 

@@ -54,7 +54,7 @@ class Recuperar extends Component {
     return (
         <div className="App">
         <header className="App-header">
-        <Alerta open= {true} alertTitle= {this.props.alerta.alertTitle} severity= {this.props.alerta.severity} texto= {this.props.alerta.texto}/>
+        
           <Image src={logo} className="App-logo" alt="logo" />
             <p className="App-text-logo">LEDS SKILLS</p>
             <Form className="App-form" onSubmit={this.handleSubmit}>  

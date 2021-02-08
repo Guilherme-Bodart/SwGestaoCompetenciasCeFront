@@ -13,7 +13,7 @@ import { pageCadastrarCategoria, pageCadastrarSubCategoria, pageSubCategoria,
 import { getUsuarios } from '../../store/actions/usuarios/usuario'
 import { criarProjeto } from '../../store/actions/projetos/projeto'
 
-import Alerta from "../../components/Alerta/Alerta"
+
 import '../../styles/principal.css'
 import { FaArrowLeft } from 'react-icons/fa';
 import { BsThreeDotsVertical } from "react-icons/bs";
@@ -101,7 +101,7 @@ class CriarProjeto extends Component {
         return(
             
             <Container fluid>
-                <Alerta open= {true} alertTitle= {this.props.alerta.alertTitle} severity= {this.props.alerta.severity} texto= {this.props.alerta.texto}/>
+                
                 <Row>
                 <p className="App-text-logo" style={{marginLeft:"1em", marginTop:"0.5em"}}>Projetos &gt; Cadastrar</p>
                 <Button className="ml-auto" variant="outline-secondary" 

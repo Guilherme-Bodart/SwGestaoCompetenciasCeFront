@@ -9,7 +9,7 @@ import DropdownButton from 'react-bootstrap/DropdownButton'
 
 import { pageCadastrarCategoria, pageCadastrarSubCategoria, pageSubCategoria, 
     pageCadastrarProjeto, pageProjeto, pageEditarSubCategoria } from '../../store/actions/adminViews/adminView'
-import Alerta from "../../components/Alerta/Alerta"
+
 import { getCategorias, editarSubCategoria } from '../../store/actions/categorias/categoria'
 
 import '../../styles/principal.css'
@@ -68,7 +68,7 @@ class EditarSubCategoria extends Component {
         return(
             
             <Container fluid>
-                <Alerta open= {true} alertTitle= {this.props.alerta.alertTitle} severity= {this.props.alerta.severity} texto= {this.props.alerta.texto}/>
+                
                 <Row>
                 <p className="App-text-logo" style={{marginLeft:"1em", marginTop:"0.5em"}}>Subcategorias &gt; Editar</p>
                 <Button className="ml-auto" variant="outline-secondary" 
