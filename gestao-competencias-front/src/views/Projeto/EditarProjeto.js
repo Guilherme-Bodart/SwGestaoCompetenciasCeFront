@@ -70,14 +70,19 @@ class CriarProjeto extends Component {
     }
 
     adicionaEntrega = (event, index) => {
-        var entregas_real = this.state.entregas_real
-        for (var i = 0; i < entregas_real.length; i++) {
- 
-            if(entregas_real[i].substr(0,10) != event.target.value.substr(0,10)){
-                entregas_real.push(event.target.value); 
-                break;
+        
+        var entregas_real = []
+        var entregas_realA = this.state.entregas_real
+        var entregas_realB = this.state.novoEntregas
+        index = index + entregas_realA.length - entregas_realB.length
+        entregas_realA.map((membro, pos) => {
+            if(index!=pos){
+                entregas_real.push(membro)
             }
-        }
+            else{
+                entregas_real.push(event.target.value)
+            }
+        })     
         this.setState({ 
             entregas_real
         })
@@ -156,10 +161,14 @@ class CriarProjeto extends Component {
 
     adicionaNovoEntrega = () => {
         var novoEntregas = []
+        var entregas_real = []
         novoEntregas = this.state.novoEntregas        
+        entregas_real = this.state.entregas_real  
         novoEntregas.push(0)
+        entregas_real.push(0)
         this.setState({ 
-            novoEntregas
+            novoEntregas,
+            entregas_real
         })
     }
 
@@ -169,6 +178,15 @@ class CriarProjeto extends Component {
         this.setState({ 
             novoEntregas
         })
+    }
+
+    entregaVazia = (entregas) => {
+        entregas.map( entrega => {
+            if(entrega==0){
+                return 0
+            }
+        })
+        return 1
     }
 
     async componentDidMount(){
@@ -309,10 +327,10 @@ class CriarProjeto extends Component {
 
                     <Button variant="primary" type="submit" 
                     onClick= { async ()  =>{
-                        if(this.state.nome != "" && this.state.descricao != ""){
-                        await this.props.atualizarProjeto({nome:this.state.nome, equipe:this.state.membros, descricao:this.state.descricao, entregas: this.state.entregas_real}, this.state.id_projeto)
-                        await this.preencheEquipe()
-                    }}}>
+                        if(this.state.nome != "" && this.state.descricao != "" && this.entregaVazia(this.state.entregas_real)==0){
+                            await this.props.atualizarProjeto({nome:this.state.nome, equipe:this.state.membros, descricao:this.state.descricao, entregas: this.state.entregas_real}, this.state.id_projeto)
+                            await this.preencheEquipe()
+                        }}}>
                         Salvar Projeto
                     </Button>
                     </Form>
