@@ -2,7 +2,6 @@ import { createStore, combineReducers, applyMiddleware } from 'redux'
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import thunk from 'redux-thunk'
-import alertaReducer from './reducers/alertas/alerta'
 import usuarioReducer from './reducers/usuarios/usuario'
 import pageReducer from './reducers/pages/page'
 import adminViewReducer from './reducers/adminViews/adminView'
@@ -13,7 +12,6 @@ import atividadeReducer from './reducers/atividades/atividade'
 
 const reducers = combineReducers({
     usuario: usuarioReducer,
-    alerta: alertaReducer,
     page: pageReducer,
     adminView: adminViewReducer,
     userView: userViewReducer,

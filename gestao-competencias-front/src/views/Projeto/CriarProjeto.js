@@ -5,7 +5,6 @@ import Row from 'react-bootstrap/Row'
 import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col' 
-import DropdownButton from 'react-bootstrap/DropdownButton'
 
 import { pageCadastrarCategoria, pageCadastrarSubCategoria, pageSubCategoria, 
     pageCadastrarProjeto, pageProjeto } from '../../store/actions/adminViews/adminView'
@@ -16,7 +15,6 @@ import { criarProjeto } from '../../store/actions/projetos/projeto'
 
 import '../../styles/principal.css'
 import { FaArrowLeft } from 'react-icons/fa';
-import { BsThreeDotsVertical } from "react-icons/bs";
 
 
 const initialState = {
@@ -204,12 +202,11 @@ class CriarProjeto extends Component {
     }
 }
 
-const mapStateToProps = ({ adminView, usuario, projeto, alerta }) => {
+const mapStateToProps = ({ adminView, usuario, projeto }) => {
     return {
         adminView,
         usuario, 
         projeto,
-        alerta
     }
   }
   

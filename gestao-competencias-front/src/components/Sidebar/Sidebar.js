@@ -1,16 +1,9 @@
 import React , { Component} from 'react';
 import { connect } from 'react-redux';
 
-import Row from 'react-bootstrap/Row'
-import Image from 'react-bootstrap/Image'
-import Button from 'react-bootstrap/Button'
-import Col from 'react-bootstrap/Col'
-import NavLink from 'react-bootstrap/NavLink'
-
 import Sidelogo from "../../components/Sidebar/Sidelogo"
 import sidebar from "../../assets/sidebar-3.jpg";
 
-import { alertout } from '../../store/actions/alertas/alerta'
 
 import { ProSidebar, Menu, MenuItem } from 'react-pro-sidebar';
 import 'react-pro-sidebar/dist/css/styles.css';
@@ -18,7 +11,6 @@ import 'react-pro-sidebar/dist/css/styles.css';
 import { FaMedapps, FaUsers, FaSitemap, FaGripHorizontal, FaTasks } from 'react-icons/fa';
 import { AiOutlineDashboard } from 'react-icons/ai';
 
-import { styled } from '@material-ui/core';
 
 const initialState = {
 }
@@ -97,7 +89,6 @@ const mapStateToProps = ({ usuario }) => {
 }
 const mapDispatchToProps = dispatch => {
   return {
-    alertout: () => dispatch(alertout()),
     
   }
 }

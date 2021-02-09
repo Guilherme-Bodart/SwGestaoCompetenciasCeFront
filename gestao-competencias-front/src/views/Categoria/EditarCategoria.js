@@ -5,16 +5,14 @@ import Row from 'react-bootstrap/Row'
 import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col'
-import DropdownButton from 'react-bootstrap/DropdownButton'
 
-import { pageCadastrarCategoria, pageCadastrarSubCategoria, pageSubCategoria, 
-    pageCadastrarProjeto, pageProjeto, pageCategoria } from '../../store/actions/adminViews/adminView'
+import { pageCadastrarSubCategoria, pageSubCategoria, 
+         pageProjeto, pageCategoria } from '../../store/actions/adminViews/adminView'
 
 import { editarCategoria } from '../../store/actions/categorias/categoria'
 
 import '../../styles/principal.css'
 import { FaArrowLeft } from 'react-icons/fa';
-import { BsThreeDotsVertical } from "react-icons/bs";
 
 const initialState = {
 
@@ -78,10 +76,9 @@ class EditarCategoria extends Component {
     }
 }
 
-const mapStateToProps = ({ adminView, alerta, categoria }) => {
+const mapStateToProps = ({ adminView, categoria }) => {
     return {
         adminView,
-        alerta,
         categoria
     }
   }

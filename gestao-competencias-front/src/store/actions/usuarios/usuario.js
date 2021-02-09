@@ -2,7 +2,6 @@ import { LOGIN_USUARIO, LOGOUT_USUARIO, GET_USUARIOS, GET_USUARIO } from '../act
 
 import axios from 'axios'
 
-import { alertout } from '../alertas/alerta'
 import { pageLogin } from '../pages/page'
 
 import { pageEditarUsuario, pageUsuario } from '../adminViews/adminView'
@@ -27,7 +26,6 @@ export const autenticarUsuario = usuario => {
                 usuario = response.data
                 
                 await dispatch(armazenaInfoUsuario(usuario))
-                dispatch(alertout())
             })
             .catch(error => {
                 if( error.response ){
@@ -38,10 +36,6 @@ export const autenticarUsuario = usuario => {
                     text: 'Falha no login, '+erro_msg,
                     icon: "error",
                   });
-                /*dispatch(alertin({open: true,
-                    alertTitle: 'Error',
-                    severity: 'error',
-                    texto: 'Falha no login, '+erro_msg}))*/
 
             })
     }

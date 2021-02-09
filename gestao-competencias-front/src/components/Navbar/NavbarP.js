@@ -5,7 +5,6 @@ import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 import Button from 'react-bootstrap/Button'
 
-import { alertout } from '../../store/actions/alertas/alerta'
 import { logout } from '../../store/actions/usuarios/usuario'
 import { logoutPage } from '../../store/actions/pages/page'
 import { logoutCategoria } from '../../store/actions/categorias/categoria'
@@ -44,7 +43,6 @@ class NavbarP extends Component {
                   this.props.logoutCategoria()
                   this.props.logoutPage()
                   this.props.logoutProjeto()
-                  this.props.alertout()
 
                 }
               }>
@@ -64,7 +62,6 @@ const mapStateToProps = ({ usuario, page }) => {
 }
 const mapDispatchToProps = dispatch => {
   return {
-    alertout: () => dispatch(alertout()),
     logout: () => dispatch(logout()),
     logoutPage: () => dispatch(logoutPage()),
     logoutAdminview: () => dispatch(logoutAdminview()),

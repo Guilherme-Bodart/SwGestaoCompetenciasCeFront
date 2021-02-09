@@ -1,6 +1,5 @@
 import axios from 'axios'
 import { GET_PROJETO, GET_DETALHARPROJETO, LOGOUT_PROJETO } from '../actionsTypes'
-import { alertin } from '../alertas/alerta'
 
 import { pageProjeto, pageEditarProjeto } from '../adminViews/adminView'
 

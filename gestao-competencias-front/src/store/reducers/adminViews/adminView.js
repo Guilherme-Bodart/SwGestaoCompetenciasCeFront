@@ -21,7 +21,7 @@ switch (action.type) {
        }
 
     case PAGE_CADASTRO_SUBCATEGORIA:
-        var page = 'cadastroSubcategoria'
+        page = 'cadastroSubcategoria'
 
         return {
             ...state, page
@@ -34,14 +34,14 @@ switch (action.type) {
         }
 
     case PAGE_CADASTRO_PROJETO:
-        var page = 'cadastroProjeto'
+        page = 'cadastroProjeto'
  
         return {
             ...state, page
         }
     
     case PAGE_DETALHES_PROJETO:
-        var page = 'detalhesProjeto'
+        page = 'detalhesProjeto'
  
         return {
             ...state, page

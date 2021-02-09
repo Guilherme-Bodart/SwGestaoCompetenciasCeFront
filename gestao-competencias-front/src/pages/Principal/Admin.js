@@ -94,10 +94,9 @@ class Admin extends Component {
     }
 }
 
-const mapStateToProps = ({ usuario, alerta, page, adminView }) => {
+const mapStateToProps = ({ usuario, page, adminView }) => {
     return {
         usuario,
-        alerta,
         page,
         adminView
     }

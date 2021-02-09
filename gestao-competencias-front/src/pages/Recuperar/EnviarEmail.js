@@ -8,9 +8,6 @@ import Image from 'react-bootstrap/Image'
 
 import { enviarEmailReset } from '../../store/actions/usuarios/usuario'
 
-import Alerta from '../../components/Alerta/Alerta'
-
-import { alertout } from '../../store/actions/alertas/alerta'
 import { pageLogin } from '../../store/actions/pages/page'
 
 import logo from "../../assets/leds-logo.svg";
@@ -97,10 +94,9 @@ class EnviarEmail extends Component {
   };
 }
 
-const mapStateToProps = ({ email, alerta, page }) => {
+const mapStateToProps = ({ email, page }) => {
   return {
       email,
-      alerta,
       page
   }
 }
@@ -108,7 +104,6 @@ const mapStateToProps = ({ email, alerta, page }) => {
 const mapDispatchToProps = dispatch => {
     return {
         enviarEmailReset: email => dispatch(enviarEmailReset(email)),
-        alertout: () => dispatch(alertout()),
         pageLogin: () => dispatch(pageLogin()),
         
     }

@@ -13,8 +13,6 @@ import { getCategorias, getCategoria, desativarCategoria } from '../../store/act
 
 import '../../styles/principal.css'
 import { FaPlus } from 'react-icons/fa';
-import { BsThreeDotsVertical } from "react-icons/bs";
-
 import {converte_data} from '../../functions/function'
 
 const initialState = {
@@ -98,11 +96,10 @@ class Categoria extends Component {
     }
 }
 
-const mapStateToProps = ({ adminView, categoria, alerta }) => {
+const mapStateToProps = ({ adminView, categoria }) => {
     return {
         adminView,
         categoria,
-        alerta
     }
   }
   

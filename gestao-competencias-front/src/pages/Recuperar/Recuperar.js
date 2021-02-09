@@ -8,9 +8,8 @@ import Image from 'react-bootstrap/Image'
 
 import { recuperarSenha } from '../../store/actions/usuarios/usuario'
 
-import Alerta from '../../components/Alerta/Alerta'
+import swal from 'sweetalert';
 
-import { alertout } from '../../store/actions/alertas/alerta'
 import { pageLogin } from '../../store/actions/pages/page'
 
 import logo from "../../assets/leds-logo.svg";
@@ -82,7 +81,11 @@ class Recuperar extends Component {
                     await this.props.recuperarSenha({senha:this.state.senha, token: this.props.match.params.token})
                   }
                   else{
-                    alert("Senhas não são iguais")
+                    swal({
+                      title: "Error",
+                      text: 'Falha no envio, senhas não coincidem',
+                      icon: "error",
+                    });
                   }
                 }
               }
@@ -103,10 +106,9 @@ class Recuperar extends Component {
   };
 }
 
-const mapStateToProps = ({ usuario, alerta, page }) => {
+const mapStateToProps = ({ usuario, page }) => {
   return {
       usuario,
-      alerta,
       page
   }
 }
@@ -114,7 +116,6 @@ const mapStateToProps = ({ usuario, alerta, page }) => {
 const mapDispatchToProps = dispatch => {
     return {
         recuperarSenha: usuario => dispatch(recuperarSenha(usuario)),
-        alertout: () => dispatch(alertout()),
         pageLogin: () => dispatch(pageLogin()),
         
     }

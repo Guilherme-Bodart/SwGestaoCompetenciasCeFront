@@ -5,7 +5,6 @@ import Row from 'react-bootstrap/Row'
 import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col'
-import DropdownButton from 'react-bootstrap/DropdownButton'
 
 import { pageUsuario } from '../../store/actions/adminViews/adminView'
 
@@ -15,7 +14,8 @@ import { valida_cpf } from '../../functions/function'
 
 import '../../styles/principal.css'
 import { FaArrowLeft } from 'react-icons/fa';
-import { BsThreeDotsVertical } from "react-icons/bs";
+
+import swal from 'sweetalert';
 
 const initialState = {
     email: '',
@@ -186,7 +186,11 @@ class EditarUsuario extends Component {
                                             telefone:this.state.telefone, endereco:this.state.endereco, 
                                             cpf:this.state.cpf, permissao:this.state.permissao})
                                         }else{
-                                            alert('CPF inválido')
+                                            swal({
+                                                title: "Error",
+                                                text: 'Falha no envio, CPF inválido',
+                                                icon: "error",
+                                              });
                                         }
                                     } 
                                 }}>
@@ -200,10 +204,9 @@ class EditarUsuario extends Component {
     }
 }
 
-const mapStateToProps = ({ adminView, alerta, usuario }) => {
+const mapStateToProps = ({ adminView, usuario }) => {
     return {
         adminView,
-        alerta,
         usuario
     }
   }

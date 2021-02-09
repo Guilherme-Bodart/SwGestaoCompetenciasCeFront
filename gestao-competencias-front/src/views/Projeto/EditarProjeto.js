@@ -5,7 +5,6 @@ import Row from 'react-bootstrap/Row'
 import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col' 
-import DropdownButton from 'react-bootstrap/DropdownButton'
 
 import { pageCadastrarCategoria, pageCadastrarSubCategoria, pageSubCategoria, 
     pageCadastrarProjeto, pageProjeto } from '../../store/actions/adminViews/adminView'
@@ -75,9 +74,9 @@ class CriarProjeto extends Component {
         var entregas_realA = this.state.entregas_real
         var entregas_realB = this.state.novoEntregas
         index = index + entregas_realA.length - entregas_realB.length
-        entregas_realA.map((membro, pos) => {
+        entregas_realA.map((entrega, pos) => { //index!=pos ? entregas_real.push(membro) : entregas_real.push(event.target.value)
             if(index!=pos){
-                entregas_real.push(membro)
+                entregas_real.push(entrega)
             }
             else{
                 entregas_real.push(event.target.value)
@@ -93,7 +92,7 @@ class CriarProjeto extends Component {
         var membrosA = this.state.membros
         var membrosB = this.state.novoMembros
         index = index + membrosA.length - membrosB.length
-        membrosA.map((membro, pos) => {
+        membrosA.map((membro, pos) => { //index!=pos ? membros.push(membro) : membros.push(event.target.value)
             if(index!=pos){
                 membros.push(membro)
             }

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
-import Button from "react-bootstrap/Button"
 import Row from 'react-bootstrap/Row'
 import Container from 'react-bootstrap/Container'
 import Table from 'react-bootstrap/Table'
@@ -97,11 +96,10 @@ class Usuario extends Component {
     }
 }
 
-const mapStateToProps = ({ adminView, usuario,alerta }) => {
+const mapStateToProps = ({ adminView, usuario }) => {
     return {
         adminView,
         usuario,
-        alerta
     }
   }
   

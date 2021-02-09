@@ -6,9 +6,7 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Image from 'react-bootstrap/Image'
 
-import Alerta from '../../components/Alerta/Alerta'
 import { autenticarUsuario, logout } from '../../store/actions/usuarios/usuario'
-import { alertout } from '../../store/actions/alertas/alerta'
 import { logoutPage } from '../../store/actions/pages/page'
 import { logoutCategoria } from '../../store/actions/categorias/categoria'
 import { logoutAdminview } from '../../store/actions/adminViews/adminView'
@@ -61,7 +59,6 @@ class Login extends Component {
     this.props.logoutCategoria()
     this.props.logoutPage()
     this.props.logoutProjeto()
-    this.props.alertout()
   }
 
   render(props) {    
@@ -136,10 +133,9 @@ class Login extends Component {
   };
 }
 
-const mapStateToProps = ({ usuario, alerta, page, adminView }) => {
+const mapStateToProps = ({ usuario, page, adminView }) => {
   return {
       usuario,
-      alerta,
       page, 
       adminView
   }
@@ -147,7 +143,6 @@ const mapStateToProps = ({ usuario, alerta, page, adminView }) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-      alertout: () => dispatch(alertout()),
       logout: () => dispatch(logout()),
       pageEnviarEmail: () => dispatch(pageEnviarEmail()),
       pageCadastrar: () => dispatch(pageCadastrar()),

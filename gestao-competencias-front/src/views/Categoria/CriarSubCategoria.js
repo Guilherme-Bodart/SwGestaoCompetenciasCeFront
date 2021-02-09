@@ -5,7 +5,6 @@ import Row from 'react-bootstrap/Row'
 import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col'
-import DropdownButton from 'react-bootstrap/DropdownButton'
 
 import { pageCadastrarCategoria, pageCadastrarSubCategoria, pageSubCategoria, 
     pageCadastrarProjeto, pageProjeto } from '../../store/actions/adminViews/adminView'
@@ -109,10 +108,9 @@ class CriarSubCategoria extends Component {
     }
 }
 
-const mapStateToProps = ({ adminView, alerta, categoria, subcategoria }) => {
+const mapStateToProps = ({ adminView, categoria, subcategoria }) => {
     return {
         adminView,
-        alerta,
         categoria,
         subcategoria
     }

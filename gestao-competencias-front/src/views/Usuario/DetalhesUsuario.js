@@ -5,13 +5,11 @@ import Row from 'react-bootstrap/Row'
 import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col'
-import DropdownButton from 'react-bootstrap/DropdownButton'
 
 import { pageUsuario } from '../../store/actions/adminViews/adminView'
 
 import '../../styles/principal.css'
 import { FaArrowLeft } from 'react-icons/fa';
-import { BsThreeDotsVertical } from "react-icons/bs";
 
 const initialState = {
     email: '',
@@ -133,10 +131,9 @@ class DetalhesUsuario extends Component {
     }
 }
 
-const mapStateToProps = ({ adminView, alerta, usuario }) => {
+const mapStateToProps = ({ adminView, usuario }) => {
     return {
         adminView,
-        alerta,
         usuario
     }
   }

@@ -74,10 +74,9 @@ class Usuario extends Component {
     }
 }
 
-const mapStateToProps = ({ usuario, alerta, page, userView }) => {
+const mapStateToProps = ({ usuario, page, userView }) => {
     return {
         usuario,
-        alerta,
         page,
         userView
     }

@@ -1,11 +1,8 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 
-import Row from 'react-bootstrap/Row'
 import Image from 'react-bootstrap/Image'
-import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
-import Button from 'react-bootstrap/Button'
 
 import '../../styles/login.css'
 import logo from "../../assets/leds-logo.svg";

@@ -8,10 +8,9 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Image from 'react-bootstrap/Image'
 
-import Alerta from '../../components/Alerta/Alerta'
+import swal from 'sweetalert';
 import { criarUsuario } from '../../store/actions/usuarios/usuario'
 import logo from "../../assets/leds-logo.svg";
-import { alertout } from '../../store/actions/alertas/alerta'
 import { pageLogin } from '../../store/actions/pages/page'
 import { cpfMask } from '../../functions/mask'
 
@@ -87,9 +86,7 @@ class CriarConta extends Component {
     event.preventDefault()    
   }
 
-  async componentDidMount(){
-    this.props.alertout()
-  }
+
 
   render(props) {
     if(this.props.page.page === "login"){
@@ -206,11 +203,19 @@ class CriarConta extends Component {
                                             telefone:this.state.telefone, senha:this.state.senha, endereco:this.state.endereco, 
                                             cpf:this.state.cpf, permissao:1,})
                     }else{
-                      alert('CPF inválido')
+                      swal({
+                        title: "Error",
+                        text: 'Falha no envio, CPF inválido',
+                        icon: "error",
+                      });
                     }
                   }
                   else{
-                    alert("Senhas não são iguais")
+                    swal({
+                      title: "Error",
+                      text: 'Falha no envio, senhas não coincidem',
+                      icon: "error",
+                    });
                   }
                 }
               }
@@ -235,10 +240,9 @@ class CriarConta extends Component {
   };
 }
 
-const mapStateToProps = ({ usuario, alerta, page }) => {
+const mapStateToProps = ({ usuario, page }) => {
   return {
       usuario,
-      alerta,
       page
   }
 }
@@ -246,7 +250,6 @@ const mapStateToProps = ({ usuario, alerta, page }) => {
 const mapDispatchToProps = dispatch => {
   return {
       criarUsuario: usuario => dispatch(criarUsuario(usuario)),
-      alertout: () => dispatch(alertout()),
       pageLogin: () => dispatch(pageLogin()),
   }
 }

@@ -5,11 +5,9 @@ import Row from 'react-bootstrap/Row'
 import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col'
-import DropdownButton from 'react-bootstrap/DropdownButton'
 
 import '../../styles/principal.css'
 import { FaArrowLeft } from 'react-icons/fa';
-import { BsThreeDotsVertical } from "react-icons/bs";
 
 
 import { criarCategoria } from '../../store/actions/categorias/categoria'
@@ -73,10 +71,9 @@ class CriarCategoria extends Component {
     }
 }
 
-const mapStateToProps = ({ adminView, alerta }) => {
+const mapStateToProps = ({ adminView }) => {
     return {
         adminView,
-        alerta
     }
   }
   
