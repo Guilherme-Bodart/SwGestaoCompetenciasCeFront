@@ -31,23 +31,26 @@ class DetalhesProjeto extends Component {
     }
 
     render(props){
+        
 
         const equipe = this.props.projeto.projeto_detalhado.equipe.map((usuario, index) => 
-     
+    
             <tr>
                 <td>{index+1}</td>
                 <td>{usuario.pessoa.nome}</td>
                 <td>{usuario.email}</td>
             </tr>
         );
+        
 
         const entrega = this.props.projeto.projeto_detalhado.entregas.map((entregas, index) => 
-     
+    
             <tr>
                 <td>{index+1}</td>
                 <td>{converte_data(entregas,1)}</td>
             </tr>
         );
+     
 
         const atividades = this.props.projeto.projeto_detalhado.atividades.map((atividade, index) => 
      
@@ -108,7 +111,7 @@ class DetalhesProjeto extends Component {
                                 </tr>
                             </thead>
                             <tbody>
-                               {equipe}
+                            {this.props.projeto.projeto_detalhado.equipe.length > 0 ? equipe : <tr><td colSpan="8">Sem equipe</td></tr>}
                             </tbody>
                         </Table>
                         </Form.Group>
@@ -147,7 +150,7 @@ class DetalhesProjeto extends Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                {this.props.projeto.projeto_detalhado.entregas.length > 0 ? entrega : <tr><td colSpan="8">Sem atividades</td></tr>}
+                                {this.props.projeto.projeto_detalhado.entregas.length > 0 ? entrega : <tr><td colSpan="8">Sem marcos</td></tr>}
                             </tbody>
                         </Table>
                         </Form.Group>

@@ -20,6 +20,7 @@ import { RiDeleteBin2Line } from "react-icons/ri";
 
 class CriarProjeto extends Component {
     constructor(props) {
+
         super(props)
         this.state = {
             nome: this.props.projeto.projeto_detalhado.nome,
@@ -28,7 +29,13 @@ class CriarProjeto extends Component {
             id_projeto: this.props.projeto.projeto_detalhado._id,
             membros: [],
             novoMembros: [],
+            entregas: [],
+            novoEntregas: [],
+            entregas_real: [],
         }
+
+        this.props.projeto.projeto_detalhado.entregas.map( (entrega, index) => this.state.entregas.push(entrega.substr(0, 16)))
+        this.props.projeto.projeto_detalhado.entregas.map( (entrega, index) => this.state.entregas_real.push(entrega.substr(0, 16)))
     }
 
     handleSubmit(event){
@@ -59,6 +66,20 @@ class CriarProjeto extends Component {
         membros.push(id)
         this.setState({ 
             membros
+        })
+    }
+
+    adicionaEntrega = (event, index) => {
+        var entregas_real = this.state.entregas_real
+        for (var i = 0; i < entregas_real.length; i++) {
+ 
+            if(entregas_real[i].substr(0,10) != event.target.value.substr(0,10)){
+                entregas_real.push(event.target.value); 
+                break;
+            }
+        }
+        this.setState({ 
+            entregas_real
         })
     }
 
@@ -93,6 +114,19 @@ class CriarProjeto extends Component {
         })
     }
 
+    removeEntrega = (data) => {
+        var entregas_realA = this.state.entregas_real
+        var entregas_real = []
+        var entregasA = this.state.entregas
+        var entregas = []
+        entregas_realA.map(entrega => entrega != data ? entregas_real.push(entrega) : entregas_real)
+        entregasA.map(entrega => entrega != data ? entregas.push(entrega) : entregas)
+        this.setState({ 
+            entregas_real,
+            entregas
+        })
+    }
+
     adicionaNovoMembro = () => {
         var novoMembros = []
         var membros = []
@@ -117,6 +151,23 @@ class CriarProjeto extends Component {
         this.setState({ 
             novoMembros,
             membros
+        })
+    }
+
+    adicionaNovoEntrega = () => {
+        var novoEntregas = []
+        novoEntregas = this.state.novoEntregas        
+        novoEntregas.push(0)
+        this.setState({ 
+            novoEntregas
+        })
+    }
+
+    removeNovoEntrega = () => {
+        var novoEntregas = this.state.novoEntregas
+        novoEntregas.pop()
+        this.setState({ 
+            novoEntregas
         })
     }
 
@@ -167,6 +218,30 @@ class CriarProjeto extends Component {
                 </Button>
             </Form.Row>
         );
+
+        const entregasNovo = this.state.novoEntregas.map((entrega, index) => {
+            var ind = index 
+            return (
+                <Form.Row>
+                <Form.Control required type="datetime-local" onChange={value => this.adicionaEntrega(value, ind)} style={{width:"80%", marginLeft:"0.5%", marginTop:"0.5em", marginRight:"0.5em"}} />
+                <Button className="mr-auto" disabled variant="outline-danger" style={{ marginTop:"0.5em", width:"3em"}}
+                    onClick = { () => {}}>
+                    <RiDeleteBin2Line />
+                </Button>
+            </Form.Row>
+                )}
+        );
+                
+        const entregas = this.state.entregas.map((entrega, index) => 
+
+            <Form.Row>
+                <Form.Control required type="datetime-local" disabled value={entrega} style={{width:"80%", marginLeft:"0.5%", marginTop:"0.5em", marginRight:"0.5em"}} />
+                <Button className="mr-auto" variant="outline-danger" style={{ marginTop:"0.5em", width:"3em"}}
+                    onClick = { () => {this.removeEntrega(entrega)}}>
+                    <RiDeleteBin2Line />
+                </Button>
+            </Form.Row>
+        );
         
         return(
             
@@ -207,8 +282,25 @@ class CriarProjeto extends Component {
                         onClick={()=>{this.removeNovoMembro()}}>
                             Remover Membro                    
                     </Button>
-                        
 
+
+                    <Form.Row>
+                        <Form.Group as={Col} controlId="formGridState">
+                        <Form.Label>Marcos do projeto</Form.Label>
+                        {entregas}
+                        {entregasNovo}
+                        </Form.Group>
+                    </Form.Row>
+                    <Button variant="outline-primary" style={{marginBottom:"0.5em", width:"40%", height:"20%"}} 
+                        onClick={()=>{this.adicionaNovoEntrega()}}>
+                            Adicionar Entrega
+                    </Button>
+
+                    <Button variant="outline-danger"  style={{marginBottom:"0.5em",width:"40%", height:"20%", marginLeft:"5%"}}
+                        onClick={()=>{this.removeNovoEntrega()}}>
+                            Remover Entrega                    
+                    </Button>
+                        
 
                     <Form.Group controlId="formGridAddress1">
                         <Form.Label>Descrição</Form.Label>
@@ -218,7 +310,7 @@ class CriarProjeto extends Component {
                     <Button variant="primary" type="submit" 
                     onClick= { async ()  =>{
                         if(this.state.nome != "" && this.state.descricao != ""){
-                        await this.props.atualizarProjeto({nome:this.state.nome, equipe:this.state.membros, descricao:this.state.descricao}, this.state.id_projeto)
+                        await this.props.atualizarProjeto({nome:this.state.nome, equipe:this.state.membros, descricao:this.state.descricao, entregas: this.state.entregas_real}, this.state.id_projeto)
                         await this.preencheEquipe()
                     }}}>
                         Salvar Projeto

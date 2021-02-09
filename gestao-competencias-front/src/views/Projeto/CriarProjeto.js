@@ -172,7 +172,7 @@ class CriarProjeto extends Component {
 
                     <Form.Row>
                         <Form.Group as={Col} controlId="formGridState">
-                        <Form.Label>Marco do projeto</Form.Label>
+                        <Form.Label>Marcos do projeto</Form.Label>
                         <Form.Control type="datetime-local" onChange={value => this.onChangeEntregas(value, 0)} required style={{marginTop:"0.5em", marginRight:"0.5em"}}/>
                         {entregas}
                         </Form.Group>
@@ -192,8 +192,8 @@ class CriarProjeto extends Component {
                     
 
                     <Button variant="primary" onClick= { async ()  =>{
-             
-                        await this.props.criarProjeto({nome:this.state.nome, equipe:this.state.equipe, descricao:this.state.descricao})
+                        
+                        await this.props.criarProjeto({nome:this.state.nome, equipe:this.state.equipe, descricao:this.state.descricao, entregas:this.state.entregas})
                         }}>
                         Cadastrar Projeto
                     </Button>

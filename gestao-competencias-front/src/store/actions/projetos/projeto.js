@@ -116,14 +116,15 @@ export const getProjeto = (id_projeto) => {
 export const atualizarProjeto = (projeto,id_projeto) => {
     return async (dispatch, getState) => {
         const token = 'Bearer ' + getState().usuario.token
-
+        alert(JSON.stringify(projeto))
         await axios.put("https://leds-skills.herokuapp.com/projects/"+id_projeto, null, 
                                                     { params: 
                                                         {   
                                                             token,
                                                             nome: projeto.nome,
                                                             equipe: projeto.equipe,
-                                                            descricao: projeto.descricao
+                                                            descricao: projeto.descricao,
+                                                            entregas: projeto.entregas
                                                         } 
                                                     })
             .then(response => {   
