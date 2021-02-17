@@ -6,6 +6,8 @@ import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col' 
 
+import swal from 'sweetalert';
+
 import { pageCadastrarCategoria, pageCadastrarSubCategoria, pageSubCategoria, 
     pageCadastrarProjeto, pageProjeto } from '../../store/actions/adminViews/adminView'
 
@@ -189,9 +191,19 @@ class CriarProjeto extends Component {
 
                     
 
-                    <Button variant="primary" onClick= { async ()  =>{
+                    <Button variant="primary" type="submit" onClick= { async ()  =>{
                         
-                        await this.props.criarProjeto({nome:this.state.nome, equipe:this.state.equipe, descricao:this.state.descricao, entregas:this.state.entregas})
+                        if(this.state.equipe.length>0){
+                            await this.props.criarProjeto({nome:this.state.nome, equipe:this.state.equipe, descricao:this.state.descricao, entregas:this.state.entregas})
+                        }
+                        else{
+                            swal({
+                                title: "Error",
+                                text: 'Falha no cadastro, preencha os campos corretamente',
+                                icon: "error",
+                              });
+
+                        }
                         }}>
                         Cadastrar Projeto
                     </Button>

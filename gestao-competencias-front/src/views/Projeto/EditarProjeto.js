@@ -174,9 +174,12 @@ class CriarProjeto extends Component {
 
     removeNovoEntrega = () => {
         var novoEntregas = this.state.novoEntregas
+        var entregas_real = this.state.entregas_real 
         novoEntregas.pop()
+        entregas_real.pop()
         this.setState({ 
-            novoEntregas
+            novoEntregas,
+            entregas_real
         })
     }
 
@@ -184,19 +187,21 @@ class CriarProjeto extends Component {
         var soma=0
         entregas.map( entrega => {
             if(entrega==0){
-                this.setState({ 
-                    entrega_verif:0
-                })                
+                this.entregaVerif(0)                
             }
             else{
                 soma = soma + 1
             }            
         })
         if(entregas.length==soma){
-            this.setState({ 
-                entrega_verif:1
-            }) 
+            this.entregaVerif(1)
         }
+    }
+
+    entregaVerif = (entrega_verif) => {
+        this.setState({ 
+            entrega_verif
+        }) 
     }
 
     entregaReset = () => {
@@ -212,7 +217,6 @@ class CriarProjeto extends Component {
 
 
     render(props){
-
         const usuarios = this.props.usuario.usuarios.map( user => {
                 var membros = []
                 this.state.equipe.map(user => {
@@ -326,12 +330,18 @@ class CriarProjeto extends Component {
                         </Form.Group>
                     </Form.Row>
                     <Button variant="outline-primary" style={{marginBottom:"0.5em", width:"40%", height:"20%"}} 
-                        onClick={()=>{this.adicionaNovoEntrega()}}>
+                        onClick={async ()=>{
+                            this.adicionaNovoEntrega()
+                            await this.entregaVerif(true)
+                        }}>
                             Adicionar Entrega
                     </Button>
 
                     <Button variant="outline-danger"  style={{marginBottom:"0.5em",width:"40%", height:"20%", marginLeft:"5%"}}
-                        onClick={()=>{this.removeNovoEntrega()}}>
+                        onClick={async ()=>{
+                            this.removeNovoEntrega()
+                            await this.entregaVerif(true)
+                        }}>
                             Remover Entrega                    
                     </Button>
                         
@@ -351,8 +361,7 @@ class CriarProjeto extends Component {
                         Salvar Projeto
                     </Button>
                     </Form>
-            </Container>
-          
+            </Container>          
         )
     }
 }
