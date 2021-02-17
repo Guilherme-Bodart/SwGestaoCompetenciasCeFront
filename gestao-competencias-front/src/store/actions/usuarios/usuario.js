@@ -277,7 +277,7 @@ export const desativarUsuario = (nome, id_user) => {
                     .catch( error => {
                         swal({
                             title: "Error",
-                            text: 'Falha em desativar o usuário, tente novamente mais tarde',
+                            text: 'Falha em desativar o usuário',
                             icon: "error",
                         });
                     })

@@ -151,9 +151,12 @@ export const cadastrarAtividade = (atividade) => {
                   });
             })
             .catch( error => {
+                if( error.response ){
+                    var erro_msg = error.response.data.error; // => the response payload 
+                }
                 swal({
                     title: "Error",
-                    text: 'Erro no cadastro da atividade',
+                    text: 'Erro no cadastro da atividade, '+erro_msg,
                     icon: "error",
                   });
             })
