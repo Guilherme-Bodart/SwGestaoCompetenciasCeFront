@@ -31,6 +31,7 @@ class CriarProjeto extends Component {
             entregas: [],
             novoEntregas: [],
             entregas_real: [],
+            entrega_verif: 1
         }
 
         this.props.projeto.projeto_detalhado.entregas.map( (entrega, index) => this.state.entregas.push(entrega.substr(0, 16)))
@@ -180,12 +181,28 @@ class CriarProjeto extends Component {
     }
 
     entregaVazia = (entregas) => {
+        var soma=0
         entregas.map( entrega => {
             if(entrega==0){
-                return 0
+                this.setState({ 
+                    entrega_verif:0
+                })                
             }
+            else{
+                soma = soma + 1
+            }            
         })
-        return 1
+        if(entregas.length==soma){
+            this.setState({ 
+                entrega_verif:1
+            }) 
+        }
+    }
+
+    entregaReset = () => {
+        this.setState({ 
+            entrega_verif:1
+        })
     }
 
     async componentDidMount(){
@@ -326,7 +343,8 @@ class CriarProjeto extends Component {
 
                     <Button variant="primary" type="submit" 
                     onClick= { async ()  =>{
-                        if(this.state.nome != "" && this.state.descricao != "" && this.entregaVazia(this.state.entregas_real)==0){
+                        await this.entregaVazia(this.state.entregas_real)
+                        if(this.state.nome != "" && this.state.descricao != "" && this.state.entrega_verif==1){
                             await this.props.atualizarProjeto({nome:this.state.nome, equipe:this.state.membros, descricao:this.state.descricao, entregas: this.state.entregas_real}, this.state.id_projeto)
                             await this.preencheEquipe()
                         }}}>
