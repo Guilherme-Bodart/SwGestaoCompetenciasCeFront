@@ -60,7 +60,7 @@ class Atividade extends Component {
                 <td>{atividade.subcategoria.nome}</td>
                 <td>{converte_data(atividade.dataInicial, 1)}</td>
                 <td>{converte_data(atividade.dataFinal, 1)}</td>
-                <td>{atividade.descricao}</td>
+                <td>{atividade.item_usuario_projeto.projeto.nome}</td>
             </tr>
         );
 
@@ -87,7 +87,7 @@ class Atividade extends Component {
                             <th>Subcategria</th>
                             <th>Início</th>
                             <th>Fim</th>
-                            <th>Descrição</th>
+                            <th>Projeto</th>
                         </tr>
                     </thead>
                     <tbody>
