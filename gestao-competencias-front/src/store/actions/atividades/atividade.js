@@ -168,7 +168,7 @@ export const deletarAtividade = (titulo, id_atividade) => {
     return async (dispatch, getState) => {
         swal({
             title: "Deseja excluir a atividade?",
-            text: "Caso confirme a exclução da atividade: "+titulo+", a mesma será retirada do projeto vinculado",
+            text: "Caso confirme a exclusão da atividade: "+titulo+", a mesma será retirada do projeto vinculado",
             icon: "warning",
             buttons: true,
         }).then(async (willDelete) => {
