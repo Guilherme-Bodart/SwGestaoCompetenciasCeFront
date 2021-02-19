@@ -6,6 +6,7 @@ import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col' 
 import DropdownButton from 'react-bootstrap/DropdownButton'
+import swal from 'sweetalert';
 
 import { pageCadastrarCategoria, pageCadastrarSubCategoria, pageSubCategoria, 
     pageCadastrarAtividade, pageAtividade } from '../../store/actions/userViews/userView'
@@ -148,7 +149,7 @@ class EditarAtividade extends Component {
 
                     <Form.Group >
                         <Form.Label>Descrição</Form.Label>
-                        <Form.Control value={this.state.titulo} as="textarea" onChange={value => this.onChangeDescricao(value)} placeholder="Atividade" required/>
+                        <Form.Control value={this.state.descricao} as="textarea" onChange={value => this.onChangeDescricao(value)} placeholder="Atividade" required/>
                     </Form.Group>
  
                     <Form.Row>  
@@ -187,9 +188,17 @@ class EditarAtividade extends Component {
                     </Form.Row>
                     <Col>
                     <Button variant="primary" onClick= { async ()  =>{
-             
-                        await this.props.editarAtividade({id:this.props.atividade.atividade_detalhado._id, titulo:this.state.titulo, descricao:this.state.descricao, 
-                             categoria: this.state.categoria, subcategoria: this.state.subcategoria, dataInicial: this.state.dataInicial, dataFinal: this.state.dataFinal })
+                        if(this.state.dataFinal > this.state.dataInicial){
+                            await this.props.editarAtividade({id:this.props.atividade.atividade_detalhado._id, titulo:this.state.titulo, descricao:this.state.descricao, 
+                                categoria: this.state.categoria, subcategoria: this.state.subcategoria, dataInicial: this.state.dataInicial, dataFinal: this.state.dataFinal })
+                        }
+                        else{
+                            swal({
+                                title: "Error",
+                                text: 'Falha no envio, data final menor que data inicial',
+                                icon: "error",
+                              });
+                            }
                         }}>
                         Salvar Atividade
                     </Button>
