@@ -5,6 +5,7 @@ import Row from 'react-bootstrap/Row'
 import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col' 
+import swal from 'sweetalert';
 
 import { pageCadastrarCategoria, pageCadastrarSubCategoria, pageSubCategoria, 
     pageCadastrarAtividade, pageAtividade } from '../../store/actions/userViews/userView'
@@ -173,10 +174,18 @@ class CadastrarAtividade extends Component {
                     </Form.Row>
                     <Col>
                     <Button variant="primary" onClick= { async ()  =>{
-             
-                        await this.props.cadastrarAtividade({titulo:this.state.titulo, descricao:this.state.descricao, 
-                            projeto: this.state.projeto, categoria: this.state.categoria, 
-                            subcategoria: this.state.subcategoria, dataInicial: this.state.dataInicial, dataFinal: this.state.dataFinal })
+                        if(this.state.dataFinal > this.state.dataInicial){
+                            await this.props.cadastrarAtividade({titulo:this.state.titulo, descricao:this.state.descricao, 
+                                projeto: this.state.projeto, categoria: this.state.categoria, 
+                                subcategoria: this.state.subcategoria, dataInicial: this.state.dataInicial, dataFinal: this.state.dataFinal })
+                        }
+                        else{
+                            swal({
+                                title: "Error",
+                                text: 'Falha na inclusão da atividade,  A data final não pode ser menor que a data inicial',
+                                icon: "error",
+                              });
+                            }
                         }}>
                         Cadastrar Atividade
                     </Button>

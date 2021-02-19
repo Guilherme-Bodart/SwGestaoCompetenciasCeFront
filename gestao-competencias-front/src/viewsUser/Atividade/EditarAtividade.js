@@ -5,7 +5,6 @@ import Row from 'react-bootstrap/Row'
 import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col' 
-import DropdownButton from 'react-bootstrap/DropdownButton'
 import swal from 'sweetalert';
 
 import { pageCadastrarCategoria, pageCadastrarSubCategoria, pageSubCategoria, 
@@ -195,7 +194,7 @@ class EditarAtividade extends Component {
                         else{
                             swal({
                                 title: "Error",
-                                text: 'Falha no envio, data final menor que data inicial',
+                                text: 'Falha na edição da atividade,  A data final não pode ser menor que a data inicial',
                                 icon: "error",
                               });
                             }
