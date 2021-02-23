@@ -8,7 +8,7 @@ import sidebar from "../../assets/sidebar-3.jpg";
 import { ProSidebar, Menu, MenuItem } from 'react-pro-sidebar';
 import 'react-pro-sidebar/dist/css/styles.css';
 
-import { FaMedapps, FaUsers, FaSitemap, FaGripHorizontal, FaTasks } from 'react-icons/fa';
+import { FaMedapps, FaUsers, FaSitemap, FaGripHorizontal, FaTasks, FaToolbox, FaChartBar } from 'react-icons/fa';
 import { AiOutlineDashboard } from 'react-icons/ai';
 
 
@@ -42,6 +42,12 @@ class NavbarP extends Component {
       
       case 'FaTasks':
         return <FaTasks style={styleIcon}/>;
+      
+      case 'FaToolbox':
+        return <FaToolbox style={styleIcon}/>;
+      
+      case 'FaChartBar':
+        return <FaChartBar style={styleIcon}/>;
                 
       default:
         break;

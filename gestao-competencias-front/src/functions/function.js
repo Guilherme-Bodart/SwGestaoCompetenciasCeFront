@@ -41,3 +41,10 @@ export var valida_cpf = function(cpf){
     else
           return false;
 }
+
+export var nome_sobrenome = function(str) {
+      var arr = str.split(' ');
+      var keep = arr[1][0].toUpperCase() != arr[1][0];
+      return arr.slice(0, keep ? 3 : 2).join(' ');
+    }
+    

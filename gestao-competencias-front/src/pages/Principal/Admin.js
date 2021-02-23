@@ -22,9 +22,11 @@ import EditarUsuario from "../../views/Usuario/EditarUsuario";
 import DetalhesUsuario from "../../views/Usuario/DetalhesUsuario";
 import Usuario from "../../views/Usuario/Usuario";
 import Dashboard from "../../views/Dashboard/Dashboard";
+import Competencia from "../../views/Competencia/Competencia";
+import Relatorio from "../../views/Relatorio/Relatorio";
 
 import { getUsuarios } from '../../store/actions/usuarios/usuario'
-import { pageSubCategoria, pageProjeto, pageUsuario, pageDashboard, pageCategoria } from '../../store/actions/adminViews/adminView'
+import { pageSubCategoria, pageProjeto, pageUsuario, pageDashboard, pageCategoria, pageCompetencia, pageRelatorio } from '../../store/actions/adminViews/adminView'
 
 import '../../styles/principal.css'
 
@@ -62,7 +64,9 @@ class Admin extends Component {
                             {view:this.props.pageUsuario,  icon:'FaUsers', nome: 'Usuários'},
                             {view:this.props.pageProjeto, icon:'FaMedapps', nome: 'Projetos'},
                             {view:this.props.pageCategoria, icon:'FaGripHorizontal', nome: 'Categorias'},
-                            {view:this.props.pageSubCategoria, icon:'FaSitemap', nome: 'Subcategorias'}]
+                            {view:this.props.pageSubCategoria, icon:'FaSitemap', nome: 'Subcategorias'},
+                            {view:this.props.pageRelatorio, icon:'FaChartBar', nome: 'Relatrórios'},
+                            {view:this.props.pageCompetencia, icon:'FaToolbox', nome: 'Competências'}]
       
       renderizar =  this.props.adminView.page === "dashboard" ? <Dashboard/> :
                     this.props.adminView.page === "projeto" ? <Projeto/> : 
@@ -77,6 +81,8 @@ class Admin extends Component {
                     this.props.adminView.page === "editarCategoria" ? <EditarCategoria/> :
                     this.props.adminView.page === "editarUsuario" ? <EditarUsuario/> :
                     this.props.adminView.page === "detalhesUsuario" ? <DetalhesUsuario/> :
+                    this.props.adminView.page === "competencia" ? <Competencia/> :
+                    this.props.adminView.page === "relatorio" ? <Relatorio/> :
                     this.props.adminView.page === "usuario" ? <Usuario/> : <Dashboard/>
       return(
         <div style={{ backgroundColor:'rgba(220,220,220,0.7)',}} >
@@ -109,6 +115,8 @@ const mapStateToProps = ({ usuario, page, adminView }) => {
       pageSubCategoria: () => dispatch(pageSubCategoria()),
       pageUsuario: () => dispatch(pageUsuario()),
       pageDashboard: () => dispatch(pageDashboard()),
+      pageCompetencia: () => dispatch(pageCompetencia()),
+      pageRelatorio: () => dispatch(pageRelatorio()),
       getUsuarios: () => dispatch(getUsuarios()),
       
     }
