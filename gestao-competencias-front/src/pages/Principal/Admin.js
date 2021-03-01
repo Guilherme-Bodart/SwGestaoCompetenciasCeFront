@@ -65,7 +65,7 @@ class Admin extends Component {
                             {view:this.props.pageProjeto, icon:'FaMedapps', nome: 'Projetos'},
                             {view:this.props.pageCategoria, icon:'FaGripHorizontal', nome: 'Categorias'},
                             {view:this.props.pageSubCategoria, icon:'FaSitemap', nome: 'Subcategorias'},
-                            {view:this.props.pageRelatorio, icon:'FaChartBar', nome: 'Relatrórios'},
+                            {view:this.props.pageRelatorio, icon:'FaChartBar', nome: 'Relatórios'},
                             {view:this.props.pageCompetencia, icon:'FaToolbox', nome: 'Competências'}]
       
       renderizar =  this.props.adminView.page === "dashboard" ? <Dashboard/> :

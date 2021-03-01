@@ -16,8 +16,10 @@ import DetalhesAtividade from "../../viewsUser/Atividade/DetalhesAtividade";
 import CadastrarAtividade from "../../viewsUser/Atividade/CadastrarAtividade";
 import EditarAtividade from "../../viewsUser/Atividade/EditarAtividade";
 import Dashboard from "../../viewsUser/Dashboard/Dashboard";
+import Competencia from "../../viewsUser/Competencia/Competencia";
+import Relatorio from "../../viewsUser/Relatorio/Relatorio";
 
-import { pageSubCategoria, pageProjeto, pageUsuario, pageDashboard, pageAtividade } from '../../store/actions/userViews/userView'
+import { pageSubCategoria, pageProjeto, pageUsuario, pageDashboard, pageAtividade, pageRelatorio, pageCompetencia } from '../../store/actions/userViews/userView'
 
 import '../../styles/principal.css'
 
@@ -49,7 +51,9 @@ class Usuario extends Component {
       var listaMenuItem = [ {view:this.props.pageDashboard, icon:'AiOutlineDashboard', nome: 'Dashboard'},
                             {view:this.props.pageProjeto, icon:'FaMedapps', nome: 'Projetos'},
                             {view:this.props.pageAtividade, icon:'FaTasks', nome: 'Atividades'},
-                            ]
+                            {view:this.props.pageRelatorio, icon:'FaChartBar', nome: 'Relatórios'},
+                            {view:this.props.pageCompetencia, icon:'FaToolbox', nome: 'Competências'}]
+                            
       
       renderizar =  this.props.userView.page === "projeto" ? <Projeto/> : 
                     this.props.userView.page === "detalhesProjeto" ? <DetalhesProjeto/> :
@@ -57,6 +61,8 @@ class Usuario extends Component {
                     this.props.userView.page === "cadastroAtividade" ? <CadastrarAtividade/> :
                     this.props.userView.page === "editarAtividade" ? <EditarAtividade/> :
                     this.props.userView.page === "detalhesAtividade" ? <DetalhesAtividade/> :
+                    this.props.userView.page === "competencia" ? <Competencia/> :
+                    this.props.userView.page === "relatorio" ? <Relatorio/> :
                     this.props.userView.page === "dashboard" ? <Dashboard/> : <Dashboard/> 
       return(
         <div style={{ backgroundColor:'rgba(220,220,220,0.7)',}} >
@@ -89,6 +95,8 @@ const mapStateToProps = ({ usuario, page, userView }) => {
       pageSubCategoria: () => dispatch(pageSubCategoria()),
       pageUsuario: () => dispatch(pageUsuario()),
       pageDashboard: () => dispatch(pageDashboard()),
+      pageCompetencia: () => dispatch(pageCompetencia()),
+      pageRelatorio: () => dispatch(pageRelatorio()),
       
     }
   }

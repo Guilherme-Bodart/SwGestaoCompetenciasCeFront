@@ -3,7 +3,7 @@ import { PAGE_CADASTRO_CATEGORIA,PAGE_CADASTRO_PROJETO,
     PAGE_PROJETO, PAGE_DETALHES_PROJETO, PAGE_USUARIO,
     PAGE_DASHBOARD, PAGE_EDITAR_PROJETO, LOGOUT_ADMINVIEW, PAGE_EDITAR_SUBCATEGORIA,
     PAGE_EDITAR_USUARIO, PAGE_CADASTRO_ATIVIDADE, PAGE_DETALHES_ATIVIDADE, PAGE_ATIVIDADE,
-    PAGE_EDITAR_ATIVIDADE
+    PAGE_EDITAR_ATIVIDADE, PAGE_RELATORIO, PAGE_COMPETENCIA
 } from '../../actions/actionsTypes'
 
 const initialState = {
@@ -111,6 +111,19 @@ case PAGE_EDITAR_SUBCATEGORIA:
     return {
         ...state, page
     }
+
+case PAGE_RELATORIO:
+    page = 'relatorio'
+    return {
+        ...state, page
+    }
+
+case PAGE_COMPETENCIA:
+    page = 'competencia'
+    return {
+        ...state, page
+    }
+
 
 case LOGOUT_ADMINVIEW:
     return initialState

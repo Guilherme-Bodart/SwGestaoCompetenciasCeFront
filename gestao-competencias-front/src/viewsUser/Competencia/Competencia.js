@@ -11,7 +11,7 @@ import '../../styles/principal.css'
 import { pageCadastrarCategoria, pageCadastrarSubCategoria, pageSubCategoria, 
     pageCadastrarProjeto, pageProjeto, pageDetalhesProjeto, pageEditarProjeto } from '../../store/actions/adminViews/adminView'
 
-import { getProjetos, getProjeto, desativarProjeto } from '../../store/actions/projetos/projeto'
+import { getAlunoProjetos, getProjeto, desativarProjeto } from '../../store/actions/projetos/projeto'
 
 import { nome_sobrenome } from '../../functions/function'
 
@@ -48,18 +48,19 @@ class Competencia extends Component {
     }
 
     async componentDidMount(){
-        await this.props.getProjetos()
+        await this.props.getAlunoProjetos()
     }
 
     render(props){
 
         const projetos = this.props.projeto.projetos.map((projeto, index) => 
-            <option value={projeto._id}>{projeto.nome}</option>
+            <option value={projeto.projeto._id}>{projeto.projeto.nome}</option>
         );
 
         var equipe = ""
         var categorias = ""
         var grafico = ""
+        var grafico2 = ""
         if(this.state.projeto){
            
             if(this.props.projeto.projeto_detalhado.equipe != undefined){
@@ -79,6 +80,7 @@ class Competencia extends Component {
                 );
                 
                 const data = []
+                const data2 = []
 
                 const membros_grafico = this.props.projeto.projeto_detalhado.equipe.map((membro, index) => 
                     <Radar name={nome_sobrenome(this.props.projeto.projeto_detalhado.competencias[membro._id].nome)} dataKey={nome_sobrenome(this.props.projeto.projeto_detalhado.competencias[membro._id].nome)} stroke={color[index]} fill={color[index]} fillOpacity={0.6} />
@@ -106,11 +108,35 @@ class Competencia extends Component {
                 });
 
                 grafico =
-                <RadarChart outerRadius={90} width={730} height={250} data={data}>
+                <RadarChart outerRadius={90} width={500} height={300} data={data}>
                     <PolarGrid />
                     <PolarAngleAxis dataKey="subject" />
                     <PolarRadiusAxis angle={30} domain={[0, 5]} />
                     {membros_grafico}
+                    <Legend />
+                </RadarChart> 
+
+                const data_grafico3 = this.props.projeto.projeto_detalhado.subcategorias.map((subcategorias, index) => {
+                    data2[index] = {"subject": subcategorias.nome,
+                    "fullMark": 5
+                    }
+                    var membro = {};
+                    var nota_subcategoria = 0;
+                    var nome_membro = nome_sobrenome(this.props.projeto.projeto_detalhado.competencias[this.props.usuario._id].nome);
+                    if(!(this.props.projeto.projeto_detalhado.competencias[this.props.usuario._id].subcategorias_notas === undefined)){
+                        nota_subcategoria = this.props.projeto.projeto_detalhado.competencias[this.props.usuario._id].subcategorias_notas[subcategorias._id];
+                        membro[nome_sobrenome(nome_membro)] = nota_subcategoria
+                    }
+                    membro[nome_sobrenome(nome_membro)] = nota_subcategoria
+                    data2[index]  = Object.assign(data2[index], membro)
+                });
+
+                grafico2 =
+                <RadarChart outerRadius={90} width={500} height={300} data={data2}>
+                    <PolarGrid />
+                    <PolarAngleAxis dataKey="subject" />
+                    <PolarRadiusAxis angle={30} domain={[0, 5]} />
+                    <Radar name={nome_sobrenome(this.props.projeto.projeto_detalhado.competencias[this.props.usuario._id].nome)} dataKey={nome_sobrenome(this.props.projeto.projeto_detalhado.competencias[this.props.usuario._id].nome)} stroke={color[0]} fill={color[0]} fillOpacity={0.6} />
                     <Legend />
                 </RadarChart> 
 
@@ -144,23 +170,27 @@ class Competencia extends Component {
                         {equipe ? equipe : <tr><td colSpan="15">Selecione um Projeto</td></tr>}
                     </tbody>
                 </Table>
-                {grafico}
+                <Row>
+                    {grafico}
+                    {grafico2}
+                </Row>
             </Container>
           
         )
     }
 }
 
-const mapStateToProps = ({ adminView, projeto }) => {
+const mapStateToProps = ({ adminView, projeto, usuario }) => {
     return {
         adminView,
-        projeto
+        projeto,
+        usuario
     }
   }
   
   const mapDispatchToProps = dispatch => {
     return {
-        getProjetos: () => dispatch(getProjetos()),
+        getAlunoProjetos: () => dispatch(getAlunoProjetos()),
         getProjeto: (id_projeto) => dispatch(getProjeto(id_projeto)),
     }
   }

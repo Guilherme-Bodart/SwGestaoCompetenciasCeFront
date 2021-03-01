@@ -11,18 +11,14 @@ import '../../styles/principal.css'
 import { pageCadastrarCategoria, pageCadastrarSubCategoria, pageSubCategoria, 
     pageCadastrarProjeto, pageProjeto, pageDetalhesProjeto, pageEditarProjeto } from '../../store/actions/adminViews/adminView'
 
-import { getProjetos, getProjeto, desativarProjeto } from '../../store/actions/projetos/projeto'
+import { getAlunoProjetos, getProjeto, desativarProjeto } from '../../store/actions/projetos/projeto'
 
 import { nome_sobrenome } from '../../functions/function'
 
 import {
-    BarChart,
-    Bar,
-    XAxis,
-    YAxis,
-    CartesianGrid,
-    Tooltip,
-    Legend
+    PieChart,
+    Pie,
+    Cell,
   } from 'recharts';
 
 const initialState = {
@@ -49,53 +45,51 @@ class Relatorio extends Component {
     }
 
     async componentDidMount(){
-        await this.props.getProjetos()
+        await this.props.getAlunoProjetos()
     }
 
     render(props){
-
+        
         const projetos = this.props.projeto.projetos.map((projeto, index) => 
-            <option value={projeto._id}>{projeto.nome}</option>
+            <option value={projeto.projeto._id}>{projeto.projeto.nome}</option>
         );
 
         var grafico = ""
+        var legenda = ""
         if(this.state.projeto){
             const data = []
 
             if(this.props.projeto.projeto_detalhado.equipe != undefined){
-                const membros_grafico = this.props.projeto.projeto_detalhado.equipe.map((membro, index) => 
-                    <Bar dataKey={nome_sobrenome(this.props.projeto.projeto_detalhado.competencias[membro._id].nome)} fill={color[index]} />
-                );
                 
-                const data_grafico = this.props.projeto.projeto_detalhado.categorias.map((categoria, index) => 
-                data[index] = {
-                    "name": categoria.nome,
+                const data_grafico = this.props.projeto.projeto_detalhado.categorias.map((categoria, index) => {
+                    var horas_cat = 0;
+
+                    if(!(this.props.projeto.projeto_detalhado.competencias[this.props.usuario._id].categorias_horas === undefined)){
+                        horas_cat = this.props.projeto.projeto_detalhado.competencias[this.props.usuario._id].categorias_horas[categoria._id];
                     }
-                )
-                
-                const data_grafico2 = this.props.projeto.projeto_detalhado.categorias.map((categoria, index) => {
-                    var membros = {};
-                    this.props.projeto.projeto_detalhado.equipe.map((membro, index) => {
-                        var nome_membro = nome_sobrenome(this.props.projeto.projeto_detalhado.competencias[membro._id].nome);
-                        var horas_cat = 0;
-                        if(!(this.props.projeto.projeto_detalhado.competencias[membro._id].categorias_horas === undefined)){
-                            horas_cat = this.props.projeto.projeto_detalhado.competencias[membro._id].categorias_horas[categoria._id];
-                            membros[nome_sobrenome(nome_membro)] = horas_cat
-                        }
-                        membros[nome_sobrenome(nome_membro)] = horas_cat
-                    });
-                    data[index]  = Object.assign(data[index], membros)
+
+                    data[index] = {
+                        "name": categoria.nome,
+                        "value": horas_cat
+                    }
                 });
 
+                legenda = data.map(
+                (entry, index) => (
+                    <span style={{width: "0",height: "0",borderwidth: "1rem 1rem 1rem",borderStyle: "solid",borderColor: color[index]}}>{entry.name}</span>
+                ))
+
+                
                 grafico = 
-                <BarChart width={730} height={250} data={data}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="name" />
-                    <YAxis />
-                    <Tooltip />
-                    <Legend />
-                    {membros_grafico}
-                </BarChart>
+                <PieChart width={730} height={250}>
+                    <Pie data={data} cx="50%" cy="50%" outerRadius={80} label>
+                        {
+                        data.map((entry, index) => (
+                            <Cell key={`cell-${index}`} dataKey="value" nameKey="name" fill={color[index]}/>
+                        ))
+                        }
+                    </Pie>
+                </PieChart>
             }
         }
 
@@ -115,22 +109,24 @@ class Relatorio extends Component {
                     </Form.Group>
                 </Form.Row>
                 {grafico}
+                {legenda}
             </Container>
           
         )
     }
 }
 
-const mapStateToProps = ({ adminView, projeto }) => {
+const mapStateToProps = ({ adminView, projeto, usuario }) => {
     return {
         adminView,
-        projeto
+        projeto,
+        usuario
     }
   }
   
   const mapDispatchToProps = dispatch => {
     return {
-        getProjetos: () => dispatch(getProjetos()),
+        getAlunoProjetos: () => dispatch(getAlunoProjetos()),
         getProjeto: (id_projeto) => dispatch(getProjeto(id_projeto)),
     }
   }
