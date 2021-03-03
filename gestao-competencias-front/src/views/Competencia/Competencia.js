@@ -8,12 +8,9 @@ import Col from 'react-bootstrap/Col'
 
 import '../../styles/principal.css'
 
-import { pageCadastrarCategoria, pageCadastrarSubCategoria, pageSubCategoria, 
-    pageCadastrarProjeto, pageProjeto, pageDetalhesProjeto, pageEditarProjeto } from '../../store/actions/adminViews/adminView'
+import { getProjetos, getProjeto } from '../../store/actions/projetos/projeto'
 
-import { getProjetos, getProjeto, desativarProjeto } from '../../store/actions/projetos/projeto'
-
-import { nome_sobrenome } from '../../functions/function'
+import { nome_sobrenome, color } from '../../functions/function'
 
 import {
     RadarChart,
@@ -27,8 +24,6 @@ import {
 const initialState = {
     projeto: ''
 }
-
-const color = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
 class Competencia extends Component {
     constructor(props) {
@@ -63,10 +58,20 @@ class Competencia extends Component {
         if(this.state.projeto){
            
             if(this.props.projeto.projeto_detalhado.equipe != undefined){
+
+                function categoria_nota_retorno(id_usuario, id_categoria){
+                    var nota = 0;
+                    if(this.props.projeto.projeto_detalhado.competencias[id_usuario].categorias_notas !== undefined){
+                        if(this.props.projeto.projeto_detalhado.competencias[id_usuario].categorias_notas[id_categoria] > 0){
+                            nota = this.props.projeto.projeto_detalhado.competencias[id_usuario].categorias_notas[id_categoria]
+                        }
+                    }
+                    return nota
+                }
+
                 categorias = this.props.projeto.projeto_detalhado.categorias.map((categoria, index) => 
                     <th>{categoria.nome}</th>
                 );
-
 
                 equipe = this.props.projeto.projeto_detalhado.equipe.map((usuario, index) => 
             
@@ -74,7 +79,7 @@ class Competencia extends Component {
                         <td>{index+1}</td>
                         <td>{usuario.pessoa.nome} ({this.props.projeto.projeto_detalhado.competencias[usuario._id].total_horas}H)</td>
                         {this.props.projeto.projeto_detalhado.categorias.map((categoria, index) => 
-                            <td>{(!(this.props.projeto.projeto_detalhado.competencias[usuario._id].categorias_notas === undefined)) ? this.props.projeto.projeto_detalhado.competencias[usuario._id].categorias_notas[categoria._id] : 0}</td>)}
+                            <td>{(this.props.projeto.projeto_detalhado.competencias[usuario._id].categorias_notas !== undefined && this.props.projeto.projeto_detalhado.competencias[usuario._id].categorias_notas[categoria._id] !== undefined) ? this.props.projeto.projeto_detalhado.competencias[usuario._id].categorias_notas[categoria._id] : 0}</td>)}
                     </tr>
                 );
                 
@@ -84,25 +89,27 @@ class Competencia extends Component {
                     <Radar name={nome_sobrenome(this.props.projeto.projeto_detalhado.competencias[membro._id].nome)} dataKey={nome_sobrenome(this.props.projeto.projeto_detalhado.competencias[membro._id].nome)} stroke={color[index]} fill={color[index]} fillOpacity={0.6} />
                 );
                 
-                const data_grafico = this.props.projeto.projeto_detalhado.categorias.map((categoria, index) => 
-                data[index] = {
-                    "subject": categoria.nome,
-                    "fullMark": 5
-                    }
+                this.props.projeto.projeto_detalhado.categorias.map((categoria, index) => 
+                    data[index] = {
+                        "subject": categoria.nome,
+                        "fullMark": 5
+                        }
                 )
                 
-                const data_grafico2 = this.props.projeto.projeto_detalhado.categorias.map((categoria, index) => {
+                this.props.projeto.projeto_detalhado.categorias.map((categoria, index) => {
                     var membros = {};
                     this.props.projeto.projeto_detalhado.equipe.map((membro, index) => {
                         var nome_membro = nome_sobrenome(this.props.projeto.projeto_detalhado.competencias[membro._id].nome);
-                        var nota_categoria = 0;
+                        var nota_categoria = 0.001;
                         if(!(this.props.projeto.projeto_detalhado.competencias[membro._id].categorias_notas === undefined)){
                             nota_categoria = this.props.projeto.projeto_detalhado.competencias[membro._id].categorias_notas[categoria._id];
                             membros[nome_sobrenome(nome_membro)] = nota_categoria
                         }
                         membros[nome_sobrenome(nome_membro)] = nota_categoria
+                        return 1
                     });
                     data[index]  = Object.assign(data[index], membros)
+                    return 1
                 });
 
                 grafico =

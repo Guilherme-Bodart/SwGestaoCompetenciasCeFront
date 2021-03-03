@@ -47,4 +47,5 @@ export var nome_sobrenome = function(str) {
       var keep = arr[1][0].toUpperCase() != arr[1][0];
       return arr.slice(0, keep ? 3 : 2).join(' ');
     }
-    
+ 
+export var color = ['#0088FE', '#8884d8', '#82ca9d', '#FF8042', '#ff6666', '#FFBB28', '#66b266', '##8dd1e1', '#00C49F'];

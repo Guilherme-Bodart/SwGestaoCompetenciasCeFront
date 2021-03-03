@@ -12,7 +12,6 @@ import { pageCadastrarCategoria, pageCadastrarSubCategoria, pageSubCategoria,
 
 import '../../styles/principal.css'
 import { FaArrowLeft } from 'react-icons/fa';
-import { BsThreeDotsVertical } from "react-icons/bs";
 
 import {converte_data} from '../../functions/function'
 

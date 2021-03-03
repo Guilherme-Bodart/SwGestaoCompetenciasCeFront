@@ -7,7 +7,7 @@ import { PAGE_CADASTRO_CATEGORIA,PAGE_CADASTRO_PROJETO,
 } from '../../actions/actionsTypes'
 
 const initialState = {
-page: 'dashboard',
+    page: 'dashboard'
 }
 
 const reducer = (state = initialState, action) => {

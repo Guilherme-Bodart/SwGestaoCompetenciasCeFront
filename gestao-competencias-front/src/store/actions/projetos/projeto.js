@@ -126,7 +126,6 @@ export const atualizarProjeto = (projeto,id_projeto) => {
                                                         } 
                                                     })
             .then(response => {   
-                const projeto = response.data
                 swal({
                     title: "Sucesso",
                     text: 'O projeto foi atualizado com sucesso',

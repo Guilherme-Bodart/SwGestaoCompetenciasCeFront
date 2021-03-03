@@ -16,7 +16,6 @@ import { editarAtividade } from '../../store/actions/atividades/atividade'
 
 import '../../styles/principal.css'
 import { FaArrowLeft } from 'react-icons/fa';
-import { BsThreeDotsVertical } from "react-icons/bs";
 
 
 const initialState = {

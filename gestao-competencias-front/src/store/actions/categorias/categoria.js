@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { GET_CATEGORIA, GET_SUBCATEGORIA, LOGOUT_CATEGORIA, GET_DETALHARSUBCATEGORIA, GET_DETALHARCATEGORIA } from '../actionsTypes'
 
-import { pageSubCategoria, pageCadastrarSubCategoria, pageEditarSubCategoria, pageCategoria, pageEditarCategoria } from '../adminViews/adminView'
+import { pageSubCategoria, pageEditarSubCategoria, pageCategoria, pageEditarCategoria } from '../adminViews/adminView'
 
 import swal from 'sweetalert';
 

@@ -5,16 +5,12 @@ import Row from 'react-bootstrap/Row'
 import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col' 
-import DropdownButton from 'react-bootstrap/DropdownButton'
 
 import { pageAtividade } from '../../store/actions/userViews/userView'
-
-import { getAtividade } from '../../store/actions/atividades/atividade'
 
 
 import '../../styles/principal.css'
 import { FaArrowLeft } from 'react-icons/fa';
-import { BsThreeDotsVertical } from "react-icons/bs";
 
 import {converte_data} from '../../functions/function'
 

@@ -105,7 +105,6 @@ export const editarAtividade = (atividade) => {
                                                         } 
                                                     })
             .then(response => {   
-                const atividade = response.data
                 swal({
                     title: "Sucesso",
                     text: 'A atividade foi atualizada com sucesso',

@@ -25,7 +25,7 @@ class Sidelogo extends Component {
         <Navbar.Brand href="#home" style={{height:"3.5em"}}>
      
         <Image src={logo} className="App-logo" alt="logo" style={{height:"4em", marginTop:"-0.5em"}}  />
-          <a href="#" className="Principal-text-logo" >
+          <a className="Principal-text-logo" >
             Leds Skills
           </a>
         </Navbar.Brand>

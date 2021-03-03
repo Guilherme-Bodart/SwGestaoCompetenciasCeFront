@@ -8,12 +8,9 @@ import Col from 'react-bootstrap/Col'
 
 import '../../styles/principal.css'
 
-import { pageCadastrarCategoria, pageCadastrarSubCategoria, pageSubCategoria, 
-    pageCadastrarProjeto, pageProjeto, pageDetalhesProjeto, pageEditarProjeto } from '../../store/actions/adminViews/adminView'
+import { getProjetos, getProjeto } from '../../store/actions/projetos/projeto'
 
-import { getProjetos, getProjeto, desativarProjeto } from '../../store/actions/projetos/projeto'
-
-import { nome_sobrenome } from '../../functions/function'
+import { nome_sobrenome, color } from '../../functions/function'
 
 import {
     BarChart,
@@ -28,8 +25,6 @@ import {
 const initialState = {
     projeto: 0
 }
-
-const color = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
 class Relatorio extends Component {
     constructor(props) {
@@ -67,13 +62,13 @@ class Relatorio extends Component {
                     <Bar dataKey={nome_sobrenome(this.props.projeto.projeto_detalhado.competencias[membro._id].nome)} fill={color[index]} />
                 );
                 
-                const data_grafico = this.props.projeto.projeto_detalhado.categorias.map((categoria, index) => 
-                data[index] = {
-                    "name": categoria.nome,
-                    }
+                this.props.projeto.projeto_detalhado.categorias.map((categoria, index) => 
+                    data[index] = {
+                        "name": categoria.nome,
+                        }
                 )
                 
-                const data_grafico2 = this.props.projeto.projeto_detalhado.categorias.map((categoria, index) => {
+                this.props.projeto.projeto_detalhado.categorias.map((categoria, index) => {
                     var membros = {};
                     this.props.projeto.projeto_detalhado.equipe.map((membro, index) => {
                         var nome_membro = nome_sobrenome(this.props.projeto.projeto_detalhado.competencias[membro._id].nome);
@@ -83,8 +78,11 @@ class Relatorio extends Component {
                             membros[nome_sobrenome(nome_membro)] = horas_cat
                         }
                         membros[nome_sobrenome(nome_membro)] = horas_cat
+                        return 1
                     });
                     data[index]  = Object.assign(data[index], membros)
+
+                    return 1
                 });
 
                 grafico = 

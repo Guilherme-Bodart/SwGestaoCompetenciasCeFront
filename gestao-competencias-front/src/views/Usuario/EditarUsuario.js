@@ -10,7 +10,6 @@ import { pageUsuario } from '../../store/actions/adminViews/adminView'
 
 import { editarUsuario } from '../../store/actions/usuarios/usuario'
 import { cpfMask } from '../../functions/mask'
-import { valida_cpf } from '../../functions/function'
 
 import '../../styles/principal.css'
 import { FaArrowLeft } from 'react-icons/fa';

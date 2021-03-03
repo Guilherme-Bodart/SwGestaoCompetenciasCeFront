@@ -54,10 +54,6 @@ class DetalhesUsuario extends Component {
             }
         });
 
-        let data_atual = new Date();
-
-        const data_max = (data_atual.getFullYear()-17)+'-01-01';
-
         return(
             
             <Container fluid>

@@ -8,12 +8,9 @@ import Col from 'react-bootstrap/Col'
 
 import '../../styles/principal.css'
 
-import { pageCadastrarCategoria, pageCadastrarSubCategoria, pageSubCategoria, 
-    pageCadastrarProjeto, pageProjeto, pageDetalhesProjeto, pageEditarProjeto } from '../../store/actions/adminViews/adminView'
+import { getAlunoProjetos, getProjeto } from '../../store/actions/projetos/projeto'
 
-import { getAlunoProjetos, getProjeto, desativarProjeto } from '../../store/actions/projetos/projeto'
-
-import { nome_sobrenome } from '../../functions/function'
+import { nome_sobrenome, color } from '../../functions/function'
 
 import {
     RadarChart,
@@ -27,8 +24,6 @@ import {
 const initialState = {
     projeto: ''
 }
-
-const color = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
 class Competencia extends Component {
     constructor(props) {
@@ -75,7 +70,7 @@ class Competencia extends Component {
                         <td>{index+1}</td>
                         <td>{usuario.pessoa.nome} ({this.props.projeto.projeto_detalhado.competencias[usuario._id].total_horas}H)</td>
                         {this.props.projeto.projeto_detalhado.categorias.map((categoria, index) => 
-                            <td>{(!(this.props.projeto.projeto_detalhado.competencias[usuario._id].categorias_notas === undefined)) ? this.props.projeto.projeto_detalhado.competencias[usuario._id].categorias_notas[categoria._id] : 0}</td>)}
+                            <td>{(this.props.projeto.projeto_detalhado.competencias[usuario._id].categorias_notas !== undefined && this.props.projeto.projeto_detalhado.competencias[usuario._id].categorias_notas[categoria._id] !== undefined) ? this.props.projeto.projeto_detalhado.competencias[usuario._id].categorias_notas[categoria._id] : 0}</td>)}
                     </tr>
                 );
                 
@@ -86,29 +81,31 @@ class Competencia extends Component {
                     <Radar name={nome_sobrenome(this.props.projeto.projeto_detalhado.competencias[membro._id].nome)} dataKey={nome_sobrenome(this.props.projeto.projeto_detalhado.competencias[membro._id].nome)} stroke={color[index]} fill={color[index]} fillOpacity={0.6} />
                 );
                 
-                const data_grafico = this.props.projeto.projeto_detalhado.categorias.map((categoria, index) => 
-                data[index] = {
-                    "subject": categoria.nome,
-                    "fullMark": 5
-                    }
+                this.props.projeto.projeto_detalhado.categorias.map((categoria, index) => 
+                    data[index] = {
+                        "subject": categoria.nome,
+                        "fullMark": 5
+                        }
                 )
                 
-                const data_grafico2 = this.props.projeto.projeto_detalhado.categorias.map((categoria, index) => {
+                this.props.projeto.projeto_detalhado.categorias.map((categoria, index) => {
                     var membros = {};
                     this.props.projeto.projeto_detalhado.equipe.map((membro, index) => {
                         var nome_membro = nome_sobrenome(this.props.projeto.projeto_detalhado.competencias[membro._id].nome);
-                        var nota_categoria = 0;
+                        var nota_categoria = 0.001;
                         if(!(this.props.projeto.projeto_detalhado.competencias[membro._id].categorias_notas === undefined)){
                             nota_categoria = this.props.projeto.projeto_detalhado.competencias[membro._id].categorias_notas[categoria._id];
                             membros[nome_sobrenome(nome_membro)] = nota_categoria
                         }
                         membros[nome_sobrenome(nome_membro)] = nota_categoria
+                        return 1
                     });
                     data[index]  = Object.assign(data[index], membros)
+                    return 1
                 });
 
                 grafico =
-                <RadarChart outerRadius={90} width={500} height={300} data={data}>
+                <RadarChart outerRadius={90} width={600} height={300} data={data}>
                     <PolarGrid />
                     <PolarAngleAxis dataKey="subject" />
                     <PolarRadiusAxis angle={30} domain={[0, 5]} />
@@ -116,12 +113,12 @@ class Competencia extends Component {
                     <Legend />
                 </RadarChart> 
 
-                const data_grafico3 = this.props.projeto.projeto_detalhado.subcategorias.map((subcategorias, index) => {
+                this.props.projeto.projeto_detalhado.subcategorias.map((subcategorias, index) => {
                     data2[index] = {"subject": subcategorias.nome,
                     "fullMark": 5
                     }
                     var membro = {};
-                    var nota_subcategoria = 0;
+                    var nota_subcategoria = 0.001;
                     var nome_membro = nome_sobrenome(this.props.projeto.projeto_detalhado.competencias[this.props.usuario._id].nome);
                     if(!(this.props.projeto.projeto_detalhado.competencias[this.props.usuario._id].subcategorias_notas === undefined)){
                         nota_subcategoria = this.props.projeto.projeto_detalhado.competencias[this.props.usuario._id].subcategorias_notas[subcategorias._id];
@@ -129,10 +126,11 @@ class Competencia extends Component {
                     }
                     membro[nome_sobrenome(nome_membro)] = nota_subcategoria
                     data2[index]  = Object.assign(data2[index], membro)
+                    return 1
                 });
 
                 grafico2 =
-                <RadarChart outerRadius={90} width={500} height={300} data={data2}>
+                <RadarChart outerRadius={90} width={600} height={300} data={data2}>
                     <PolarGrid />
                     <PolarAngleAxis dataKey="subject" />
                     <PolarRadiusAxis angle={30} domain={[0, 5]} />

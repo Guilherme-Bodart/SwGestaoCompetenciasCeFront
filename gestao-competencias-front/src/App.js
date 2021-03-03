@@ -1,10 +1,8 @@
 import { Component } from "react";
 import { connect } from 'react-redux';
 import {
-  BrowserRouter as Router,
   Switch,
   Route,
-  Redirect
 } from "react-router-dom";
 
 import Login from './pages/Login/Login';

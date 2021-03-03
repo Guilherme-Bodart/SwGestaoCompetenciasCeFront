@@ -7,7 +7,7 @@ import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col'
 
 import { pageCadastrarCategoria, pageCadastrarSubCategoria, pageSubCategoria, 
-    pageCadastrarProjeto, pageProjeto, pageEditarSubCategoria } from '../../store/actions/adminViews/adminView'
+    pageCadastrarProjeto, pageProjeto } from '../../store/actions/adminViews/adminView'
 
 import { getCategorias, editarSubCategoria } from '../../store/actions/categorias/categoria'
 

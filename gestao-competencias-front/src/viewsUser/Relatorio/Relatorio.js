@@ -8,12 +8,9 @@ import Col from 'react-bootstrap/Col'
 
 import '../../styles/principal.css'
 
-import { pageCadastrarCategoria, pageCadastrarSubCategoria, pageSubCategoria, 
-    pageCadastrarProjeto, pageProjeto, pageDetalhesProjeto, pageEditarProjeto } from '../../store/actions/adminViews/adminView'
+import { getAlunoProjetos, getProjeto } from '../../store/actions/projetos/projeto'
 
-import { getAlunoProjetos, getProjeto, desativarProjeto } from '../../store/actions/projetos/projeto'
-
-import { nome_sobrenome } from '../../functions/function'
+import { color } from '../../functions/function'
 
 import {
     PieChart,
@@ -24,8 +21,6 @@ import {
 const initialState = {
     projeto: 0
 }
-
-const color = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
 class Relatorio extends Component {
     constructor(props) {
@@ -61,7 +56,7 @@ class Relatorio extends Component {
 
             if(this.props.projeto.projeto_detalhado.equipe != undefined){
                 
-                const data_grafico = this.props.projeto.projeto_detalhado.categorias.map((categoria, index) => {
+                this.props.projeto.projeto_detalhado.categorias.map((categoria, index) => {
                     var horas_cat = 0;
 
                     if(!(this.props.projeto.projeto_detalhado.competencias[this.props.usuario._id].categorias_horas === undefined)){
@@ -72,11 +67,12 @@ class Relatorio extends Component {
                         "name": categoria.nome,
                         "value": horas_cat
                     }
+                    return 1
                 });
 
                 legenda = data.map(
                 (entry, index) => (
-                    <span style={{width: "0",height: "0",borderwidth: "1rem 1rem 1rem",borderStyle: "solid",borderColor: color[index]}}>{entry.name}</span>
+                    <span style={{margin: "1rem", width: "0",height: "0",borderwidth: "1rem 1rem 1rem",borderStyle: "solid",borderColor: color[index]}}>{entry.name}</span>
                 ))
 
                 
