@@ -32,7 +32,7 @@ class Dashboard extends Component {
             
             <Container fluid>
                 <Row style={{margin: "1rem"}}>
-                <div class="header-body">
+                <div class="header-body" style={{width: "100%"}}>
                     <div class="row">
                         <div style={{marginLeft: "1rem", marginRight: "2rem"}}>
                             <div class="card-stats mb-xl-0 card" style={{cursor: "pointer"}} onClick={()=>{this.props.pageProjeto()}}>
@@ -60,7 +60,7 @@ class Dashboard extends Component {
                                             <span class="h2 font-weight-bold mb-0">{this.props.atividade.atividades.length}</span>
                                         </div>
                                         <div class="col-auto col">
-                                            <div style={{fontSize:"1.4em", color:"black"}}>
+                                            <div style={{fontSize:"1.6em", color:"black"}}>
                                                 <FaSitemap/>
                                             </div>
                                         </div>

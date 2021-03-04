@@ -35,7 +35,7 @@ class Dashboard extends Component {
             
             <Container fluid>
                 <Row style={{margin: "1rem"}}>
-                <div class="header-body">
+                <div class="header-body" style={{width: "100%"}}>
                     <div class="row">
                         <div class="col-lg-6 col-xl-3">
                             <div class="card-stats mb-4 mb-xl-0 card" style={{cursor: "pointer"}} onClick={()=>{this.props.pageUsuario()}}>
@@ -80,7 +80,7 @@ class Dashboard extends Component {
                                             <span class="h2 font-weight-bold mb-0">{this.props.categoria.categorias.length}</span>
                                         </div>
                                         <div class="col-auto col">
-                                            <div style={{fontSize:"1.4em", color:"black"}}>
+                                            <div style={{fontSize:"1.6em", color:"black"}}>
                                                 <FaSitemap/>
                                             </div>
                                         </div>
