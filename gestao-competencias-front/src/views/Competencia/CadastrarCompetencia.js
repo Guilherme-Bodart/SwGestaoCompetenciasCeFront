@@ -9,6 +9,7 @@ import Col from 'react-bootstrap/Col'
 import { pageCompetencia } from '../../store/actions/adminViews/adminView'
 
 import { getProjetos, getProjeto, criarCompetencia } from '../../store/actions/projetos/projeto'
+import { getAlunoExpAtividades } from '../../store/actions/atividades/atividade'
 
 import '../../styles/principal.css'
 import { FaArrowLeft } from 'react-icons/fa';
@@ -44,6 +45,10 @@ class CadastrarCompetencia extends Component {
         this.setState({
             membro: event.target.value
         })
+
+        if(event.target.value != 0){
+            this.props.getAlunoExpAtividades(event.target.value)
+        }
     }
 
 
@@ -79,7 +84,20 @@ class CadastrarCompetencia extends Component {
             if(this.props.projeto.projeto_detalhado.equipe != undefined){
         
                 membros = this.props.projeto.projeto_detalhado.equipe.map( membro => <option value={membro._id}>{membro.pessoa.nome}</option>);
-                subcategorias = this.props.projeto.projeto_detalhado.subcategorias.map( subcategoria => <option value={subcategoria._id}>{subcategoria.nome}</option>);
+                
+                if(this.state.membro){
+                    var array_subcategoria = []
+                    if(this.props.atividade.atividades.length > 0){
+                        subcategorias = this.props.atividade.atividades.map( atividade => {
+                            if(atividade.item_usuario_projeto.projeto._id === this.state.projeto && array_subcategoria.indexOf(atividade.subcategoria._id)==-1 ) {
+                                array_subcategoria.push(atividade.subcategoria._id);
+                                return (<option value={atividade.subcategoria._id}>{atividade.subcategoria.nome}</option>)
+                            }
+                        });
+                    }else{
+                        subcategorias = <option value="0" selected>Sem atividades cadastradas</option>
+                    }
+                }
             }
         }
         return(
@@ -149,10 +167,11 @@ class CadastrarCompetencia extends Component {
     }
 }
 
-const mapStateToProps = ({ adminView, projeto }) => {
+const mapStateToProps = ({ adminView, projeto, atividade }) => {
     return {
         adminView,
         projeto,
+        atividade
     }
   }
   
@@ -162,6 +181,7 @@ const mapStateToProps = ({ adminView, projeto }) => {
         getProjetos: () => dispatch(getProjetos()),
         getProjeto: (id_projeto) => dispatch(getProjeto(id_projeto)),
         criarCompetencia: (competencia) => dispatch(criarCompetencia(competencia)),
+        getAlunoExpAtividades: (id_usuario) => dispatch(getAlunoExpAtividades(id_usuario)),
     }
   }
   export default connect(mapStateToProps, mapDispatchToProps)(CadastrarCompetencia)

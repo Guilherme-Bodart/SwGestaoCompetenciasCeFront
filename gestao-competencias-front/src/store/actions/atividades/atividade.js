@@ -55,6 +55,27 @@ export const getAlunoAtividades = () => {
     }
 }
 
+export const getAlunoExpAtividades = (id_usuario) => {
+    return async (dispatch, getState) => {
+        const token = 'Bearer ' + getState().usuario.token
+        await axios.get("https://leds-skills.herokuapp.com/users/"+id_usuario+"/tasks", { params: { token } })
+            .then(response => {                
+                const atividades = response.data
+                dispatch(getSaveAtividades(atividades))
+            })
+            .catch( error => {
+                if( error.response ){
+                    var erro_msg = error.response.data.error;
+                }
+                swal({
+                    title: "Error",
+                    text: 'Falha no envio, '+erro_msg,
+                    icon: "error",
+                  });
+            })
+    }
+}
+
 export const getSaveAtividades = atividades => {
     return {
         type: GET_ATIVIDADE,
