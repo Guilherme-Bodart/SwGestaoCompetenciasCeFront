@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
+import Button from "react-bootstrap/Button"
 import Row from 'react-bootstrap/Row'
 import Container from 'react-bootstrap/Container'
 import Table from 'react-bootstrap/Table'
@@ -7,6 +8,9 @@ import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col' 
 
 import '../../styles/principal.css'
+import { FaPlus } from 'react-icons/fa';
+
+import { pageCadastrarCompetencia } from '../../store/actions/adminViews/adminView'
 
 import { getProjetos, getProjeto } from '../../store/actions/projetos/projeto'
 
@@ -99,19 +103,20 @@ class Competencia extends Component {
                 this.props.projeto.projeto_detalhado.categorias.map((categoria, index) => {
                     var membros = {};
                     this.props.projeto.projeto_detalhado.equipe.map((membro, index) => {
-                        var nome_membro = nome_sobrenome(this.props.projeto.projeto_detalhado.competencias[membro._id].nome);
+                        var nome_membro = nome_sobrenome(membro.pessoa.nome);
                         var nota_categoria = 0.001;
                         if(!(this.props.projeto.projeto_detalhado.competencias[membro._id].categorias_notas === undefined)){
                             nota_categoria = this.props.projeto.projeto_detalhado.competencias[membro._id].categorias_notas[categoria._id];
                             membros[nome_sobrenome(nome_membro)] = nota_categoria
+                        }else{
+                            membros[nome_sobrenome(nome_membro)] = nota_categoria
                         }
-                        membros[nome_sobrenome(nome_membro)] = nota_categoria
                         return 1
                     });
                     data[index]  = Object.assign(data[index], membros)
                     return 1
                 });
-
+                
                 grafico =
                 <RadarChart outerRadius={90} width={730} height={250} data={data}>
                     <PolarGrid />
@@ -129,6 +134,13 @@ class Competencia extends Component {
             <Container fluid>
                 <Row>
                 <p className="App-text-logo" style={{marginLeft:"1em", marginTop:"0.5em"}}>Competências</p>
+                <Button className="ml-auto" variant="outline-secondary" 
+                style={{marginRight:"1em", marginTop:"1em", height:"3em", width:"3em" }}
+                onClick={()=>{
+                    this.props.pageCadastrarCompetencia()
+                }}>
+                    <FaPlus/>
+                </Button>
                 </Row>
                 <Form.Row>  
                     <Form.Group as={Col}>
@@ -169,6 +181,7 @@ const mapStateToProps = ({ adminView, projeto }) => {
     return {
         getProjetos: () => dispatch(getProjetos()),
         getProjeto: (id_projeto) => dispatch(getProjeto(id_projeto)),
+        pageCadastrarCompetencia: () => dispatch(pageCadastrarCompetencia()),
     }
   }
   export default connect(mapStateToProps, mapDispatchToProps)(Competencia)

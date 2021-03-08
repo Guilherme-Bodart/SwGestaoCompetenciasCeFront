@@ -23,6 +23,7 @@ import DetalhesUsuario from "../../views/Usuario/DetalhesUsuario";
 import Usuario from "../../views/Usuario/Usuario";
 import Dashboard from "../../views/Dashboard/Dashboard";
 import Competencia from "../../views/Competencia/Competencia";
+import CadastrarCompetencia from "../../views/Competencia/CadastrarCompetencia";
 import Relatorio from "../../views/Relatorio/Relatorio";
 
 import { getUsuarios } from '../../store/actions/usuarios/usuario'
@@ -73,6 +74,7 @@ class Admin extends Component {
                     this.props.adminView.page === "cadastroProjeto" ? <CriarProjeto/> :
                     this.props.adminView.page === "subcategoria" ? <SubCategoria/> :
                     this.props.adminView.page === "categoria" ? <Categoria/> :
+                    this.props.adminView.page === "cadastrarCompetencia" ? <CadastrarCompetencia/> :
                     this.props.adminView.page === "cadastroSubcategoria" ? <CriarSubCategoria/> :
                     this.props.adminView.page === "cadastroCategoria" ? <CriarCategoria/> :
                     this.props.adminView.page === "detalhesProjeto" ? <DetalhesProjeto/> :

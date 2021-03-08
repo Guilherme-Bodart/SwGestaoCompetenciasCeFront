@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { GET_PROJETO, GET_DETALHARPROJETO, LOGOUT_PROJETO } from '../actionsTypes'
 
-import { pageProjeto, pageEditarProjeto } from '../adminViews/adminView'
+import { pageProjeto, pageEditarProjeto, pageCompetencia } from '../adminViews/adminView'
 
 import swal from 'sweetalert';
 
@@ -183,5 +183,39 @@ export const desativarProjeto = (nome, id_projeto) => {
                     })
             }
         });
+    }
+}
+
+export const criarCompetencia = (competencia) => {
+
+    return async (dispatch, getState) => {
+
+        const token = 'Bearer ' + getState().usuario.token
+        await axios.post("https://leds-skills.herokuapp.com/competencias/", null, 
+                                                    { params: 
+                                                        {   
+                                                            token,
+                                                            projeto: competencia.projeto,
+                                                            membro: competencia.membro,
+                                                            subcategoria: competencia.subcategoria,
+                                                            nota: competencia.nota
+                                                        } 
+                                                    })
+            .then(response => {   
+                swal({
+                    title: "Sucesso",
+                    text: 'A competência foi cadastrada com sucesso',
+                    icon: "success",
+                  }).then((value) => {
+                    dispatch(pageCompetencia());
+                  });                
+            })
+            .catch( error => {
+                swal({
+                    title: "Error",
+                    text: 'Falha em cadastrar competência, tente novamente',
+                    icon: "error",
+                  });
+            })
     }
 }
