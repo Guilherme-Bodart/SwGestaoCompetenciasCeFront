@@ -12,6 +12,16 @@ import { getSubCategorias, getCategorias } from '../../store/actions/categorias/
 import { getUsuarios } from '../../store/actions/usuarios/usuario'
 import { getProjetos } from '../../store/actions/projetos/projeto'
 
+import {
+    BarChart,
+    Bar,
+    XAxis,
+    YAxis,
+    CartesianGrid,
+    Tooltip,
+    Legend
+  } from 'recharts';
+  
 const initialState = {
 
 }
@@ -30,6 +40,14 @@ class Dashboard extends Component {
     }
 
     render(props){
+
+        const data = []
+        this.props.projeto.projetos.map((projeto, index) => 
+            data[index] = {
+                "name": projeto.nome,
+                "membros": projeto.equipe.length,
+            }
+        )
 
         return(
             
@@ -107,6 +125,16 @@ class Dashboard extends Component {
                         </div>
                     </div>
                 </div>
+                </Row>
+                <Row>
+                    <BarChart width={710} height={250} data={data}>
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="name" />
+                        <YAxis />
+                        <Tooltip />
+                        <Legend />
+                        <Bar dataKey="membros" fill="#8884d8" />
+                    </BarChart>
                 </Row>
             </Container>
           
