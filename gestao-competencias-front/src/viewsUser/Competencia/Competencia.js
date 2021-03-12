@@ -92,12 +92,15 @@ class Competencia extends Component {
                     var membros = {};
                     this.props.projeto.projeto_detalhado.equipe.map((membro, index) => {
                         var nome_membro = nome_sobrenome(this.props.projeto.projeto_detalhado.competencias[membro._id].nome);
-                        var nota_categoria = 0.001;
+                        var nota_categoria = 0.01;
                         if(!(this.props.projeto.projeto_detalhado.competencias[membro._id].categorias_notas === undefined)){
                             nota_categoria = this.props.projeto.projeto_detalhado.competencias[membro._id].categorias_notas[categoria._id];
-                            membros[nome_sobrenome(nome_membro)] = nota_categoria
+                            membros[nome_membro] = nota_categoria
                         }
-                        membros[nome_sobrenome(nome_membro)] = nota_categoria
+                        membros[nome_membro] = nota_categoria
+                        if(membros[nome_membro] === undefined){
+                            membros[nome_membro] = 0.01;
+                        }
                         return 1
                     });
                     data[index]  = Object.assign(data[index], membros)
@@ -118,13 +121,16 @@ class Competencia extends Component {
                     "fullMark": 5
                     }
                     var membro = {};
-                    var nota_subcategoria = 0.001;
+                    var nota_subcategoria = 0.01;
                     var nome_membro = nome_sobrenome(this.props.projeto.projeto_detalhado.competencias[this.props.usuario._id].nome);
                     if(!(this.props.projeto.projeto_detalhado.competencias[this.props.usuario._id].subcategorias_notas === undefined)){
                         nota_subcategoria = this.props.projeto.projeto_detalhado.competencias[this.props.usuario._id].subcategorias_notas[subcategorias._id];
-                        membro[nome_sobrenome(nome_membro)] = nota_subcategoria
+                        membro[nome_membro] = nota_subcategoria
                     }
-                    membro[nome_sobrenome(nome_membro)] = nota_subcategoria
+                    membro[nome_membro] = nota_subcategoria
+                    if(membro[nome_membro] === undefined){
+                        membro[nome_membro] = 0.01;
+                    }
                     data2[index]  = Object.assign(data2[index], membro)
                     return 1
                 });

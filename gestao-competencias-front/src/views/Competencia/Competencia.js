@@ -104,12 +104,15 @@ class Competencia extends Component {
                     var membros = {};
                     this.props.projeto.projeto_detalhado.equipe.map((membro, index) => {
                         var nome_membro = nome_sobrenome(membro.pessoa.nome);
-                        var nota_categoria = 0.001;
+                        var nota_categoria = 0.01;
                         if(!(this.props.projeto.projeto_detalhado.competencias[membro._id].categorias_notas === undefined)){
                             nota_categoria = this.props.projeto.projeto_detalhado.competencias[membro._id].categorias_notas[categoria._id];
-                            membros[nome_sobrenome(nome_membro)] = nota_categoria
+                            membros[nome_membro] = nota_categoria
                         }else{
-                            membros[nome_sobrenome(nome_membro)] = nota_categoria
+                            membros[nome_membro] = nota_categoria
+                        }
+                        if(membros[nome_membro] === undefined){
+                            membros[nome_membro] = 0.01;
                         }
                         return 1
                     });
