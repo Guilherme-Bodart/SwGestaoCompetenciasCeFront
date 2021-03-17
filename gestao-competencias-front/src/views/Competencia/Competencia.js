@@ -114,7 +114,7 @@ class Competencia extends Component {
                         if(membros[nome_membro] === undefined){
                             membros[nome_membro] = 0.01;
                         }
-                        return 1
+                        return 1 
                     });
                     data[index]  = Object.assign(data[index], membros)
                     return 1
@@ -129,6 +129,44 @@ class Competencia extends Component {
                     <Legend />
                 </RadarChart> 
 
+                
+                var grafico2 = this.props.projeto.projeto_detalhado.equipe.map((usuario, index) => 
+                    {
+                    const data2 = []
+                    var tem_nota = 0;
+                    this.props.projeto.projeto_detalhado.subcategorias.map((subcategorias, index) => {
+                        data2[index] = {"subject": subcategorias.nome,
+                        "fullMark": 5
+                        }
+                        var membro = {};
+                        var nota_subcategoria = 0.01;
+                        var nome_membro = nome_sobrenome(this.props.projeto.projeto_detalhado.competencias[usuario._id].nome);
+                        if(!(this.props.projeto.projeto_detalhado.competencias[usuario._id].subcategorias_notas === undefined)){
+                            nota_subcategoria = this.props.projeto.projeto_detalhado.competencias[usuario._id].subcategorias_notas[subcategorias._id];
+                            membro[nome_membro] = nota_subcategoria
+                            tem_nota = 1;
+                        }
+                        membro[nome_membro] = nota_subcategoria
+                        if(membro[nome_membro] === undefined){
+                            membro[nome_membro] = 0.01;
+                        }
+                        data2[index]  = Object.assign(data2[index], membro)
+                    });
+                    if(data2[index] !== undefined){
+                        if(tem_nota === 1){
+                            return (
+                            <RadarChart outerRadius={90} width={600} height={300} data={data2}>
+                                <PolarGrid />
+                                <PolarAngleAxis dataKey="subject" />
+                                <PolarRadiusAxis angle={30} domain={[0, 5]} />
+                                <Radar name={nome_sobrenome(this.props.projeto.projeto_detalhado.competencias[usuario._id].nome)} dataKey={nome_sobrenome(this.props.projeto.projeto_detalhado.competencias[usuario._id].nome)} stroke={color[0]} fill={color[0]} fillOpacity={0.6} />
+                                <Legend />
+                            </RadarChart>
+                            )
+                        }
+                    }
+
+                });
             }
         }
 
@@ -166,7 +204,10 @@ class Competencia extends Component {
                         {equipe ? equipe : <tr><td colSpan="15">Selecione um Projeto</td></tr>}
                     </tbody>
                 </Table>
-                {grafico}
+                <Row>
+                    {grafico}
+                    {grafico2}
+                </Row>
             </Container>
           
         )
